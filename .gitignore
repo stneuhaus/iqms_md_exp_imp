@@ -1,0 +1,7 @@
+config/password.ini
+logs/*
+__pycache__/*
+bin/VaultDataLoader.jar
+bin/VaultDataLoader.zip
+exports/*
+bin/*

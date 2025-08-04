@@ -1,0 +1,68 @@
+{
+    "general": {
+        "java_exe": "c:\\jdk\\jdk-17.0.16.8-hotspot\\bin\\java.exe",
+        "vault_loader": "bin\\VaultDataLoader.jar",
+        "dns": "https://bayersbx-iqms-phase-1-24r3-pre-release.veevavault.com",
+        "username": "stefan.neuhaus@bayersbx.com",
+        "password": "password.ini",
+        "downloadpath": "exports"
+    },
+    "exports": [
+        {
+            "name": "10_qms_unit__c",
+            "params": "-export qms_unit__c -csv 10_qms_unit__c.csv",
+            "columns": ["is_valid__c", "name__v", "state__v"],
+            "active": 1
+
+        },
+        {
+            "name": "07_country__v", 
+            "params": "-export country__v -csv 07_country__v.csv",
+            "columns": ["name__v","fda_country_code_2__v","category__c","function__c","external_id__v","state__v"],
+            "active": 1
+
+        },
+        {
+            "name": "11_registration_name__c",
+            "params": "-export registration_name__c -csv 11_registration_name__c.csv",
+            "columns": ["name__v","used_for__c","is_valid__c","state__v"],
+            "active": 1
+        },
+        {
+            "name": "01_quality_material__v",
+            "params": "-export quality_material__v -csv 01_quality_material__v.csv",
+            "columns": ["name__v","material_short_description__c","crossplant_material_status__c","type_of_material_code__c","gtin_ntin__c","eclasses__c","eclassestext__c","level_of_product_hierarchy__c","code_product_hierarchy_level_1__c","text_product_hierarchy_level_1__c","code_product_hierarchy_level_14__c","text_product_hierarchy_level_1_4__c","code_product_hierarchy_level_16__c","text_product_hierarchy_level_1_6__c","characteristic_of_material_code__c","characteristic_of_material_text__c","external_id__v","managed_in__c","udidi__c","state__v"],
+            "active": 1
+        },
+        {
+            "name": "02b_bulk_batch__c",
+            "params": "-export bulk_batch__c -csv 02b_bulk_batch__c.csv",
+            "columns": ["name__v","parent_batch__c.external_batch_id__v","batch__c.external_batch_id__v","external_id__c","managed_in__c","state__v"]
+        },
+        {
+            "name": "03_asset__v" ,
+            "params": "-export asset__v -csv 03_asset__v.csv",
+            "columns": ["name__v","object_type__v.api_name__v","asset_family__v.name__v","description__v","location_building__c","room__c","managed_in__c","state__v","external_id__c"],
+            "active": 1
+        },
+        {
+            "name": "04_part__v.csv",
+            "params": "-export part__v -csv 04_part__v.csv",
+            "columns": ["name__v","material_number__c.external_id__v","mfg_part_id__v","udi__c","managed_in__c","state__v"],
+            "active": 1
+        },
+        {
+            "name": "05_specification_id__c",
+            "params": "-export specification_id__c -csv 05_specification_id__c.csv",
+            "columns": ["name__v","description__c","additional_information__c","is_valid__c","managed_in__c","state__v"],
+            "active": 0
+        },
+        {
+            "name": "12_specification_id_registration_name_join__c.csv",
+            "params": "-export specification_id_registration_name_join__c -csv 12_specification_id_registration_name_join__c.csv",
+            "columns": ["registration_name__c.name__v","specification__c.name__v"],
+            "active": 1
+        }
+
+    ]
+}
