@@ -8,7 +8,9 @@ from datetime import datetime
 
 class VaultLoaderRunner:
     def __init__(self, config_file='config/vault_loader_config.json'):
-        self.config_file = config_file
+        # Get the directory where this script is located
+        self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.config_file = os.path.join(self.script_dir, config_file)
         self.config = {}
         self.run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.load_config()
@@ -16,8 +18,9 @@ class VaultLoaderRunner:
         
     def setup_log_directories(self):
         """Create log directories if they don't exist"""
-        os.makedirs('logs/success', exist_ok=True)
-        os.makedirs('logs/failure', exist_ok=True)
+        logs_dir = os.path.join(self.script_dir, 'logs')
+        os.makedirs(os.path.join(logs_dir, 'success'), exist_ok=True)
+        os.makedirs(os.path.join(logs_dir, 'failure'), exist_ok=True)
         
     def load_config(self):
         """Load configuration from JSON file"""
@@ -32,7 +35,7 @@ class VaultLoaderRunner:
         """Load password from file or return direct password"""
         # Check if password_param is a file path (relative to config folder if not absolute)
         if not os.path.isabs(password_param):
-            password_file = os.path.join('config', password_param)
+            password_file = os.path.join(self.script_dir, 'config', password_param)
         else:
             password_file = password_param
             
@@ -52,7 +55,7 @@ class VaultLoaderRunner:
     
     def log_skipped(self, export_config):
         """Log skipped export to success log"""
-        success_log = f'logs/success/success_{self.run_timestamp}.csv'
+        success_log = os.path.join(self.script_dir, 'logs', 'success', f'success_{self.run_timestamp}.csv')
         
         # Extract object name from params
         params = export_config['params'].split()
@@ -63,7 +66,7 @@ class VaultLoaderRunner:
                 object_name = params[export_index + 1]
         
         # Create directory if it doesn't exist
-        os.makedirs('logs/success', exist_ok=True)
+        os.makedirs(os.path.dirname(success_log), exist_ok=True)
         
         # Check if file exists to determine if we need to write headers
         file_exists = os.path.exists(success_log)
@@ -89,12 +92,23 @@ class VaultLoaderRunner:
         # Get general configuration
         general = self.config['general']
         java_exe = general['java_exe']
-        vault_loader = general['vault_loader']
+        vault_loader_path = general['vault_loader']
+        
+        # Make vault_loader path absolute if it's relative
+        if not os.path.isabs(vault_loader_path):
+            vault_loader = os.path.join(self.script_dir, vault_loader_path)
+        else:
+            vault_loader = vault_loader_path
+            
         dns = general.get('dns', '')
         username = general['username']
         password_param = general['password']
         password = self.load_password(password_param)
         downloadpath = general.get('downloadpath', '')
+        
+        # Make downloadpath absolute if it's relative
+        if downloadpath and not os.path.isabs(downloadpath):
+            downloadpath = os.path.join(self.script_dir, downloadpath)
         
         # Build Java command with dns, username and password parameters
         java_command = [java_exe, '-jar', vault_loader]
@@ -138,7 +152,7 @@ class VaultLoaderRunner:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
-                cwd=r'c:\VaultLoader'
+                cwd=self.script_dir
             )
             
             # Get output
@@ -190,6 +204,56 @@ class VaultLoaderRunner:
             self.log_failure(export_config, f"Error running process: {e}")
             return False
     
+    def process_ignore_columns(self, export_config, csv_file_path):
+        """Rename columns specified in ignore_column parameter to ignore.columnname"""
+        try:
+            ignore_columns = export_config.get('ignore_column', [])
+            
+            if not ignore_columns:
+                return  # No columns to ignore
+            
+            if not os.path.exists(csv_file_path):
+                print(f"Warning: CSV file {csv_file_path} not found for column processing")
+                return
+            
+            # Read the CSV file
+            with open(csv_file_path, 'r', encoding='utf-8', newline='') as f:
+                reader = csv.reader(f)
+                rows = list(reader)
+            
+            if not rows:
+                print(f"Warning: CSV file {csv_file_path} is empty")
+                return
+            
+            # Process header row
+            header = rows[0]
+            updated_header = []
+            columns_renamed = []
+            
+            for col in header:
+                if col in ignore_columns:
+                    new_col_name = f"ignore.{col}"
+                    updated_header.append(new_col_name)
+                    columns_renamed.append(f"{col} -> {new_col_name}")
+                else:
+                    updated_header.append(col)
+            
+            if columns_renamed:
+                # Update the header row
+                rows[0] = updated_header
+                
+                # Write the updated CSV back
+                with open(csv_file_path, 'w', encoding='utf-8', newline='') as f:
+                    writer = csv.writer(f)
+                    writer.writerows(rows)
+                
+                print(f"✓ Renamed columns: {', '.join(columns_renamed)}")
+            else:
+                print(f"ℹ️ No columns found to rename in {os.path.basename(csv_file_path)}")
+                
+        except Exception as e:
+            print(f"Error processing ignore columns for {csv_file_path}: {e}")
+    
     def move_exported_file(self, export_config, downloadpath):
         """Move the exported CSV file to the specified download path and return row count"""
         try:
@@ -207,8 +271,8 @@ class VaultLoaderRunner:
                 print("Warning: Could not find CSV filename in export parameters")
                 return 0
             
-            # Source file (current working directory)
-            source_file = os.path.join(os.getcwd(), csv_filename)
+            # Source file (script directory)
+            source_file = os.path.join(self.script_dir, csv_filename)
             
             # Create destination directory if it doesn't exist
             os.makedirs(downloadpath, exist_ok=True)
@@ -231,6 +295,10 @@ class VaultLoaderRunner:
                 
                 shutil.move(source_file, dest_file)
                 print(f"✓ Moved {csv_filename} to {downloadpath} ({row_count} rows)")
+                
+                # Process ignore columns after moving the file
+                self.process_ignore_columns(export_config, dest_file)
+                
                 return row_count
             else:
                 print(f"Warning: Export file {source_file} not found")
@@ -259,7 +327,7 @@ class VaultLoaderRunner:
                 return
             
             # Create success log file path with run timestamp
-            log_file = f"logs/success/success_{self.run_timestamp}.csv"
+            log_file = os.path.join(self.script_dir, 'logs', 'success', f'success_{self.run_timestamp}.csv')
             
             # Check if file exists to determine if we need headers
             file_exists = os.path.exists(log_file)
@@ -294,7 +362,7 @@ class VaultLoaderRunner:
                 object_name = "Unknown"
             
             # Create failure log file path with run timestamp
-            log_file = f"logs/failure/failure_{self.run_timestamp}.csv"
+            log_file = os.path.join(self.script_dir, 'logs', 'failure', f'failure_{self.run_timestamp}.csv')
             
             # Check if file exists to determine if we need headers
             file_exists = os.path.exists(log_file)
@@ -357,9 +425,6 @@ class VaultLoaderRunner:
 
 def main():
     """Main function"""
-    # Set working directory
-    os.chdir(r'c:\VaultLoader')
-    
     # Create VaultLoader runner
     runner = VaultLoaderRunner()
     

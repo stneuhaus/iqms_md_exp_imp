@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <config>
-	<dns>https://bayer-iqms.veevavault.com</dns>
-	<username>stefan.neuhaus@bayer.com</username>
+	<dns>https://bayersbx-iqms-phase-1-24r3-pre-release.veevavault.com</dns>
+	<username>stefan.neuhaus@bayersbx.com</username>
 </config>

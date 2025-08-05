@@ -5,3 +5,4 @@ bin/VaultDataLoader.jar
 bin/VaultDataLoader.zip
 exports/*
 bin/*
+vl-config.xml
