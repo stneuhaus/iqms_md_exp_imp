@@ -124,6 +124,11 @@ class VaultLoaderRunner:
         params = export_config['params'].split()
         java_command.extend(params)
         
+        # Add where parameter if present
+        where_clause = export_config.get('where', '')
+        if where_clause:
+            java_command.extend(['-where', where_clause])
+        
         # Add downloadpath parameter if present
         if downloadpath:
             java_command.extend(['-downloadpath', downloadpath])
@@ -136,6 +141,8 @@ class VaultLoaderRunner:
         print(f"🚀 Starting Java process for: {export_config['name']}")
         # Build display command (hide password)
         display_params = params.copy()
+        if where_clause:
+            display_params.extend(['-where', where_clause])
         if downloadpath:
             display_params.extend(['-downloadpath', downloadpath])
         if columns:

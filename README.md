@@ -1,4 +1,4 @@
-# Vault Loader Automation
+# Vault Export Loader Automation
 
 This directory contains an automated Python script for running Veeva VaultLoader exports with JSON-based configuration. The script is location-independent and can be run from anywhere on your system.
 
@@ -20,18 +20,19 @@ VaultLoader/
 │   ├── failure/                  # Failed operation logs (CSV format)
 │   │   └── failure_YYYYMMDD_HHMMSS.csv  # Per-run failure log files
 │   └── vl.log                    # General log file
-├── start_vault_loader.py          # Main automation script
+├── start_export_vault_loader.py   # Main automation script
 └── README.md                      # This documentation file
 ```
 
 ## Automation Overview
 
-The `start_vault_loader.py` script automates multiple Veeva Vault exports using a JSON configuration file. It handles authentication, parameter building, and file management automatically.
+The `start_export_vault_loader.py` script automates multiple Veeva Vault exports using a JSON configuration file. It handles authentication, parameter building, and file management automatically.
 
 ### Key Features
 
 - **Location Independent**: Run from any directory - no hardcoded paths
 - **Batch Processing**: Execute multiple exports in sequence
+- **WHERE Clause Filtering**: Filter records at source using Veeva query syntax
 - **Automatic File Management**: Move exported files to designated folder
 - **Column Ignoring**: Rename specific columns to "ignore.columnname" format
 - **Comprehensive Logging**: CSV logs for successful and failed exports
@@ -100,6 +101,7 @@ The `exports` section contains an array of export configurations:
         {
             "name": "QMS_Unit_Export",
             "params": "-export qms_unit__c -csv qms_unit__c.csv",
+            "where": "state__v='active__v'",
             "columns": ["is_valid__c", "name__v", "state__v"],
             "ignore_column": ["internal_id__c", "temp_field__c"],
             "active": 1
@@ -114,6 +116,7 @@ The `exports` section contains an array of export configurations:
 |-----------|-------------|----------|---------|
 | `name` | Descriptive name for the export | Yes | `"QMS_Unit_Export"` |
 | `params` | VaultLoader export parameters | Yes | `"-export qms_unit__c -csv file.csv"` |
+| `where` | WHERE clause for filtering records | No | `"state__v='active__v'"` |
 | `columns` | Array of column names to export | No | `["name__v", "state__v"]` |
 | `ignore_column` | Array of columns to rename to "ignore.columnname" | No | `["internal_id__c", "temp_field__c"]` |
 | `active` | Enable/disable export (0=skip, 1=execute) | No | `1` |
@@ -128,11 +131,40 @@ You can enable or disable individual exports using the `active` parameter:
 {
     "name": "QMS_Unit_Export",
     "params": "-export qms_unit__c -csv qms_unit__c.csv",
+    "where": "state__v='active__v'",
     "columns": ["name__v", "state__v"],
     "ignore_column": ["internal_id__c"],
     "active": 1  // 1 = execute, 0 = skip
 }
 ```
+
+### WHERE Clause Filtering
+
+The `where` parameter allows you to filter records during export using Veeva Vault query syntax:
+
+```json
+{
+    "name": "Active_QMS_Units",
+    "params": "-export qms_unit__c -csv active_qms_units.csv",
+    "where": "state__v='active__v' AND is_valid__c=true",
+    "columns": ["name__v", "state__v", "is_valid__c"]
+}
+```
+
+**Common WHERE clause examples**:
+- **State filtering**: `"state__v='active__v'"`
+- **Date ranges**: `"created_date__v >= '2024-01-01'"`
+- **Multiple conditions**: `"state__v='active__v' AND is_valid__c=true"`
+- **Text matching**: `"name__v CONTAINS 'test'"`
+- **Null checks**: `"description__c IS NOT NULL"`
+
+**Benefits**:
+- **Performance**: Reduce export size by filtering at source
+- **Relevance**: Export only records that meet specific criteria
+- **Efficiency**: Avoid processing unwanted records
+- **Flexibility**: Different filters for different environments
+
+**Note**: Leave `where` as an empty string `""` if no filtering is needed.
 
 ### Column Ignore Functionality
 
@@ -192,10 +224,10 @@ Execute the automation script from any directory:
 ```bash
 # The script is now location-independent
 cd /path/to/your/vault-loader-project
-python start_vault_loader.py
+python start_export_vault_loader.py
 
 # Or run from anywhere if Python path is configured
-python /full/path/to/start_vault_loader.py
+python /full/path/to/start_export_vault_loader.py
 ```
 
 **Location Independence**: The script automatically detects its location and resolves all relative paths accordingly. No need to change to a specific working directory.
@@ -210,11 +242,12 @@ Running export: QMS_Unit_Export
 Parameters: -export qms_unit__c -csv qms_unit__c.csv
 DNS: https://your-vault.veevavault.com
 Download path: exports
+Where clause: state__v='active__v'
 Columns: is_valid__c name__v state__v
 Ignore columns: internal_id__c temp_field__c
 ============================================================
 🚀 Starting Java process for: QMS_Unit_Export
-Command: java.exe -jar bin\VaultDataLoader.jar -dns https://your-vault.veevavault.com -u username -p [HIDDEN] -export qms_unit__c -csv qms_unit__c.csv -downloadpath exports -columns is_valid__c,name__v,state__v
+Command: java.exe -jar bin\VaultDataLoader.jar -dns https://your-vault.veevavault.com -u username -p [HIDDEN] -export qms_unit__c -csv qms_unit__c.csv -where state__v='active__v' -downloadpath exports -columns is_valid__c,name__v,state__v
 ✓ Export 'QMS_Unit_Export' completed successfully
 ✓ Moved qms_unit__c.csv to exports (1247 rows)
 ✓ Renamed columns: internal_id__c -> ignore.internal_id__c, temp_field__c -> ignore.temp_field__c
@@ -232,12 +265,13 @@ The script builds VaultLoader commands in this order:
 1. **Connection**: `-dns <vault_url>`
 2. **Authentication**: `-u <username> -p <password>`
 3. **Export Definition**: `-export <object> -csv <filename>`
-4. **Download Path**: `-downloadpath <folder>`
-5. **Column Selection**: `-columns <col1,col2,col3>`
+4. **WHERE Clause**: `-where <filter_conditions>` (if specified)
+5. **Download Path**: `-downloadpath <folder>`
+6. **Column Selection**: `-columns <col1,col2,col3>`
 
 Final command example:
 ```bash
-java.exe -jar bin\VaultDataLoader.jar -dns https://vault.com -u user -p pass -export qms_unit__c -csv file.csv -downloadpath exports -columns name__v,state__v
+java.exe -jar bin\VaultDataLoader.jar -dns https://vault.com -u user -p pass -export qms_unit__c -csv file.csv -where "state__v='active__v'" -downloadpath exports -columns name__v,state__v
 ```
 
 ## File Management
@@ -358,7 +392,7 @@ SKIPPED,registration_name__c,N/A,2025-08-01 14:30:26
 2. Place `VaultDataLoader.jar` in the `bin/` directory
 3. Update `config/vault_loader_config.json` with your settings
 4. Create `config/password.ini` with your password
-5. Run `python start_vault_loader.py` from anywhere
+5. Run `python start_export_vault_loader.py` from anywhere
 
 ### No Installation Required
 - No hardcoded paths to update
@@ -372,7 +406,7 @@ SKIPPED,registration_name__c,N/A,2025-08-01 14:30:26
 2. **Configure**: Update `config/vault_loader_config.json` with your settings
 3. **Credentials**: Create `config/password.ini` with your password
 4. **JAR File**: Place `VaultDataLoader.jar` in the `bin/` directory  
-5. **Run**: Execute `python start_vault_loader.py` from the project directory
+5. **Run**: Execute `python start_export_vault_loader.py` from the project directory
 6. **Monitor**: Check `logs/` for results and `exports/` for CSV files
 
 **Location Flexibility**: The application automatically adapts to its location - no path configuration needed!
