@@ -1,6 +1,6 @@
 # Vault Loader Automation
 
-This directory contains an automated Python script for running Veeva VaultLoader exports with JSON-based configuration.
+This directory contains an automated Python script for running Veeva VaultLoader exports with JSON-based configuration. The script is location-independent and can be run from anywhere on your system.
 
 ## Directory Structure
 
@@ -9,7 +9,6 @@ VaultLoader/
 ├── bin/                           # Executable files
 │   └── VaultDataLoader.jar        # Veeva VaultLoader command line tool
 ├── config/                        # Configuration files
-│   ├── vl-config.xml             # Legacy XML configuration
 │   ├── vault_loader_config.json  # JSON configuration file
 │   └── password.ini              # Password file
 ├── exports/                       # Export output directory
@@ -31,8 +30,10 @@ The `start_vault_loader.py` script automates multiple Veeva Vault exports using 
 
 ### Key Features
 
+- **Location Independent**: Run from any directory - no hardcoded paths
 - **Batch Processing**: Execute multiple exports in sequence
 - **Automatic File Management**: Move exported files to designated folder
+- **Column Ignoring**: Rename specific columns to "ignore.columnname" format
 - **Comprehensive Logging**: CSV logs for successful and failed exports
 - **Flexible Column Selection**: Specify custom columns for each export
 - **Progress Tracking**: Real-time feedback and summary reports
@@ -67,7 +68,9 @@ The `general` section contains global settings used for all exports:
 | `dns` | Veeva Vault DNS URL | `https://your-vault.veevavault.com` |
 | `username` | Vault username | `your.username@company.com` |
 | `password` | Password file path or direct password | `password.ini` or `your_password` |
-| `downloadpath` | Directory for exported files | `exports` |
+| `downloadpath` | Directory for exported files (relative to script) | `exports` |
+
+**Note**: All paths (vault_loader, downloadpath, password files) are resolved relative to the script location if they are not absolute paths. This makes the application location-independent.
 
 #### Password Configuration:
 
@@ -97,7 +100,9 @@ The `exports` section contains an array of export configurations:
         {
             "name": "QMS_Unit_Export",
             "params": "-export qms_unit__c -csv qms_unit__c.csv",
-            "columns": ["is_valid__c", "name__v", "state__v"]
+            "columns": ["is_valid__c", "name__v", "state__v"],
+            "ignore_column": ["internal_id__c", "temp_field__c"],
+            "active": 1
         }
     ]
 }
@@ -110,6 +115,7 @@ The `exports` section contains an array of export configurations:
 | `name` | Descriptive name for the export | Yes | `"QMS_Unit_Export"` |
 | `params` | VaultLoader export parameters | Yes | `"-export qms_unit__c -csv file.csv"` |
 | `columns` | Array of column names to export | No | `["name__v", "state__v"]` |
+| `ignore_column` | Array of columns to rename to "ignore.columnname" | No | `["internal_id__c", "temp_field__c"]` |
 | `active` | Enable/disable export (0=skip, 1=execute) | No | `1` |
 
 **Note**: If `active` is not specified, the export defaults to active (1).
@@ -123,9 +129,36 @@ You can enable or disable individual exports using the `active` parameter:
     "name": "QMS_Unit_Export",
     "params": "-export qms_unit__c -csv qms_unit__c.csv",
     "columns": ["name__v", "state__v"],
+    "ignore_column": ["internal_id__c"],
     "active": 1  // 1 = execute, 0 = skip
 }
 ```
+
+### Column Ignore Functionality
+
+The `ignore_column` parameter allows you to automatically rename specific columns in the exported CSV files:
+
+```json
+{
+    "name": "QMS_Unit_Export",
+    "params": "-export qms_unit__c -csv qms_unit__c.csv",
+    "columns": ["name__v", "state__v", "internal_id__c", "temp_field__c"],
+    "ignore_column": ["internal_id__c", "temp_field__c"]
+}
+```
+
+**How it works**:
+- After the CSV file is exported and moved to the download directory
+- Columns specified in `ignore_column` are renamed to `ignore.columnname`
+- Example: `internal_id__c` becomes `ignore.internal_id__c`
+- This helps identify columns that should be ignored in downstream processing
+- Empty arrays `[]` are valid and result in no column renaming
+
+**Benefits**:
+- **Data Processing**: Mark columns to ignore without removing data
+- **Downstream Integration**: Clear indication of columns to skip
+- **Flexible Configuration**: Per-export column ignore settings
+- **Data Preservation**: Original data is retained but clearly marked
 
 **Benefits**:
 - **Selective Execution**: Run only specific exports without modifying the configuration
@@ -154,12 +187,18 @@ Create or update `config/password.ini` with your vault password.
 
 ### 2. Run Exports
 
-Execute the automation script:
+Execute the automation script from any directory:
 
 ```bash
-cd c:\VaultLoader
+# The script is now location-independent
+cd /path/to/your/vault-loader-project
 python start_vault_loader.py
+
+# Or run from anywhere if Python path is configured
+python /full/path/to/start_vault_loader.py
 ```
+
+**Location Independence**: The script automatically detects its location and resolves all relative paths accordingly. No need to change to a specific working directory.
 
 ### 3. Monitor Progress
 
@@ -172,11 +211,13 @@ Parameters: -export qms_unit__c -csv qms_unit__c.csv
 DNS: https://your-vault.veevavault.com
 Download path: exports
 Columns: is_valid__c name__v state__v
+Ignore columns: internal_id__c temp_field__c
 ============================================================
-Starting Java process for: QMS_Unit_Export
+🚀 Starting Java process for: QMS_Unit_Export
 Command: java.exe -jar bin\VaultDataLoader.jar -dns https://your-vault.veevavault.com -u username -p [HIDDEN] -export qms_unit__c -csv qms_unit__c.csv -downloadpath exports -columns is_valid__c,name__v,state__v
 ✓ Export 'QMS_Unit_Export' completed successfully
 ✓ Moved qms_unit__c.csv to exports (1247 rows)
+✓ Renamed columns: internal_id__c -> ignore.internal_id__c, temp_field__c -> ignore.temp_field__c
 ```
 
 **Automatic Logging**:
@@ -204,9 +245,11 @@ java.exe -jar bin\VaultDataLoader.jar -dns https://vault.com -u user -p pass -ex
 - **Input**: CSV parameters defined in configuration
 - **Processing**: VaultLoader creates files in working directory
 - **Output**: Files automatically moved to `downloadpath` folder
+- **Column Processing**: Columns in `ignore_column` arrays are renamed to `ignore.columnname`
 - **Organization**: All exports centralized in designated folder
 - **Success Logging**: Each successful export logged to `logs/success/success_YYYYMMDD_HHMMSS.csv`
 - **Failure Logging**: Each failed export logged to `logs/failure/failure_YYYYMMDD_HHMMSS.csv`
+- **Location Independence**: All paths resolved relative to script location
 
 ### Success Log Format (logs/success/success_YYYYMMDD_HHMMSS.csv)
 
@@ -270,13 +313,15 @@ SKIPPED,registration_name__c,N/A,2025-08-01 14:30:26
 - **Failure Logs**: Analyze failure logs for patterns and recurring issues
 - **Log Location**: All logs stored in `logs/success/` and `logs/failure/` directories
 
-## Console Output
+### Console Output
 
 ### Export Processing Messages
 
 - **🚀 Active Export**: `Starting Java process for: QMS_Unit_Export`
 - **⏭️ Skipped Export**: `Skipping 'registration_name__c' (inactive)`
 - **✅ Success**: `Export 'QMS_Unit_Export' completed successfully`
+- **✓ Column Renaming**: `Renamed columns: internal_id__c -> ignore.internal_id__c`
+- **ℹ️ No Columns to Rename**: `No columns found to rename in qms_unit__c.csv`
 - **❌ Failure**: `Export 'QMS_Unit_Export' failed with return code 1`
 
 ### Summary Report
@@ -297,17 +342,37 @@ SKIPPED,registration_name__c,N/A,2025-08-01 14:30:26
 
 ## Best Practices
 
-1. **Backup**: Regularly backup configuration and important data files
-2. **Naming**: Use consistent naming conventions with timestamps
-3. **Security**: Protect configuration files containing credentials
-4. **Cleanup**: Implement regular cleanup procedures for logs and archives
-5. **Monitoring**: Review logs regularly for operational insights
+1. **Location Independence**: Take advantage of the location-independent design - copy the entire project folder anywhere
+2. **Backup**: Regularly backup configuration and important data files
+3. **Column Management**: Use `ignore_column` to mark columns for downstream processing exclusion
+4. **Naming**: Use consistent naming conventions with timestamps
+5. **Security**: Protect configuration files containing credentials
+6. **Cleanup**: Implement regular cleanup procedures for logs and archives
+7. **Monitoring**: Review logs regularly for operational insights
+8. **Testing**: Use `active: 0` to disable exports during testing without removing configuration
+
+## Installation and Deployment
+
+### Quick Deployment
+1. Copy the entire project folder to any location on your system
+2. Place `VaultDataLoader.jar` in the `bin/` directory
+3. Update `config/vault_loader_config.json` with your settings
+4. Create `config/password.ini` with your password
+5. Run `python start_vault_loader.py` from anywhere
+
+### No Installation Required
+- No hardcoded paths to update
+- No environment variables to set
+- Works from any directory location
+- Portable across different systems
 
 ## Quick Start
 
-1. Place `VaultDataLoader.jar` in the `bin/` directory
-2. Configure `vl-config.xml` in the `config/` directory
-3. Add CSV files to the `input/` directory
-4. Run Vault Loader operations
-5. Monitor `logs/` for results
-6. Retrieve exports from `exports/` directory
+1. **Deploy**: Copy the project folder to any location
+2. **Configure**: Update `config/vault_loader_config.json` with your settings
+3. **Credentials**: Create `config/password.ini` with your password
+4. **JAR File**: Place `VaultDataLoader.jar` in the `bin/` directory  
+5. **Run**: Execute `python start_vault_loader.py` from the project directory
+6. **Monitor**: Check `logs/` for results and `exports/` for CSV files
+
+**Location Flexibility**: The application automatically adapts to its location - no path configuration needed!
