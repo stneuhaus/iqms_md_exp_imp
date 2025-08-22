@@ -253,6 +253,18 @@ The `imports` section contains an array of import configurations for the `start_
 
 **Note**: If the `params` value contains `[import_path]`, it will be automatically replaced with the full path specified in the `import_path` parameter. The log file will record which file was used for each import job.
 
+### Post-Import File Management
+
+After each import:
+- A folder is created under `imports/` named after the Vault DNS (from `import_settings`), with `https://` removed.
+- The imported CSV file is copied to this folder.
+- If the Java program creates a log file (ending with `_FAILURE.csv` or `_SUCCESS.csv`), it is moved to this folder and renamed to match the import file name (except for the STATUS part).
+
+**Example:**
+- DNS: `https://your-vault.veevavault.com` → Folder: `imports/your-vault.veevavault.com`
+- Imported file: `input/qms_unit_import.csv` → Copied to `imports/your-vault.veevavault.com/qms_unit_import.csv`
+- Java log file: `xxxxxxx_yyyyyyy_create-qms_unit__c_2025-08-22_14_30_00_SUCCESS.csv` → Moved and renamed to `imports/your-vault.veevavault.com/qms_unit_import_SUCCESS.csv`
+
 ### Import Control
 
 Similar to exports, you can enable or disable individual imports:

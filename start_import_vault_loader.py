@@ -147,45 +147,58 @@ class VaultImportRunner:
                 text=True,
                 cwd=self.script_dir
             )
-            
             # Get output
             stdout, stderr = process.communicate(timeout=300)  # 5 minute timeout
-            
             print("Output:")
             print(stdout)
             if stderr:
                 print("Errors:")
                 print(stderr)
-            
             return_code = process.returncode
             print(f"Process completed with return code: {return_code}")
-            
             # Check if stdout contains more than the standard header
             expected_header = "Vault Loader. (c)Veeva Systems 2014-2021. All rights reserved."
             if stdout and stdout.strip() != expected_header:
-                # If there's additional content beyond the header, log it as an error
                 additional_output = stdout.strip()
                 if additional_output.startswith(expected_header):
-                    # Remove the header and check if there's additional content
                     remaining_output = additional_output[len(expected_header):].strip()
                     if remaining_output:
                         print(f"Warning: Additional output detected: {remaining_output}")
                         self.log_failure(import_config, f"Additional output: {remaining_output}")
                         return False
                 elif additional_output != expected_header:
-                    # Completely different output
                     print(f"Warning: Unexpected output: {additional_output}")
                     self.log_failure(import_config, f"Unexpected output: {additional_output}")
                     return False
-            
             # If import was successful, log it
             if return_code == 0:
                 self.log_success(import_config)
             else:
                 self.log_failure(import_config, stderr or "Unknown error")
-            
+            # --- Post-import file management ---
+            # Prepare destination folder name from DNS
+            import_settings = self.config.get('import_settings', {})
+            dns = import_settings.get('dns', '')
+            dns_folder = dns.replace('https://', '').replace('/', '_')
+            dest_folder = os.path.join(self.script_dir, 'imports', dns_folder)
+            os.makedirs(dest_folder, exist_ok=True)
+            # Copy imported CSV file
+            if import_path_full and os.path.exists(import_path_full):
+                shutil.copy2(import_path_full, dest_folder)
+                print(f"Copied imported file to {dest_folder}")
+            # Move and rename Java log file if present
+            # Find log file in working directory matching *_FAILURE.csv or *_SUCCESS.csv
+            log_candidates = [f for f in os.listdir(self.script_dir) if f.endswith('_FAILURE.csv') or f.endswith('_SUCCESS.csv')]
+            for log_file in log_candidates:
+                log_path = os.path.join(self.script_dir, log_file)
+                # Determine new log file name: use import file name (without extension) + STATUS
+                status = '_FAILURE.csv' if log_file.endswith('_FAILURE.csv') else '_SUCCESS.csv'
+                import_base = os.path.splitext(os.path.basename(import_path_full))[0] if import_path_full else 'import'
+                new_log_name = import_base + status
+                new_log_path = os.path.join(dest_folder, new_log_name)
+                shutil.move(log_path, new_log_path)
+                print(f"Moved and renamed log file to {new_log_path}")
             return return_code == 0
-            
         except subprocess.TimeoutExpired:
             process.kill()
             print("Process timed out after 5 minutes")
