@@ -91,18 +91,17 @@ class VaultImportRunner:
         
         # Get general configuration
         general = self.config['general']
+        import_settings = self.config.get('import_settings', {})
         java_exe = general['java_exe']
         vault_loader_path = general['vault_loader']
-        
         # Make vault_loader path absolute if it's relative
         if not os.path.isabs(vault_loader_path):
             vault_loader = os.path.join(self.script_dir, vault_loader_path)
         else:
             vault_loader = vault_loader_path
-            
-        dns = general.get('dns', '')
-        username = general['username']
-        password_param = general['password']
+        dns = import_settings.get('dns', '')
+        username = import_settings.get('username', '')
+        password_param = import_settings.get('password', '')
         password = self.load_password(password_param)
         
         # Build Java command with dns, username and password parameters

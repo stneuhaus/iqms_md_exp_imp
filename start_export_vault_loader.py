@@ -91,18 +91,17 @@ class VaultLoaderRunner:
         
         # Get general configuration
         general = self.config['general']
+        export_settings = self.config.get('export_settings', {})
         java_exe = general['java_exe']
         vault_loader_path = general['vault_loader']
-        
         # Make vault_loader path absolute if it's relative
         if not os.path.isabs(vault_loader_path):
             vault_loader = os.path.join(self.script_dir, vault_loader_path)
         else:
             vault_loader = vault_loader_path
-            
-        dns = general.get('dns', '')
-        username = general['username']
-        password_param = general['password']
+        dns = export_settings.get('dns', '')
+        username = export_settings.get('username', '')
+        password_param = export_settings.get('password', '')
         password = self.load_password(password_param)
         downloadpath = general.get('downloadpath', '')
         

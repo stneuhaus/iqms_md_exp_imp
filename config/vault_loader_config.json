@@ -2,11 +2,18 @@
     "general": {
         "java_exe": "c:\\jdk\\jdk-17.0.16.8-hotspot\\bin\\java.exe",
         "vault_loader": "bin\\VaultDataLoader.jar",
-        "dns": "https://bayer-iqms.veevavault.com",
-        "username": "stefan.neuhaus@bayer.com",
-        "password": "password.ini",
         "downloadpath": "exports\\bayer-iqms"
     },
+        "export_settings": {
+            "dns": "https://bayer-iqms.veevavault.com",
+            "username": "stefan.neuhaus@bayer.com",
+            "password": "password.ini"
+        },
+        "import_settings": {
+            "dns": "https://bayer-iqms.veevavault.com",
+            "username": "stefan.neuhaus@bayer.com",
+            "password": "password.ini"
+        },
     "exports": [
         {
             "name": "07_country__v", 

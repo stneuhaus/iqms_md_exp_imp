@@ -49,20 +49,29 @@ The `start_export_vault_loader.py` script automates multiple Veeva Vault exports
 
 ## Configuration File: config/vault_loader_config.json
 
-### General Section
 
-The `general` section contains global settings used for all exports:
+### Configuration Structure
+
+The configuration file now separates connection credentials for exports and imports:
 
 ```json
 {
     "general": {
-        "java_exe": "c:\\jdk\\jdk-17.0.16.8-hotspot\\bin\\java.exe",
-        "vault_loader": "bin\\VaultDataLoader.jar",
+        "java_exe": "c:\jdk\jdk-17.0.16.8-hotspot\bin\java.exe",
+        "vault_loader": "bin\VaultDataLoader.jar",
+        "downloadpath": "exports"
+    },
+    "export_settings": {
         "dns": "https://your-vault.veevavault.com",
         "username": "your.username@company.com",
-        "password": "password.ini",
-        "downloadpath": "exports"
-    }
+        "password": "password.ini"
+    },
+    "import_settings": {
+        "dns": "https://your-vault.veevavault.com",
+        "username": "your.username@company.com",
+        "password": "password.ini"
+    },
+    ...
 }
 ```
 
@@ -70,12 +79,17 @@ The `general` section contains global settings used for all exports:
 
 | Parameter | Description | Example |
 |-----------|-------------|---------|
-| `java_exe` | Full path to Java executable | `c:\\jdk\\jdk-17.0.16.8-hotspot\\bin\\java.exe` |
-| `vault_loader` | Path to VaultDataLoader.jar (relative to script) | `bin\\VaultDataLoader.jar` |
+| `java_exe` | Full path to Java executable | `c:\jdk\jdk-17.0.16.8-hotspot\bin\java.exe` |
+| `vault_loader` | Path to VaultDataLoader.jar (relative to script) | `bin\VaultDataLoader.jar` |
+| `downloadpath` | Directory for exported files (relative to script) | `exports` |
+
+#### Export/Import Settings Parameters:
+
+| Parameter | Description | Example |
+|-----------|-------------|---------|
 | `dns` | Veeva Vault DNS URL | `https://your-vault.veevavault.com` |
 | `username` | Vault username | `your.username@company.com` |
 | `password` | Password file path or direct password | `password.ini` or `your_password` |
-| `downloadpath` | Directory for exported files (relative to script) | `exports` |
 
 **Note**: All paths (vault_loader, downloadpath, password files) are resolved relative to the script location if they are not absolute paths. This makes the application location-independent.
 
@@ -212,7 +226,8 @@ The `ignore_column` parameter allows you to automatically rename specific column
 
 ### Imports Section
 
-The `imports` section contains an array of import configurations for the `start_import_vault_loader.py` script:
+
+The `imports` section contains an array of import configurations for the `start_import_vault_loader.py` script. Each import can specify an `import_path` for the file to be imported:
 
 ```json
 {
@@ -220,6 +235,7 @@ The `imports` section contains an array of import configurations for the `start_
         {
             "name": "QMS_Unit_Import",
             "params": "-import qms_unit__c -csv qms_unit_import.csv",
+            "import_path": "input/qms_unit_import.csv",
             "active": 1
         }
     ]
@@ -232,9 +248,10 @@ The `imports` section contains an array of import configurations for the `start_
 |-----------|-------------|----------|---------|
 | `name` | Descriptive name for the import | Yes | `"QMS_Unit_Import"` |
 | `params` | VaultLoader import parameters | Yes | `"-import qms_unit__c -csv file.csv"` |
+| `import_path` | Relative path to the file to be imported | Yes | `"input/qms_unit_import.csv"` |
 | `active` | Enable/disable import (0=skip, 1=execute) | No | `1` |
 
-**Note**: Import operations require CSV files to be present in the working directory or specified path.
+**Note**: Import operations require CSV files to be present at the specified `import_path`.
 
 ### Import Control
 
