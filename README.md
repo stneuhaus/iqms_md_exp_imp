@@ -1,6 +1,6 @@
-# Vault Export Loader Automation
+# Vault Export/Import Loader Automation
 
-This directory contains an automated Python script for running Veeva VaultLoader exports with JSON-based configuration. The script is location-independent and can be run from anywhere on your system.
+This directory contains automated Python scripts for running Veeva VaultLoader exports and imports with JSON-based configuration. The scripts are location-independent and can be run from anywhere on your system.
 
 ## Directory Structure
 
@@ -14,32 +14,38 @@ VaultLoader/
 ├── exports/                       # Export output directory
 │   ├── *.csv                     # Exported CSV files (auto-moved here)
 │   └── *.txt                     # Additional export files
+├── input/                         # Import source directory
+│   ├── *.csv                     # CSV files for import operations
+│   └── *.txt                     # Additional import files
 ├── logs/                          # Processing logs
 │   ├── success/                  # Successful operation logs (CSV format)
 │   │   └── success_YYYYMMDD_HHMMSS.csv  # Per-run success log files
 │   ├── failure/                  # Failed operation logs (CSV format)
 │   │   └── failure_YYYYMMDD_HHMMSS.csv  # Per-run failure log files
 │   └── vl.log                    # General log file
-├── start_export_vault_loader.py   # Main automation script
+├── start_export_vault_loader.py   # Export automation script
+├── start_import_vault_loader.py   # Import automation script
 └── README.md                      # This documentation file
 ```
 
 ## Automation Overview
 
-The `start_export_vault_loader.py` script automates multiple Veeva Vault exports using a JSON configuration file. It handles authentication, parameter building, and file management automatically.
+The `start_export_vault_loader.py` script automates multiple Veeva Vault exports and the `start_import_vault_loader.py` script automates multiple Veeva Vault imports using a shared JSON configuration file. Both scripts handle authentication, parameter building, and file management automatically.
 
 ### Key Features
 
 - **Location Independent**: Run from any directory - no hardcoded paths
-- **Batch Processing**: Execute multiple exports in sequence
-- **WHERE Clause Filtering**: Filter records at source using Veeva query syntax
+- **Dual Operations**: Separate scripts for exports and imports
+- **Batch Processing**: Execute multiple exports or imports in sequence
+- **WHERE Clause Filtering**: Filter export records at source using Veeva query syntax
 - **Automatic File Management**: Move exported files to designated folder
-- **Column Ignoring**: Rename specific columns to "ignore.columnname" format
-- **Comprehensive Logging**: CSV logs for successful and failed exports
+- **Column Ignoring**: Rename specific columns to "ignore.columnname" format (exports only)
+- **Comprehensive Logging**: CSV logs for successful and failed operations
 - **Flexible Column Selection**: Specify custom columns for each export
 - **Progress Tracking**: Real-time feedback and summary reports
 - **Error Handling**: Timeout management and detailed error reporting
 - **Row Counting**: Automatic counting of exported data rows
+- **Shared Configuration**: Both scripts use the same configuration file
 
 ## Configuration File: config/vault_loader_config.json
 
@@ -204,6 +210,50 @@ The `ignore_column` parameter allows you to automatically rename specific column
 - Row count shows `N/A`
 - Helps track which exports were intentionally disabled
 
+### Imports Section
+
+The `imports` section contains an array of import configurations for the `start_import_vault_loader.py` script:
+
+```json
+{
+    "imports": [
+        {
+            "name": "QMS_Unit_Import",
+            "params": "-import qms_unit__c -csv qms_unit_import.csv",
+            "active": 1
+        }
+    ]
+}
+```
+
+#### Import Parameters:
+
+| Parameter | Description | Required | Example |
+|-----------|-------------|----------|---------|
+| `name` | Descriptive name for the import | Yes | `"QMS_Unit_Import"` |
+| `params` | VaultLoader import parameters | Yes | `"-import qms_unit__c -csv file.csv"` |
+| `active` | Enable/disable import (0=skip, 1=execute) | No | `1` |
+
+**Note**: Import operations require CSV files to be present in the working directory or specified path.
+
+### Import Control
+
+Similar to exports, you can enable or disable individual imports:
+
+```json
+{
+    "name": "QMS_Unit_Import",
+    "params": "-import qms_unit__c -csv qms_unit_import.csv",
+    "active": 1  // 1 = execute, 0 = skip
+}
+```
+
+**Import Benefits**:
+- **Batch Processing**: Execute multiple imports in sequence
+- **Selective Execution**: Run only specific imports without modifying configuration
+- **Error Handling**: Comprehensive logging and error reporting
+- **Shared Configuration**: Uses the same general settings as exports
+
 ## Usage Instructions
 
 ### 1. Configure Settings
@@ -212,17 +262,19 @@ Edit `config/vault_loader_config.json` with your specific settings:
 
 1. **Update DNS**: Replace with your Vault URL
 2. **Set Credentials**: Update username and password file reference
-3. **Configure Exports**: Add/modify export definitions
-4. **Set Download Path**: Specify where files should be saved
+3. **Configure Exports**: Add/modify export definitions in the `exports` section
+4. **Configure Imports**: Add/modify import definitions in the `imports` section
+5. **Set Download Path**: Specify where exported files should be saved
 
 Create or update `config/password.ini` with your vault password.
 
-### 2. Run Exports
+### 2. Run Operations
 
-Execute the automation script from any directory:
+Execute the automation scripts from any directory:
 
+**For Exports:**
 ```bash
-# The script is now location-independent
+# The scripts are now location-independent
 cd /path/to/your/vault-loader-project
 python start_export_vault_loader.py
 
@@ -230,12 +282,22 @@ python start_export_vault_loader.py
 python /full/path/to/start_export_vault_loader.py
 ```
 
-**Location Independence**: The script automatically detects its location and resolves all relative paths accordingly. No need to change to a specific working directory.
+**For Imports:**
+```bash
+cd /path/to/your/vault-loader-project
+python start_import_vault_loader.py
+
+# Or run from anywhere if Python path is configured
+python /full/path/to/start_import_vault_loader.py
+```
+
+**Location Independence**: The scripts automatically detect their location and resolve all relative paths accordingly. No need to change to a specific working directory.
 
 ### 3. Monitor Progress
 
-The script provides real-time feedback and automatic logging:
+The scripts provide real-time feedback and automatic logging:
 
+**Export Example:**
 ```
 ============================================================
 Running export: QMS_Unit_Export
@@ -253,6 +315,18 @@ Command: java.exe -jar bin\VaultDataLoader.jar -dns https://your-vault.veevavaul
 ✓ Renamed columns: internal_id__c -> ignore.internal_id__c, temp_field__c -> ignore.temp_field__c
 ```
 
+**Import Example:**
+```
+============================================================
+Running import: QMS_Unit_Import
+Parameters: -import qms_unit__c -csv qms_unit_import.csv
+DNS: https://your-vault.veevavault.com
+============================================================
+🚀 Starting Java process for: QMS_Unit_Import
+Command: java.exe -jar bin\VaultDataLoader.jar -dns https://your-vault.veevavault.com -u username -p [HIDDEN] -import qms_unit__c -csv qms_unit_import.csv
+✓ Import 'QMS_Unit_Import' completed successfully
+```
+
 **Automatic Logging**:
 - Success logs: `logs/success/success_20250801.csv`
 - Failure logs: `logs/failure/failure_20250801.csv`
@@ -260,7 +334,9 @@ Command: java.exe -jar bin\VaultDataLoader.jar -dns https://your-vault.veevavaul
 
 ## Command Structure
 
-The script builds VaultLoader commands in this order:
+### Export Commands
+
+The export script builds VaultLoader commands in this order:
 
 1. **Connection**: `-dns <vault_url>`
 2. **Authentication**: `-u <username> -p <password>`
@@ -269,20 +345,41 @@ The script builds VaultLoader commands in this order:
 5. **Download Path**: `-downloadpath <folder>`
 6. **Column Selection**: `-columns <col1,col2,col3>`
 
-Final command example:
+Export command example:
 ```bash
 java.exe -jar bin\VaultDataLoader.jar -dns https://vault.com -u user -p pass -export qms_unit__c -csv file.csv -where "state__v='active__v'" -downloadpath exports -columns name__v,state__v
 ```
 
+### Import Commands
+
+The import script builds VaultLoader commands in this order:
+
+1. **Connection**: `-dns <vault_url>`
+2. **Authentication**: `-u <username> -p <password>`
+3. **Import Definition**: `-import <object> -csv <filename>`
+
+Import command example:
+```bash
+java.exe -jar bin\VaultDataLoader.jar -dns https://vault.com -u user -p pass -import qms_unit__c -csv import_file.csv
+```
+
 ## File Management
 
-- **Input**: CSV parameters defined in configuration
+### Export Operations
+- **Input**: Export parameters defined in configuration
 - **Processing**: VaultLoader creates files in working directory
 - **Output**: Files automatically moved to `downloadpath` folder
 - **Column Processing**: Columns in `ignore_column` arrays are renamed to `ignore.columnname`
 - **Organization**: All exports centralized in designated folder
-- **Success Logging**: Each successful export logged to `logs/success/success_YYYYMMDD_HHMMSS.csv`
-- **Failure Logging**: Each failed export logged to `logs/failure/failure_YYYYMMDD_HHMMSS.csv`
+
+### Import Operations
+- **Input**: CSV files must be present in working directory or specified path
+- **Processing**: VaultLoader reads CSV files and imports data to Vault
+- **Requirements**: Import CSV files must match Vault object structure
+
+### Common Features
+- **Success Logging**: Each successful operation logged to `logs/success/success_YYYYMMDD_HHMMSS.csv`
+- **Failure Logging**: Each failed operation logged to `logs/failure/failure_YYYYMMDD_HHMMSS.csv`
 - **Location Independence**: All paths resolved relative to script location
 
 ### Success Log Format (logs/success/success_YYYYMMDD_HHMMSS.csv)
