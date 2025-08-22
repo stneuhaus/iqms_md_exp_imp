@@ -10,9 +10,9 @@
             "password": "password.ini"
         },
         "import_settings": {
-            "dns": "https://bayer-iqms.veevavault.com",
-            "username": "stefan.neuhaus@bayer.com",
-            "password": "password.ini"
+            "dns": "https://bayersbx-iqms-training1.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password_import.ini"
         },
     "exports": [
         {
@@ -125,7 +125,7 @@
     "imports": [
         {
             "name": "07_country__v",
-            "params": "-import object__c -csv sample_import.csv",
+            "params": "-create country__v -csv [import_path]",
             "import_path": "exports/bayer-iqms/07_country__v.csv",
             "active": 1
         }

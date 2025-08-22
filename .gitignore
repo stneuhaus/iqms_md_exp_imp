@@ -6,3 +6,4 @@ bin/VaultDataLoader.zip
 exports/*
 bin/*
 vl-config.xml
+config/password_import.ini

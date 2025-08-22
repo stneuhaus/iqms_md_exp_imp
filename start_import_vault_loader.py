@@ -115,16 +115,28 @@ class VaultImportRunner:
         java_command.extend(['-u', username, '-p', password])
         
         # Add import parameters
-        params = import_config['params'].split()
+        params_str = import_config['params']
+        import_path = import_config.get('import_path', None)
+        import_path_full = None
+        if import_path:
+            if not os.path.isabs(import_path):
+                import_path_full = os.path.abspath(os.path.join(self.script_dir, import_path))
+            else:
+                import_path_full = import_path
+            # Replace [import_path] placeholder
+            if '[import_path]' in params_str:
+                params_str = params_str.replace('[import_path]', import_path_full)
+        params = params_str.split()
         java_command.extend(params)
         
         print(f"🚀 Starting Java process for: {import_config['name']}")
         # Build display command (hide password)
         display_params = params.copy()
-        
         dns_display = f"-dns {dns} " if dns else ""
         command_display = f"{java_exe} -jar {vault_loader} {dns_display}-u {username} -p [HIDDEN] {' '.join(display_params)}"
         print(f"Command: {command_display}")
+        if import_path_full:
+            print(f"Used file for import: {import_path_full}")
         
         # Start process
         try:
@@ -188,16 +200,25 @@ class VaultImportRunner:
         """Log successful import to logs/success directory"""
         try:
             # Extract CSV filename and object name
-            params = import_config['params'].split()
+            # Use resolved params for logging
+            params_str = import_config['params']
+            import_path = import_config.get('import_path', None)
+            import_path_full = None
+            if import_path:
+                if not os.path.isabs(import_path):
+                    import_path_full = os.path.abspath(os.path.join(self.script_dir, import_path))
+                else:
+                    import_path_full = import_path
+                if '[import_path]' in params_str:
+                    params_str = params_str.replace('[import_path]', import_path_full)
+            params = params_str.split()
             csv_filename = None
             object_name = None
-            
             for i, param in enumerate(params):
                 if param == '-csv' and i + 1 < len(params):
                     csv_filename = params[i + 1]
                 elif param == '-import' and i + 1 < len(params):
                     object_name = params[i + 1]
-            
             if not csv_filename or not object_name:
                 print("Warning: Could not extract filename or object name for success log")
                 return

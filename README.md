@@ -247,11 +247,11 @@ The `imports` section contains an array of import configurations for the `start_
 | Parameter | Description | Required | Example |
 |-----------|-------------|----------|---------|
 | `name` | Descriptive name for the import | Yes | `"QMS_Unit_Import"` |
-| `params` | VaultLoader import parameters | Yes | `"-import qms_unit__c -csv file.csv"` |
+| `params` | VaultLoader import parameters. Use `[import_path]` as a placeholder to reference the file specified in `import_path`. | Yes | `"-import qms_unit__c -csv [import_path]"` |
 | `import_path` | Relative path to the file to be imported | Yes | `"input/qms_unit_import.csv"` |
 | `active` | Enable/disable import (0=skip, 1=execute) | No | `1` |
 
-**Note**: Import operations require CSV files to be present at the specified `import_path`.
+**Note**: If the `params` value contains `[import_path]`, it will be automatically replaced with the full path specified in the `import_path` parameter. The log file will record which file was used for each import job.
 
 ### Import Control
 
