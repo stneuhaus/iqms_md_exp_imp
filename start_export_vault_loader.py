@@ -424,7 +424,36 @@ class VaultLoaderRunner:
         # Print summary
         print(f"\n📊 Batch Export Summary:")
         print(f"✅ Successful exports: {success_count}")
+        # List successful export files and line counts
+        success_log = os.path.join(self.script_dir, 'logs', 'success', f'success_{self.run_timestamp}.csv')
+        if os.path.exists(success_log):
+            print("Exported files:")
+            with open(success_log, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    file_name = row['file_name']
+                    if file_name != 'SKIPPED' and file_name != '':
+                        # Count lines in exported file (excluding header)
+                        file_path = os.path.join(self.script_dir, file_name) if not os.path.isabs(file_name) else file_name
+                        line_count = 0
+                        try:
+                            with open(file_path, 'r', encoding='utf-8') as expf:
+                                line_count = sum(1 for _ in expf) - 1  # exclude header
+                                if line_count < 0:
+                                    line_count = 0
+                        except Exception:
+                            line_count = 'N/A'
+                        print(f"- {file_name}: {line_count} lines")
         print(f"❌ Failed exports: {failure_count}")
+        # List failed exports (object names)
+        failure_log = os.path.join(self.script_dir, 'logs', 'failure', f'failure_{self.run_timestamp}.csv')
+        if os.path.exists(failure_log):
+            print("Failed objects:")
+            with open(failure_log, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    object_name = row.get('object_name', '')
+                    print(f"- {object_name}")
         print(f"⏭️ Skipped exports: {skipped_count}")
         print(f"📁 Log files created in logs/success/ and logs/failure/")
         print(f"🕒 Run completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")

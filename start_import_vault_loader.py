@@ -158,6 +158,7 @@ class VaultImportRunner:
             print(f"Process completed with return code: {return_code}")
             # Check if stdout contains more than the standard header
             expected_header = "Vault Loader. (c)Veeva Systems 2014-2021. All rights reserved."
+            error_detected = False
             if stdout and stdout.strip() != expected_header:
                 additional_output = stdout.strip()
                 if additional_output.startswith(expected_header):
@@ -165,13 +166,13 @@ class VaultImportRunner:
                     if remaining_output:
                         print(f"Warning: Additional output detected: {remaining_output}")
                         self.log_failure(import_config, f"Additional output: {remaining_output}")
-                        return False
+                        error_detected = True
                 elif additional_output != expected_header:
                     print(f"Warning: Unexpected output: {additional_output}")
                     self.log_failure(import_config, f"Unexpected output: {additional_output}")
-                    return False
+                    error_detected = True
             # If import was successful, log it
-            if return_code == 0:
+            if return_code == 0 and not error_detected:
                 self.log_success(import_config)
             else:
                 self.log_failure(import_config, stderr or "Unknown error")
@@ -188,17 +189,17 @@ class VaultImportRunner:
                 print(f"Copied imported file to {dest_folder}")
             # Move and rename Java log file if present
             # Find log file in working directory matching *_FAILURE.csv or *_SUCCESS.csv
-            log_candidates = [f for f in os.listdir(self.script_dir) if f.endswith('_FAILURE.csv') or f.endswith('_SUCCESS.csv')]
+            log_candidates = [f for f in os.listdir(self.script_dir) if f.upper().endswith('_FAILURE.CSV') or f.upper().endswith('_SUCCESS.CSV')]
             for log_file in log_candidates:
                 log_path = os.path.join(self.script_dir, log_file)
                 # Determine new log file name: use import file name (without extension) + STATUS
-                status = '_FAILURE.csv' if log_file.endswith('_FAILURE.csv') else '_SUCCESS.csv'
+                status = '_FAILURE.csv' if log_file.upper().endswith('_FAILURE.CSV') else '_SUCCESS.csv'
                 import_base = os.path.splitext(os.path.basename(import_path_full))[0] if import_path_full else 'import'
                 new_log_name = import_base + status
                 new_log_path = os.path.join(dest_folder, new_log_name)
                 shutil.move(log_path, new_log_path)
                 print(f"Moved and renamed log file to {new_log_path}")
-            return return_code == 0
+            return return_code == 0 and not error_detected
         except subprocess.TimeoutExpired:
             process.kill()
             print("Process timed out after 5 minutes")
