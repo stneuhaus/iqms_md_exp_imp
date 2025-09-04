@@ -494,16 +494,16 @@ def main():
         print("\nExport Configuration Report")
         print("-" * 80)
         header = ["active", "veeva_object", "status", "name"]
-        print("{:<8} {:<20} {:<30} {:<40}".format(*header))
-        print("-" * 100)
+        print("{:<8} {:<50} {:<40} {:<50}".format(*header))
+        print("-" * 148)
         for row in report_rows:
             active_display = row[0]
             if str(active_display) == "1":
-                active_display = "\U0001F7E2"  # yellow checkmark
+                active_display = "\U0001F7E2"  # green circle
             elif str(active_display) == "0":
                 active_display = "\u274C"  # red cross
-            print("{:<8} {:<20} {:<30} {:<40}".format(active_display, row[3], row[2], row[1]))
-        print("-" * 100)
+            print("{:<8} {:<50} {:<40} {:<50}".format(active_display, row[3], row[2], row[1]))
+        print("-" * 148)
         print("-" * 80)
 
         # Write CSV

@@ -456,31 +456,67 @@
             "status": "all attributes included"
         },
         {
-            "name": "",
-            "params": "-export  -csv ",
+            "name": "38_Document_Category_document_category__c",
+            "params": "-export document_category__c -csv 38_Document_Category_document_category__c.csv",
             "where": "",
-            "columns": ["id"],
+            "columns": ["id","name__v","status__v","description__c","document_subtype__c","is_valid__c"],
             "ignore_column": ["id"],
-            "active": 0,
-            "status": "not checked"
+            "active": 1,
+            "status": "all attributes included"
         },
         {
-            "name": "",
-            "params": "-export  -csv ",
+            "name": "44_Event_Code_event_code__c",
+            "params": "-export event_code__c -csv 44_Event_Code_event_code__c.csv",
             "where": "",
-            "columns": ["id"],
+            "columns": ["id","name__v","managed_in__c","is_valid__c","state__v"],
             "ignore_column": ["id"],
-            "active": 0,
-            "status": "not checked"
+            "active": 1,
+            "status": "all attributes included"
         },
         {
-            "name": "",
-            "params": "-export  -csv ",
+            "name": "39_Submissions_TRD_Code_Title_submissions_trd_code_title__c",
+            "params": "-export submissions_trd_code_title__c -csv 39_Submissions_TRD_Code_Title_submissions_trd_code_title__c.csv",
             "where": "",
-            "columns": ["id"],
+            "columns": ["id","name__v"],
             "ignore_column": ["id"],
-            "active": 0,
-            "status": "not checked"
+            "active": 1,
+            "status": "all attributes included"
+        },
+        {
+            "name": "40_Submissions_TRD_Code_Title_Amendment__c",
+            "params": "-export submissions_trd_code_title_amendment__c -csv 40_Submissions_TRD_Code_Title_Amendment__c.csv",
+            "where": "",
+            "columns": ["id","name__v","is_valid__c"],
+            "ignore_column": ["id"],
+            "active": 1,
+            "status": "all attributes included"
+        },
+        {
+            "name": "41_Submissions_TRD_Code_submissions_trd_code__c",
+            "params": "-export submissions_trd_code__c -csv 41_Submissions_TRD_Code_submissions_trd_code__c.csv",
+            "where": "",
+            "columns": ["id","name__v","change_application_required__c","is_valid__c","submissions_trd_code_title__c.name__v","country_specific_requirements1__c"],
+            "ignore_column": ["id"],
+            "active": 1,
+            "status": "all attributes included"
+        },
+        {
+            "name": "42_submissions_trd_code_title_amend_join__c",
+            "params": "-export submissions_trd_code_title_amend_join__c -csv 42_submissions_trd_code_title_amend_join__c.csv",
+            "where": "",
+            "columns": ["id","name__v","status__v","submissions_trd_code__c.name__v","submissions_trd_code_title_amendment__c.name__v"],
+            "ignore_column": ["id"],
+            "active": 1,
+            "status": "all attributes included"
+        },
+        {
+            "name": "43_document_category_sub_trd_code_join__c",
+            "params": "-export document_category_sub_trd_code_join__c -csv 43_document_category_sub_trd_code_join__c.csv",
+            "where": "",
+            "columns": ["id","name__v","document_category__c.name__v","submissions_trd_code__c.name__v"],
+            "ignore_column": ["id"],
+            "active": 1,
+            "status": "all attributes included"
         }
 
     
