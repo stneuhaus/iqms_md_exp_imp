@@ -290,17 +290,62 @@
             "where": "",
             "columns": ["id","name__v","object_type__vr.api_name__v","asset_family__v.name__v","description__v","location_building__c","room__c","managed_in__c","state__v","external_id__c"],
             "ignore_column": ["id"],
-            "active": 1,
-            "status": "all attributes included"
+            "active": 0,
+            "status": "Not working, count of objects exceeds max limit"
         },
         {
-            "name": "04_part__v.csv",
-            "params": "-export part__v -csv 04_part__v.csv",
-            "where": "",
+            "name": "04_part__v",
+            "params": "-export part__v -csv 04_part__v_01.csv",
+            "where": "name__v >='' and name__v <'501000011000000'",
             "columns": ["name__v","material_number__c.external_id__v","mfg_part_id__v","udi__c","managed_in__c","state__v"],
             "ignore_column": [],
             "active": 0,
-            "status": "setting does not work"
+            "status": "all attributes included"
+        },
+        {
+            "name": "04_part__v",
+            "params": "-export part__v -csv 04_part__v_02.csv",
+            "where": "name__v >='501000011000000' and name__v <'501000012000000'",
+            "columns": ["name__v","material_number__c.external_id__v","mfg_part_id__v","udi__c","managed_in__c","state__v"],
+            "ignore_column": [],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "04_part__v",
+            "params": "-export part__v -csv 04_part__v_03.csv",
+            "where": "name__v >='501000012000000' and name__v <'501000020500000'",
+            "columns": ["name__v","material_number__c.external_id__v","mfg_part_id__v","udi__c","managed_in__c","state__v"],
+            "ignore_column": [],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "04_part__v",
+            "params": "-export part__v -csv 04_part__v_04.csv",
+            "where": "name__v >='501000020500000' and name__v <'501000021400000'",
+            "columns": ["name__v","material_number__c.external_id__v","mfg_part_id__v","udi__c","managed_in__c","state__v"],
+            "ignore_column": [],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "04_part__v",
+            "params": "-export part__v -csv 04_part__v_05.csv",
+            "where": "name__v >='501000021400000' and name__v <'999999999999999'",
+            "columns": ["name__v","material_number__c.external_id__v","mfg_part_id__v","udi__c","managed_in__c","state__v"],
+            "ignore_column": [],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "04_part__v",
+            "params": "-export part__v -csv 04_part__v_06.csv",
+            "where": "name__v <='' or name__v >='999999999999999'",
+            "columns": ["name__v","material_number__c.external_id__v","mfg_part_id__v","udi__c","managed_in__c","state__v"],
+            "ignore_column": [],
+            "active": 0,
+            "status": "all attributes included"
         },
         {
             "name": "05_specification_id__c",
@@ -308,35 +353,26 @@
             "where": "",
             "columns": ["id","name__v","description__c","additional_information__c","is_valid__c","managed_in__c","state__v"],
             "ignore_column": ["id"],
-            "active": 0,
-            "status": "setting does not work"
+            "active": 1,
+            "status": "all attributes included"
         },
         {
             "name": "11_registration_name__c",
             "params": "-export registration_name__c -csv 11_registration_name__c.csv",
             "where": "",
-            "columns": ["name__v","used_for__c","is_valid__c","state__v"],
-            "ignore_column": [],
-            "active": 0,
-            "status": "setting does not work"
-        },
-        {
-            "name": "06_specification_id_registration_name_join__c",
-            "params": "-export specification_id_registration_name_join__c -csv 06_specification_id_registration_name_join__c.csv",
-            "where": "",
-            "columns": ["registration_name__c.name__v","specification_id__c.name__v"],
-            "ignore_column": [],
-            "active": 0,
-            "status": "setting does not work"
+            "columns": ["id","name__v","used_for__c","is_valid__c","state__v"],
+            "ignore_column": ["id"],
+            "active": 1,
+            "status": "all attributes included"
         },
         {
             "name": "12_specification_id_registration_name_join__c",
             "params": "-export specification_id_registration_name_join__c -csv 12_specification_id_registration_name_join__c.csv",
             "where": "",
-            "columns": ["registration_name__c.name__v","specification__c.name__v"],
-            "ignore_column": [],
-            "active": 0,
-            "status": "setting does not work"
+            "columns": ["id","registration_name__c.name__v","specification__c.name__v"],
+            "ignore_column": ["id"],
+            "active": 1,
+            "status": "all attributes included"
         }
     
 
