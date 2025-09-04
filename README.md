@@ -533,6 +533,36 @@ SKIPPED,registration_name__c,N/A,2025-08-01 14:30:26
 3. **Credentials**: Create `config/password.ini` with your password
 4. **JAR File**: Place `VaultDataLoader.jar` in the `bin/` directory  
 5. **Run**: Execute `python start_export_vault_loader.py` from the project directory
+     - You will see an option menu:
+         ```
+         Vault Loader Utility
+         1. Start Export
+         2. Export Configuration Report
+         0. Exit
+         Select an option:
+         ```
+     - **Option 1:** Runs the export process as before.
+     - **Option 2:** Generates a report of the current export configuration.
+         - The report is shown as a table in the console.
+         - A CSV file is also created in the `config` folder, with columns:
+             `active`, `name`, `status`, `veeva_object`, `columns`
+         - `veeva_object` is extracted from the `params` field (the value after `-export`).
+
+         Example table output:
+         ```
+         active    name                                    status                        veeva_object
+         -----------------------------------------------------------------------------------------------
+         1         05_specification_id__c                  all attributes included       specification_id__c
+         1         11_registration_name__c                 all attributes included       registration_name__c
+         ...
+         ```
+
+         Example CSV output:
+         ```
+         active,name,status,veeva_object,columns
+         1,05_specification_id__c,all attributes included,specification_id__c,id,name__v,description__c,...
+         ...
+         ```
 6. **Monitor**: Check `logs/` for results and `exports/` for CSV files
 
 **Location Flexibility**: The application automatically adapts to its location - no path configuration needed!

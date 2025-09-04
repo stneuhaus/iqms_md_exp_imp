@@ -459,12 +459,82 @@ class VaultLoaderRunner:
         print(f"🕒 Run completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 def main():
-    """Main function"""
-    # Create VaultLoader runner
-    runner = VaultLoaderRunner()
-    
-    # Run all configured exports
-    runner.run_all_exports()
+    import csv
+    import os
+    import json
+    from datetime import datetime
+
+    def extract_veeva_object(params):
+        """Extracts the object name after -export from params string."""
+        if not params:
+            return ""
+        parts = params.split()
+        if "-export" in parts:
+            idx = parts.index("-export")
+            if idx + 1 < len(parts):
+                return parts[idx + 1]
+        return ""
+
+    def generate_report(config_path):
+        """Generates and displays a report of the exports section."""
+        with open(config_path, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+        exports = config.get("exports", [])
+        report_rows = []
+        for export in exports:
+            active = export.get("active", "")
+            name = export.get("name", "")
+            status = export.get("status", "")
+            params = export.get("params", "")
+            veeva_object = extract_veeva_object(params)
+            columns = ",".join(export.get("columns", []))
+            report_rows.append([active, name, status, veeva_object, columns])
+
+        # Print table to stdout
+        print("\nExport Configuration Report")
+        print("-" * 80)
+        header = ["active", "veeva_object", "status", "name"]
+        print("{:<8} {:<20} {:<30} {:<40}".format(*header))
+        print("-" * 100)
+        for row in report_rows:
+            active_display = row[0]
+            if str(active_display) == "1":
+                active_display = "\U0001F7E2"  # yellow checkmark
+            elif str(active_display) == "0":
+                active_display = "\u274C"  # red cross
+            print("{:<8} {:<20} {:<30} {:<40}".format(active_display, row[3], row[2], row[1]))
+        print("-" * 100)
+        print("-" * 80)
+
+        # Write CSV
+        csv_filename = f"export_config_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+        csv_path = os.path.join(os.path.dirname(config_path), csv_filename)
+        with open(csv_path, "w", newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["active", "name", "status", "veeva_object", "columns"])
+            writer.writerows(report_rows)
+        print(f"CSV report written to: {csv_path}\n")
+
+    def main_menu():
+        config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config", "vault_loader_config.json")
+        while True:
+            print("\nVault Loader Utility")
+            print("1. Start Export")
+            print("2. Export Configuration Report")
+            print("0. Exit")
+            choice = input("Select an option: ").strip()
+            if choice == "1":
+                runner = VaultLoaderRunner()
+                runner.run_all_exports()
+            elif choice == "2":
+                generate_report(config_path)
+            elif choice == "0":
+                print("Exiting.")
+                break
+            else:
+                print("Invalid option. Please try again.")
+
+    main_menu()
 
 if __name__ == "__main__":
     main()
