@@ -178,6 +178,15 @@
             "status": "all attributes included"
         },
         {
+            "name": "35_qms_unit_keywords_join__c", 
+            "params": "-export keqms_unit_keywords_join__cyword__c -csv 35_qms_unit_keywords_join__c.csv",
+            "where": "",
+            "columns": ["id"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "Special processing is needed. Follow up on this!!"
+        },
+        {
             "name": "19_process_group__c", 
             "params": "-export process_group__c -csv 19_process_group__c.csv",
             "where":"",
@@ -353,7 +362,7 @@
             "where": "",
             "columns": ["id","name__v","description__c","additional_information__c","is_valid__c","managed_in__c","state__v"],
             "ignore_column": ["id"],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -362,7 +371,7 @@
             "where": "",
             "columns": ["id","name__v","used_for__c","is_valid__c","state__v"],
             "ignore_column": ["id"],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -371,9 +380,109 @@
             "where": "",
             "columns": ["id","registration_name__c.name__v","specification__c.name__v"],
             "ignore_column": ["id"],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "23_01_complaint_error_codes_level_1_iqms_controlled_value__c",
+            "params": "-export iqms_controlled_value__c -csv 23_complaint_error_codes_level_1_iqms_controlled_value__c.csv",
+            "where": "object_type__vr.api_name__v='complaint_error_code_value__c'",
+            "columns": ["id","name__v","external_id__c","error_code_value_type__c","object_type__vr.api_name__v","state__v"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "23_02_complaint_error_codes_level_2_iqms_controlled_value__c",
+            "params": "-export iqms_controlled_value__c -csv 23_complaint_error_codes_level_2_iqms_controlled_value__c.csv",
+            "where": "object_type__vr.api_name__v='complaint_error_code_value__c'",
+            "columns": ["id","object_code__cr.external_id__c","name__v","external_id__c","error_code_value_type__c","object_type__vr.api_name__v","state__v"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "23_03_complaint_error_codes_level_3_iqms_controlled_value__c",
+            "params": "-export iqms_controlled_value__c -csv 23_complaint_error_codes_level_3_iqms_controlled_value__c.csv",
+            "where": "object_type__vr.api_name__v='complaint_error_code_value__c'",
+            "columns": ["id","object_code__cr.external_id__c","name__v","error_code__cr.external_id__c","error_code_value_type__c","object_type__vr.api_name__v","state__v"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "37_manufacturing_site__c",
+            "params": "-export manufacturing_site__c -csv 37_manufacturing_site__c.csv",
+            "where": "",
+            "columns": ["id","name__v","manufacturing_site_name__c","state__v"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "13_product_hierarchy_data_iqms_product_hierarchy__c",
+            "params": "-export iqms_product_hierarchy__c -csv 13_product_hierarchy_data_iqms_product_hierarchy__c.csv",
+            "where": "",
+            "columns": ["id","name__v","code__c","text_product_hierarchy_level_1__c","state__v"],
+            "ignore_column": ["id"],
             "active": 1,
             "status": "all attributes included"
+        },
+        {
+            "name": "21_QMS_Chapter_qms_chapter__c.csv",
+            "params": "-export qms_chapter__c  -csv 21_QMS_Chapter_qms_chapter__c.csv",
+            "where": "",
+            "columns": ["id","name__v","qms_chapter_number__c","state__v"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c",
+            "params": "-export iqms_imdrf_value__c -csv 25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c.csv",
+            "where": "",
+            "columns": ["id","name__v","annex_type__c","level_1_term__c","level_2_term__c","level_3_term__c","definition__c","nonimdrf_codeterm__c","imdrf_status__c","status_description__c","code_hierarchy__c","state__v"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "18_change_application_number__c",
+            "params": "-export change_application_number__c -csv 18_change_application_number__c.csv",
+            "where": "",
+            "columns": ["id","name__v","state__v"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "",
+            "params": "-export  -csv ",
+            "where": "",
+            "columns": ["id"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "not checked"
+        },
+        {
+            "name": "",
+            "params": "-export  -csv ",
+            "where": "",
+            "columns": ["id"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "not checked"
+        },
+        {
+            "name": "",
+            "params": "-export  -csv ",
+            "where": "",
+            "columns": ["id"],
+            "ignore_column": ["id"],
+            "active": 0,
+            "status": "not checked"
         }
+
     
 
     ],
