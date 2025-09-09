@@ -521,6 +521,8 @@ def main():
             print("\nVault Loader Utility")
             print("1. Start Export")
             print("2. Export Configuration Report")
+            print("3. Activate all object exports")
+            print("4. Deactivate all object exports")
             print("0. Exit")
             choice = input("Select an option: ").strip()
             if choice == "1":
@@ -528,6 +530,34 @@ def main():
                 runner.run_all_exports()
             elif choice == "2":
                 generate_report(config_path)
+            elif choice == "3":
+                # Activate all exports
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                exports = config.get('exports', [])
+                for export in exports:
+                    export['active'] = 1
+                # Backup
+                backup_path = config_path + ".bak"
+                import shutil
+                shutil.copy2(config_path, backup_path)
+                with open(config_path, 'w', encoding='utf-8') as f:
+                    json.dump(config, f, indent=4)
+                print(f"All exports activated. Backup saved as {backup_path}")
+            elif choice == "4":
+                # Deactivate all exports
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                exports = config.get('exports', [])
+                for export in exports:
+                    export['active'] = 0
+                # Backup
+                backup_path = config_path + ".bak"
+                import shutil
+                shutil.copy2(config_path, backup_path)
+                with open(config_path, 'w', encoding='utf-8') as f:
+                    json.dump(config, f, indent=4)
+                print(f"All exports deactivated. Backup saved as {backup_path}")
             elif choice == "0":
                 print("Exiting.")
                 break
