@@ -309,7 +309,6 @@ class VaultImportRunner:
         
         for i, import_config in enumerate(imports, 1):
             print(f"\n[{i}/{len(imports)}] Processing import: {import_config['name']}")
-            
             # Check if import is active
             active = import_config.get('active', 1)
             if active == 0:
@@ -317,13 +316,33 @@ class VaultImportRunner:
                 self.log_skipped(import_config)
                 skipped_count += 1
                 continue
-            
             success = self.run_java_command(import_config)
             if success:
                 success_count += 1
             else:
+                # Check for failure file in imports/<dns> folder
+                import_settings = self.config.get('import_settings', {})
+                dns = import_settings.get('dns', '').replace('https://', '').replace('/', '_')
+                dest_folder = os.path.join(self.script_dir, 'imports', dns)
+                failure_files = []
+                if os.path.isdir(dest_folder):
+                    for f in os.listdir(dest_folder):
+                        if f.endswith('_FAILURE.csv'):
+                            failure_files.append(f)
+                if failure_files:
+                    print("Failure file(s) detected:")
+                    for f in failure_files:
+                        print("-", f)
+                    while True:
+                        proceed = input("Proceed with next import? (y/n): ").strip().lower()
+                        if proceed == 'y':
+                            break
+                        elif proceed == 'n':
+                            print("Aborted by user.")
+                            return
+                        else:
+                            print("Please enter 'y' for yes or 'n' for no.")
                 failure_count += 1
-            
             print("-" * 40)
         
         # Print summary
