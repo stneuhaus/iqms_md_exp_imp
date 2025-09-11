@@ -7,3 +7,4 @@ exports/*
 bin/*
 vl-config.xml
 config/password_import.ini
+vl-config.xml

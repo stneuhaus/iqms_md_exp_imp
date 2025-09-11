@@ -148,7 +148,10 @@ class VaultImportRunner:
                 cwd=self.script_dir
             )
             # Get output
-            stdout, stderr = process.communicate(timeout=300)  # 5 minute timeout
+            # Get timeout from import_settings (default 1800 seconds)
+            import_settings = self.config.get('import_settings', {})
+            timeout_val = import_settings.get('time_out', 1800)
+            stdout, stderr = process.communicate(timeout=timeout_val)
             print("Output:")
             print(stdout)
             if stderr:
@@ -320,15 +323,18 @@ class VaultImportRunner:
             if success:
                 success_count += 1
             else:
-                # Check for failure file in imports/<dns> folder
+                # Check for failure and success files in imports/<dns> folder
                 import_settings = self.config.get('import_settings', {})
                 dns = import_settings.get('dns', '').replace('https://', '').replace('/', '_')
                 dest_folder = os.path.join(self.script_dir, 'imports', dns)
                 failure_files = []
+                success_files = []
                 if os.path.isdir(dest_folder):
                     for f in os.listdir(dest_folder):
                         if f.endswith('_FAILURE.csv'):
                             failure_files.append(f)
+                        elif f.endswith('_SUCCESS.csv'):
+                            success_files.append(f)
                 if failure_files:
                     print("Failure file(s) detected:")
                     for f in failure_files:
@@ -342,7 +348,15 @@ class VaultImportRunner:
                             return
                         else:
                             print("Please enter 'y' for yes or 'n' for no.")
-                failure_count += 1
+                    failure_count += 1
+                elif success_files:
+                    print("Success file(s) detected (no failure file): Import counted as successful.")
+                    for f in success_files:
+                        print("-", f)
+                    success_count += 1
+                else:
+                    print("No failure or success file detected: Import counted as failed.")
+                    failure_count += 1
             print("-" * 40)
         
         # Print summary
