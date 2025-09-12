@@ -79,19 +79,19 @@ class VaultLoaderRunner:
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             writer.writerow(['SKIPPED', object_name, 'N/A', timestamp])
     
-    def run_java_command(self, export_config):
-        """Execute the Java VaultLoader with given parameters"""
-        
+    def run_java_command(self, export_config, export_settings=None):
+        """Execute the Java VaultLoader with given parameters and export_settings"""
         # Check if export is active
         active = export_config.get('active', 1)  # Default to 1 (active) if not specified
         if active == 0:
             print(f"⏭️ Skipping '{export_config['name']}' (inactive)")
             self.log_skipped(export_config)
             return True  # Return True to indicate successful skip
-        
+
         # Get general configuration
         general = self.config['general']
-        export_settings = self.config.get('export_settings', {})
+        if export_settings is None:
+            export_settings = self.config.get('export_settings', {})
         java_exe = general['java_exe']
         vault_loader_path = general['vault_loader']
         # Make vault_loader path absolute if it's relative
@@ -103,40 +103,40 @@ class VaultLoaderRunner:
         username = export_settings.get('username', '')
         password_param = export_settings.get('password', '')
         password = self.load_password(password_param)
-        downloadpath = general.get('downloadpath', '')
-        
-        # Make downloadpath absolute if it's relative
-        if downloadpath and not os.path.isabs(downloadpath):
-            downloadpath = os.path.join(self.script_dir, downloadpath)
-        
+
+        # Build export destination folder: exports/<dns-folder>
+        dns_folder = dns.replace('https://', '').replace('/', '_')
+        downloadpath = os.path.join(self.script_dir, 'exports', dns_folder)
+        os.makedirs(downloadpath, exist_ok=True)
+
         # Build Java command with dns, username and password parameters
         java_command = [java_exe, '-jar', vault_loader]
-        
+
         # Add DNS parameter if present
         if dns:
             java_command.extend(['-dns', dns])
-        
+
         # Add username and password
         java_command.extend(['-u', username, '-p', password])
-        
+
         # Add export parameters
         params = export_config['params'].split()
         java_command.extend(params)
-        
+
         # Add where parameter if present
         where_clause = export_config.get('where', '')
         if where_clause:
             java_command.extend(['-where', where_clause])
-        
+
         # Add downloadpath parameter if present
         if downloadpath:
             java_command.extend(['-downloadpath', downloadpath])
-        
+
         # Add optional columns parameter if present
         columns = export_config.get('columns', [])
         if columns:
             java_command.extend(['-columns', ','.join(columns)])
-        
+
         print(f"🚀 Starting Java process for: {export_config['name']}")
         # Build display command (hide password)
         display_params = params.copy()
@@ -146,7 +146,7 @@ class VaultLoaderRunner:
             display_params.extend(['-downloadpath', downloadpath])
         if columns:
             display_params.extend(['-columns', ','.join(columns)])
-        
+
         dns_display = f"-dns {dns} " if dns else ""
         command_display = f"{java_exe} -jar {vault_loader} {dns_display}-u {username} -p [HIDDEN] {' '.join(display_params)}"
         print(f"Command: {command_display}")
@@ -388,23 +388,47 @@ class VaultLoaderRunner:
             print(f"Error logging failure: {e}")
     
     def run_all_exports(self):
-        """Execute all configured exports"""
+        """Execute all configured exports, prompting for export_settings if multiple exist"""
         exports = self.config.get('exports', [])
+        export_settings_list = self.config.get('export_settings', [])
+        if isinstance(export_settings_list, dict):
+            export_settings_list = [export_settings_list]
         if not exports:
             print("No exports configured!")
             return
-        
+        if not export_settings_list:
+            print("No export_settings configured!")
+            return
+
+        # Prompt user to select export_settings if more than one
+        if len(export_settings_list) > 1:
+            print("Available export settings:")
+            for idx, es in enumerate(export_settings_list, 1):
+                print(f"{idx}. DNS: {es.get('dns', '')}, Username: {es.get('username', '')}, Password: {es.get('password', '')}")
+            while True:
+                try:
+                    selection = int(input(f"Select export settings [1-{len(export_settings_list)}]: "))
+                    if 1 <= selection <= len(export_settings_list):
+                        export_settings = export_settings_list[selection-1]
+                        break
+                    else:
+                        print("Invalid selection. Try again.")
+                except Exception:
+                    print("Invalid input. Enter a number.")
+        else:
+            export_settings = export_settings_list[0]
+
         print(f"🏁 Starting VaultLoader batch process with {len(exports)} exports")
         print(f"📅 Run timestamp: {self.run_timestamp}")
         print("-" * 80)
-        
+
         success_count = 0
         failure_count = 0
         skipped_count = 0
-        
+
         for i, export_config in enumerate(exports, 1):
             print(f"\n[{i}/{len(exports)}] Processing export: {export_config['name']}")
-            
+
             # Check if export is active
             active = export_config.get('active', 1)
             if active == 0:
@@ -412,15 +436,15 @@ class VaultLoaderRunner:
                 self.log_skipped(export_config)
                 skipped_count += 1
                 continue
-            
-            success = self.run_java_command(export_config)
+
+            success = self.run_java_command(export_config, export_settings)
             if success:
                 success_count += 1
             else:
                 failure_count += 1
-            
+
             print("-" * 40)
-        
+
         # Print summary
         print(f"\n📊 Batch Export Summary:")
         print(f"✅ Successful exports: {success_count}")

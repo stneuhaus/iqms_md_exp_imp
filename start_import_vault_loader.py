@@ -201,7 +201,10 @@ class VaultImportRunner:
                 new_log_name = import_base + status
                 new_log_path = os.path.join(dest_folder, new_log_name)
                 shutil.move(log_path, new_log_path)
-                print(f"Moved and renamed log file to {new_log_path}")
+                # Print file path in blue
+                BLUE = '\033[94m'
+                RESET = '\033[0m'
+                print(f"Moved and renamed log file to: {BLUE}{new_log_path}{RESET}")
             return return_code == 0 and not error_detected
         except subprocess.TimeoutExpired:
             process.kill()
@@ -309,7 +312,9 @@ class VaultImportRunner:
         success_count = 0
         failure_count = 0
         skipped_count = 0
-        
+        success_files_list = []
+        failure_files_list = []
+
         for i, import_config in enumerate(imports, 1):
             print(f"\n[{i}/{len(imports)}] Processing import: {import_config['name']}")
             # Check if import is active
@@ -320,49 +325,72 @@ class VaultImportRunner:
                 skipped_count += 1
                 continue
             success = self.run_java_command(import_config)
-            if success:
+            # Determine loader file (imported CSV) for this import
+            loader_file = import_config.get('import_path') or import_config.get('file') or import_config.get('import_file') or import_config.get('name')
+            # If run_java_command returns False, check for log files to determine real status
+            import_settings = self.config.get('import_settings', {})
+            dns = import_settings.get('dns', '').replace('https://', '').replace('/', '_')
+            dest_folder = os.path.join(self.script_dir, 'imports', dns)
+            failure_files = []
+            success_files = []
+            if os.path.isdir(dest_folder):
+                for f in os.listdir(dest_folder):
+                    if f.endswith('_FAILURE.csv'):
+                        failure_files.append(f)
+                    elif f.endswith('_SUCCESS.csv'):
+                        success_files.append(f)
+            # Try to match the log file to the loader file for this import
+            matched_success = None
+            matched_failure = None
+            if loader_file:
+                loader_base = os.path.splitext(os.path.basename(loader_file))[0]
+                for f in success_files:
+                    if loader_base in f:
+                        matched_success = os.path.join(dest_folder, f)
+                        break
+                for f in failure_files:
+                    if loader_base in f:
+                        matched_failure = os.path.join(dest_folder, f)
+                        break
+            # Decide result for this import
+            if matched_failure:
+                print("Failure file detected:")
+                print("-", matched_failure)
+                failure_files_list.append(matched_failure)
+                while True:
+                    proceed = input("Proceed with next import? (y/n): ").strip().lower()
+                    if proceed == 'y':
+                        break
+                    elif proceed == 'n':
+                        print("Aborted by user.")
+                        return
+                    else:
+                        print("Please enter 'y' for yes or 'n' for no.")
+                failure_count += 1
+            elif matched_success:
+                print("Success file detected (no failure file): Import counted as successful.")
+                print("-", matched_success)
+                success_files_list.append(matched_success)
                 success_count += 1
             else:
-                # Check for failure and success files in imports/<dns> folder
-                import_settings = self.config.get('import_settings', {})
-                dns = import_settings.get('dns', '').replace('https://', '').replace('/', '_')
-                dest_folder = os.path.join(self.script_dir, 'imports', dns)
-                failure_files = []
-                success_files = []
-                if os.path.isdir(dest_folder):
-                    for f in os.listdir(dest_folder):
-                        if f.endswith('_FAILURE.csv'):
-                            failure_files.append(f)
-                        elif f.endswith('_SUCCESS.csv'):
-                            success_files.append(f)
-                if failure_files:
-                    print("Failure file(s) detected:")
-                    for f in failure_files:
-                        print("-", f)
-                    while True:
-                        proceed = input("Proceed with next import? (y/n): ").strip().lower()
-                        if proceed == 'y':
-                            break
-                        elif proceed == 'n':
-                            print("Aborted by user.")
-                            return
-                        else:
-                            print("Please enter 'y' for yes or 'n' for no.")
-                    failure_count += 1
-                elif success_files:
-                    print("Success file(s) detected (no failure file): Import counted as successful.")
-                    for f in success_files:
-                        print("-", f)
-                    success_count += 1
-                else:
-                    print("No failure or success file detected: Import counted as failed.")
-                    failure_count += 1
+                print("No failure or success file detected: Import counted as failed.")
+                if loader_file:
+                    failure_files_list.append(loader_file)
+                failure_count += 1
             print("-" * 40)
-        
+
         # Print summary
         print(f"\n📊 Batch Import Summary:")
         print(f"✅ Successful imports: {success_count}")
+        if success_files_list:
+            print("   Loader files counted as successful:")
+            for f in success_files_list:
+                print(f"   - {f}")
         print(f"❌ Failed imports: {failure_count}")
+        if failure_files_list:
+            print("   Loader files counted as failed:")
+            for f in failure_files_list:
+                print(f"   - {f}")
         print(f"⏭️ Skipped imports: {skipped_count}")
         print(f"📁 Log files created in logs/success/ and logs/failure/")
         print(f"🕒 Run completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
