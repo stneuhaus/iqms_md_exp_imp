@@ -1,18 +1,30 @@
 {
     "general": {
         "java_exe": "c:\\jdk\\jdk-17.0.16.8-hotspot\\bin\\java.exe",
-        "vault_loader": "bin\\VaultDataLoader.jar",
-        "downloadpath": "exports\\bayer-iqms"
+        "vault_loader": "bin\\VaultDataLoader.jar"
     },
-    "export_settings": {
-        "dns": "https://bayer-iqms.veevavault.com",
-        "username": "stefan.neuhaus@bayer.com",
-        "password": "password.ini"
-    },
+    "export_settings": [
+        {
+            "dns": "https://bayer-iqms.veevavault.com",
+            "username": "stefan.neuhaus@bayer.com",
+            "password": "password.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-training1.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-development-phase-2-and-3.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        }
+    ],
     "import_settings": {
-        "dns": "https://bayersbx-iqms-training1.veevavault.com",
+        "dns": "https://bayersbx-iqms-master-data-test.veevavault.com",
         "username": "stefan.neuhaus@bayersbx.com",
-        "password": "password_import.ini"
+        "password": "password_import.ini",
+        "time_out": 1800
     },
     "exports": [
         {
@@ -31,7 +43,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -64,7 +76,7 @@
         },
         {
             "name": "08_02_Special_Function_Org_QMS_ORGANIZATION__QDM",
-            "params": "-export qms_organization__qdm -csv 08_02_Funnktion-Special_Organizations_QMS_ORGANIZATION__QDM.csv",
+            "params": "-export qms_organization__qdm -csv 08_02_Function-Special_Organization_QMS_ORGANIZATION__QDM.csv",
             "where": "object_type__vr.name__v='Function / Special Organization'",
             "columns": [
                 "id",
@@ -120,7 +132,8 @@
                 "warehouse_code__c"
             ],
             "ignore_column": [
-                "id"
+                "id",
+                "country__v.name__v"
             ],
             "active": 0,
             "status": "all attributes included"
@@ -155,7 +168,7 @@
             "status": "all attributes included"
         },
         {
-            "name": "08_05_External Site_Organization_QMS_ORGANIZATION__QDM",
+            "name": "08_05_External_Site_Organization_QMS_ORGANIZATION__QDM",
             "params": "-export qms_organization__qdm -csv 08_05_External_Site_Organization_QMS_ORGANIZATION__QDM.csv",
             "where": "object_type__vr.name__v='External Site'",
             "columns": [
@@ -169,7 +182,7 @@
                 "main_internal_contact__c.name__v",
                 "name__v",
                 "object_type__v.name__v",
-                "parent_organization__v",
+                "parent_organization__v.name__v",
                 "postal_code__v",
                 "qd_supplier_record__c",
                 "risk_classification__qdm",
@@ -534,7 +547,7 @@
         {
             "name": "30_Reporting_KPIs_Level_1__iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 30_Reporting_KPIs_Level_1__iqms_controlled_value__c.csv",
-            "where": "object_type__vr.api_name__v='deviation_kpi_for_pqr_qmr__c'",
+            "where": "object_type__vr.api_name__v='deviation_kpi_for_pqr_qmr__c' and error_code_value_type__c='level_1__c'",
             "columns": [
                 "id",
                 "name__v",
@@ -551,8 +564,8 @@
         },
         {
             "name": "30_Reporting_KPIs_Level_2__iqms_controlled_value__c",
-            "params": "-export iqms_controlled_value__c -csv 30_Reporting_KPIs_Level_1__iqms_controlled_value__c.csv",
-            "where": "object_type__vr.api_name__v='deviation_kpi_for_pqr_qmr__c'",
+            "params": "-export iqms_controlled_value__c -csv 30_Reporting_KPIs_Level_2__iqms_controlled_value__c.csv",
+            "where": "object_type__vr.api_name__v='deviation_kpi_for_pqr_qmr__c' and error_code_value_type__c='level_2__c'",
             "columns": [
                 "id",
                 "name__v",
@@ -602,9 +615,9 @@
             "status": "all attributes included"
         },
         {
-            "name": "02a_quality_batch__v",
-            "params": "-export quality_batch__v -csv 02a_quality_batch__v.csv",
-            "where": "",
+            "name": "02a_quality_batch__v_01",
+            "params": "-export quality_batch__v -csv 02a_quality_batch__v_01.csv",
+            "where": "  external_batch_id__v <= '000000000000000004-0000208041'",
             "columns": [
                 "id",
                 "order_number__c,material__v.external_id__v",
@@ -624,7 +637,157 @@
                 "id"
             ],
             "active": 0,
-            "status": "Not working, count of objects exceeds max limit"
+            "status": "all attributes included"
+        },
+        {
+            "name": "02a_quality_batch__v_02",
+            "params": "-export quality_batch__v -csv 02a_quality_batch__v_02.csv",
+            "where": "external_batch_id__v > '000000000000000004-0000208041' and external_batch_id__v <= '000000000003264348-52530007'",
+            "columns": [
+                "id",
+                "order_number__c,material__v.external_id__v",
+                "name__v,production_supervisormanufacturing_con__c",
+                "manufacture_date__v",
+                "expiration_date__v",
+                "manufacturing_site_code__cr.name__v",
+                "unique_device_identifier__c",
+                "external_batch_id__v",
+                "qc_code__c",
+                "information_for_production__c",
+                "batch_disposition__c",
+                "managed_in__c",
+                "state__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "02a_quality_batch__v_03",
+            "params": "-export quality_batch__v -csv 02a_quality_batch__v_03.csv",
+            "where": "external_batch_id__v > '000000000003264348-52530007' and external_batch_id__v <= '000000000055406500-BXR9U7W'",
+            "columns": [
+                "id",
+                "order_number__c,material__v.external_id__v",
+                "name__v,production_supervisormanufacturing_con__c",
+                "manufacture_date__v",
+                "expiration_date__v",
+                "manufacturing_site_code__cr.name__v",
+                "unique_device_identifier__c",
+                "external_batch_id__v",
+                "qc_code__c",
+                "information_for_production__c",
+                "batch_disposition__c",
+                "managed_in__c",
+                "state__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "02a_quality_batch__v_04",
+            "params": "-export quality_batch__v -csv 02a_quality_batch__v_04.csv",
+            "where": "external_batch_id__v > '000000000055406500-BXR9U7W' and external_batch_id__v <= '000000000080834579-ITA5IEC'",
+            "columns": [
+                "id",
+                "order_number__c,material__v.external_id__v",
+                "name__v,production_supervisormanufacturing_con__c",
+                "manufacture_date__v",
+                "expiration_date__v",
+                "manufacturing_site_code__cr.name__v",
+                "unique_device_identifier__c",
+                "external_batch_id__v",
+                "qc_code__c",
+                "information_for_production__c",
+                "batch_disposition__c",
+                "managed_in__c",
+                "state__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "02a_quality_batch__v_05",
+            "params": "-export quality_batch__v -csv 02a_quality_batch__v_05.csv",
+            "where": "external_batch_id__v > '000000000080834579-ITA5IEC' and external_batch_id__v <= '000000000083929723-NAN27W4'",
+            "columns": [
+                "id",
+                "order_number__c,material__v.external_id__v",
+                "name__v,production_supervisormanufacturing_con__c",
+                "manufacture_date__v",
+                "expiration_date__v",
+                "manufacturing_site_code__cr.name__v",
+                "unique_device_identifier__c",
+                "external_batch_id__v",
+                "qc_code__c",
+                "information_for_production__c",
+                "batch_disposition__c",
+                "managed_in__c",
+                "state__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "02a_quality_batch__v_06",
+            "params": "-export quality_batch__v -csv 02a_quality_batch__v_06.csv",
+            "where": "external_batch_id__v > '000000000083929723-NAN27W4' and external_batch_id__v <= '000000000086698641-8653669'",
+            "columns": [
+                "id",
+                "order_number__c,material__v.external_id__v",
+                "name__v,production_supervisormanufacturing_con__c",
+                "manufacture_date__v",
+                "expiration_date__v",
+                "manufacturing_site_code__cr.name__v",
+                "unique_device_identifier__c",
+                "external_batch_id__v",
+                "qc_code__c",
+                "information_for_production__c",
+                "batch_disposition__c",
+                "managed_in__c",
+                "state__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "02a_quality_batch__v_07",
+            "params": "-export quality_batch__v -csv 02a_quality_batch__v_07.csv",
+            "where": "external_batch_id__v > '000000000086698641-8653669'",
+            "columns": [
+                "id",
+                "order_number__c,material__v.external_id__v",
+                "name__v,production_supervisormanufacturing_con__c",
+                "manufacture_date__v",
+                "expiration_date__v",
+                "manufacturing_site_code__cr.name__v",
+                "unique_device_identifier__c",
+                "external_batch_id__v",
+                "qc_code__c",
+                "information_for_production__c",
+                "batch_disposition__c",
+                "managed_in__c",
+                "state__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 0,
+            "status": "all attributes included"
         },
         {
             "name": "02b_bulk_batch__c",
@@ -817,7 +980,7 @@
         {
             "name": "23_01_complaint_error_codes_level_1_iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 23_complaint_error_codes_level_1_iqms_controlled_value__c.csv",
-            "where": "object_type__vr.api_name__v='complaint_error_code_value__c'",
+            "where": "object_type__vr.api_name__v='complaint_error_code_value__c' and error_code_value_type__c='object_code__c'",
             "columns": [
                 "id",
                 "name__v",
@@ -835,7 +998,7 @@
         {
             "name": "23_02_complaint_error_codes_level_2_iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 23_complaint_error_codes_level_2_iqms_controlled_value__c.csv",
-            "where": "object_type__vr.api_name__v='complaint_error_code_value__c'",
+            "where": "object_type__vr.api_name__v='complaint_error_code_value__c' and error_code_value_type__c='error_code__c'",
             "columns": [
                 "id",
                 "object_code__cr.external_id__c",
@@ -854,7 +1017,7 @@
         {
             "name": "23_03_complaint_error_codes_level_3_iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 23_complaint_error_codes_level_3_iqms_controlled_value__c.csv",
-            "where": "object_type__vr.api_name__v='complaint_error_code_value__c'",
+            "where": "object_type__vr.api_name__v='complaint_error_code_value__c' and error_code_value_type__c='error_subcode__c'",
             "columns": [
                 "id",
                 "object_code__cr.external_id__c",
@@ -971,7 +1134,8 @@
                 "is_valid__c"
             ],
             "ignore_column": [
-                "id"
+                "id",
+                "status__v"
             ],
             "active": 0,
             "status": "all attributes included"
@@ -1093,14 +1257,322 @@
             "params": "-create country__v -csv [import_path]",
             "import_path": "exports/bayer-iqms/07_country__v.csv",
             "active": 0,
-            "status": "setting does not work"
+            "status": "works"
         },
         {
             "name": "08_01_Country_Organizations_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayer-iqms/08_01_Country_Organizations_QMS_ORGANIZATION__QDM.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "08_02_Function-Special_Organization_QMS_ORGANIZATION__QDM",
+            "params": "-create qms_organization__qdm -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/08_02_Function-Special_Organization_QMS_ORGANIZATION__QDM.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "08_03_Internal_Site_Organization_QMS_ORGANIZATION__QDM",
+            "params": "-create qms_organization__qdm -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/08_03_Internal_Site_Organization_QMS_ORGANIZATION__QDM.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "08_04_Authority_Organization_QMS_ORGANIZATION__QDM",
+            "params": "-create qms_organization__qdm -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/08_04_Authority_Organization_QMS_ORGANIZATION__QDM.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "08_05_External_Site_Organization_QMS_ORGANIZATION__QDM",
+            "params": "-create qms_organization__qdm -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/08_05_External_Site_Organization_QMS_ORGANIZATION__QDM.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "08_06_Person_person__sys",
+            "params": "-create person__sys -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/08_06_Person_person__sys.csv",
+            "active": 0,
+            "status": "works, pay attention not to import twice or more!!!"
+        },
+        {
+            "name": "09_01_Department_department__v",
+            "params": "-create department__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/09_01_Department_department__v.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "24_error_classification_level_1_iqms_controlled_value__c",
+            "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/24_error_classification_level_1_iqms_controlled_value__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "24_error_classification_level_2_iqms_controlled_value__c",
+            "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/24_error_classification_level_2_iqms_controlled_value__c.csv",
+            "active": 0,
+            "status": "work"
+        },
+        {
+            "name": "24_error_classification_level_3_iqms_controlled_value__c",
+            "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/24_error_classification_level_3_iqms_controlled_value__c.csv",
+            "active": 0,
+            "status": "to be checked"
+        },
+        {
+            "name": "26_root_cause_level_1_category__v",
+            "params": "-create category__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/26_root_cause_level_1_category__v.csv",
+            "active": 0,
+            "status": "to be checked"
+        },
+        {
+            "name": "26_root_cause_level_2_subcategory__v",
+            "params": "-create subcategory__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/26_root_cause_level_2_subcategory__v.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "26_root_cause_level_3_root_cause_local_category__c",
+            "params": "-create root_cause_local_category__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/26_root_cause_level_3_root_cause_local_category__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "27_capa_subcategory_iqms_controlled_value__c",
+            "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/27_capa_subcategory_iqms_controlled_value__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "10_qms_unit__c",
+            "params": "-create qms_unit__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/10_qms_unit__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "20_process_ownermanager__c",
+            "params": "-create process_ownermanager__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/20_process_ownermanager__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "22_keyword__c",
+            "params": "-create keyword__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/22_keyword__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "19_process_group__c",
+            "params": "-create process_group__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/19_process_group__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "32_qms_unit_process_group__c",
+            "params": "-create qms_unit_process_group__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/32_qms_unit_process_group__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "34_qms_unit_process_owner_join__c",
+            "params": "-create qms_unit_process_owner_join__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/34_qms_unit_process_owner_join__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "35_qms_unit_keywords_join__c",
+            "params": "-create qms_unit_keywords_join__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/35_qms_unit_keywords_join__c.csv",
+            "active": 0,
+            "status": "to be checked"
+        },
+        {
+            "name": "15_trd_code_title__c",
+            "params": "-create trd_code_title__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/15_trd_code_title__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "14_trd_codes__c",
+            "params": "-create trd_codes__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/14_trd_codes__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "16_trd_code_title_amendment__c",
+            "params": "-create trd_code_title_amendment__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/16_trd_code_title_amendment__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "31_trd_code_title_amendment_join__c",
+            "params": "-create trd_code_title_amendment_join__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/31_trd_code_title_amendment_join__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "05_specification_id__c",
+            "params": "-create specification_id__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/05_specification_id__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "11_registration_name__c",
+            "params": "-create registration_name__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/11_registration_name__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "12_specification_id_registration_name_join__c",
+            "params": "-create specification_id_registration_name_join__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/12_specification_id_registration_name_join__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "30_Reporting_KPIs_Level_1__iqms_controlled_value__c",
+            "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/30_Reporting_KPIs_Level_1__iqms_controlled_value__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "30_Reporting_KPIs_Level_2__iqms_controlled_value__c",
+            "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/30_Reporting_KPIs_Level_2__iqms_controlled_value__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "23_01_complaint_error_codes_level_1_iqms_controlled_value__c",
+            "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/23_complaint_error_codes_level_1_iqms_controlled_value__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "23_02_complaint_error_codes_level_2_iqms_controlled_value__c",
+            "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/23_complaint_error_codes_level_2_iqms_controlled_value__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "23_03_complaint_error_codes_level_3_iqms_controlled_value__c",
+            "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/23_complaint_error_codes_level_3_iqms_controlled_value__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "37_manufacturing_site__c",
+            "params": "-create manufacturing_site__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/37_manufacturing_site__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "13_product_hierarchy_data_iqms_product_hierarchy__c",
+            "params": "-create iqms_product_hierarchy__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/13_product_hierarchy_data_iqms_product_hierarchy__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "21_QMS_Chapter_qms_chapter__c",
+            "params": "-create qms_chapter__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/21_QMS_Chapter_qms_chapter__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c",
+            "params": "-create iqms_imdrf_value__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "18_change_application_number__c",
+            "params": "-create change_application_number__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/18_change_application_number__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "38_Document_Category_document_category__c",
+            "params": "-create document_category__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/38_Document_Category_document_category__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "44_Event_Code_event_code__c",
+            "params": "-create event_code__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/44_Event_Code_event_code__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "39_Submissions_TRD_Code_Title_submissions_trd_code_title__c",
+            "params": "-create submissions_trd_code_title__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/39_Submissions_TRD_Code_Title_submissions_trd_code_title__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "40_Submissions_TRD_Code_Title_Amendment__c",
+            "params": "-create submissions_trd_code_title_amendment__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/40_Submissions_TRD_Code_Title_Amendment__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "41_Submissions_TRD_Code_submissions_trd_code__c",
+            "params": "-create submissions_trd_code__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/41_Submissions_TRD_Code_submissions_trd_code__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "42_submissions_trd_code_title_amend_join__c",
+            "params": "-create submissions_trd_code_title_amend_join__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/42_submissions_trd_code_title_amend_join__c.csv",
+            "active": 0,
+            "status": "works"
+        },
+        {
+            "name": "43_document_category_sub_trd_code_join__c",
+            "params": "-create document_category_sub_trd_code_join__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayer-iqms/43_document_category_sub_trd_code_join__c.csv",
             "active": 1,
-            "status": "setting does not work"
+            "status": "to be checked"
         }
     ]
 }
