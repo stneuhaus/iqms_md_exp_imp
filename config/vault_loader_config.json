@@ -18,6 +18,11 @@
             "dns": "https://bayersbx-iqms-development-phase-2-and-3.veevavault.com",
             "username": "stefan.neuhaus@bayersbx.com",
             "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-val-release-1-2-0.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
         }
     ],
     "import_settings": {
@@ -43,7 +48,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -71,7 +76,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -102,7 +107,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -135,7 +140,7 @@
                 "id",
                 "country__v.name__v"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -164,7 +169,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -173,11 +178,17 @@
             "where": "object_type__vr.name__v='External Site'",
             "columns": [
                 "id",
+                "predecessor__c.name__v",
+                "predecessor__c.id",
+                "predecessor__c.external_id__v",
+                "successor__c",
+                "external_id__v",
+                "subsequent_id__c",
+                "legacy_organization_aida_daqs__c",
+                "state__v",
                 "address1__c",
                 "city__c",
                 "country__v.name__v",
-                "external_id__v",
-                "legacy_organization_aida_daqs__c",
                 "legal_name__c",
                 "main_internal_contact__c.name__v",
                 "name__v",
@@ -187,16 +198,23 @@
                 "qd_supplier_record__c",
                 "risk_classification__qdm",
                 "state__c",
-                "state__v",
                 "type__c",
                 "warehouse_code__c",
                 "zip__v",
-                "type__c"
+                "type__c",
+                "created_by__v",
+                "created_date__v",
+                "modified_by__v",
+                "modified_date__v"
             ],
             "ignore_column": [
-                "id"
+                "id",
+                "created_by__v.name__v",
+                "created_date__v",
+                "modified_by__v.name__v",
+                "modified_date__v"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -219,7 +237,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -238,7 +256,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -260,7 +278,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -279,7 +297,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -299,7 +317,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -315,7 +333,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -333,7 +351,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -350,7 +368,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -367,7 +385,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -383,7 +401,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -399,7 +417,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -415,7 +433,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -428,7 +446,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "Special processing is needed. Follow up on this!!"
         },
         {
@@ -444,7 +462,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -460,7 +478,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -476,7 +494,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -491,7 +509,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -510,7 +528,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -526,7 +544,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -541,7 +559,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -559,7 +577,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -578,7 +596,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -611,7 +629,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -636,7 +654,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -661,7 +679,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -686,7 +704,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -711,7 +729,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -736,7 +754,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -761,7 +779,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -786,7 +804,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -805,7 +823,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "Not working, count of objects exceeds max limit"
         },
         {
@@ -827,7 +845,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "Not working, count of objects exceeds max limit"
         },
         {
@@ -843,7 +861,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -859,7 +877,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -875,7 +893,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -891,7 +909,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -907,7 +925,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -923,7 +941,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -942,7 +960,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -959,7 +977,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -974,7 +992,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -992,7 +1010,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1011,7 +1029,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1030,7 +1048,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1046,7 +1064,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1063,7 +1081,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1079,7 +1097,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1103,7 +1121,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1118,7 +1136,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1137,7 +1155,7 @@
                 "id",
                 "status__v"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1154,7 +1172,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1168,7 +1186,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1183,7 +1201,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1201,7 +1219,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1218,7 +1236,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1234,7 +1252,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1247,7 +1265,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "to be checked"
         }
     ],
