@@ -396,34 +396,40 @@ class VaultImportRunner:
         print(f"🕒 Run completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 def main():
-    """Main function"""
-    # Create VaultImport runner
-    runner = VaultImportRunner()
+    """Main function - use the menu system"""
+    try:
+        # Try importing the menu module
+        import import_menu
+        import_menu.main_menu()
+    except ImportError:
+        # Fallback to direct runner if menu not available
+        # Create VaultImport runner
+        runner = VaultImportRunner()
 
-    # Show overview of target vault and active loader files
-    config = runner.config
-    import_settings = config.get('import_settings', {})
-    imports = config.get('imports', [])
-    dns = import_settings.get('dns', '(not set)')
-    print("\nTarget Vault (import_settings.dns):", dns)
-    print("Active loader files (imports.name):")
-    active_imports = [imp for imp in imports if imp.get('active', 1)]
-    if active_imports:
-        for imp in active_imports:
-            print("-", imp.get('name', '(no name)'))
-    else:
-        print("(None active)")
-    # Ask user if program should proceed
-    while True:
-        proceed = input("\nProceed with import? (y/n): ").strip().lower()
-        if proceed == 'y':
-            runner.run_all_imports()
-            break
-        elif proceed == 'n':
-            print("Aborted by user.")
-            break
+        # Show overview of target vault and active loader files
+        config = runner.config
+        import_settings = config.get('import_settings', {})
+        imports = config.get('imports', [])
+        dns = import_settings.get('dns', '(not set)')
+        print("\nTarget Vault (import_settings.dns):", dns)
+        print("Active loader files (imports.name):")
+        active_imports = [imp for imp in imports if imp.get('active', 1)]
+        if active_imports:
+            for imp in active_imports:
+                print("-", imp.get('name', '(no name)'))
         else:
-            print("Please enter 'y' for yes or 'n' for no.")
+            print("(None active)")
+        # Ask user if program should proceed
+        while True:
+            proceed = input("\nProceed with import? (y/n): ").strip().lower()
+            if proceed == 'y':
+                runner.run_all_imports()
+                break
+            elif proceed == 'n':
+                print("Aborted by user.")
+                break
+            else:
+                print("Please enter 'y' for yes or 'n' for no.")
 
 if __name__ == "__main__":
     main()
