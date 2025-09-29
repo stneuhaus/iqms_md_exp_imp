@@ -23,10 +23,20 @@
             "dns": "https://bayersbx-iqms-val-release-1-2-0.veevavault.com",
             "username": "stefan.neuhaus@bayersbx.com",
             "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-master-data-test.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-3-1-dev.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
         }
     ],
     "import_settings": {
-        "dns": "https://bayersbx-iqms-val-release-1-2-0.veevavault.com",
+        "dns": "https://bayersbx-iqms-3-1-dev.veevavault.com",
         "username": "stefan.neuhaus@bayersbx.com",
         "password": "password_import.ini",
         "time_out": 1800
@@ -48,7 +58,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -76,7 +86,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -107,7 +117,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -140,7 +150,7 @@
                 "id",
                 "country__v.name__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -169,7 +179,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -214,7 +224,7 @@
                 "modified_by__v.name__v",
                 "modified_date__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -237,7 +247,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -256,7 +266,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -278,7 +288,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -297,7 +307,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -317,7 +327,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -333,7 +343,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -351,7 +361,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -368,7 +378,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -385,7 +395,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -401,7 +411,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -417,7 +427,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -433,7 +443,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -446,7 +456,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "Special processing is needed. Follow up on this!!"
         },
         {
@@ -462,7 +472,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -478,7 +488,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -494,7 +504,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -509,7 +519,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -528,7 +538,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -544,7 +554,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -559,7 +569,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -577,7 +587,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -596,7 +606,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -629,7 +639,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -654,7 +664,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -679,7 +689,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -704,7 +714,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -729,7 +739,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -754,7 +764,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -779,7 +789,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -804,7 +814,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -823,7 +833,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "Not working, count of objects exceeds max limit"
         },
         {
@@ -845,7 +855,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "Not working, count of objects exceeds max limit"
         },
         {
@@ -861,7 +871,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -877,7 +887,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -893,7 +903,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -909,7 +919,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -925,7 +935,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -941,7 +951,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -960,7 +970,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -977,7 +987,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -992,7 +1002,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1010,7 +1020,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1029,7 +1039,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1048,7 +1058,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1064,7 +1074,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1081,7 +1091,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1097,7 +1107,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1121,7 +1131,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1136,7 +1146,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1155,7 +1165,7 @@
                 "id",
                 "status__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1172,7 +1182,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1186,7 +1196,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1201,7 +1211,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1219,7 +1229,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1236,7 +1246,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1252,7 +1262,25 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
+            "status": "all attributes included"
+        },
+        {
+            "name": "70_change_authorization_type__c",
+            "params": "-export ca_type__c -csv 70_change_authorization_type__c.csv",
+            "where": "",
+            "columns": [
+                "id",
+                "name__v",
+                "status__v",
+                "lifecycle__v",
+                "state__v"
+            ],
+            "ignore_column": [
+                "id",
+                "status__v"
+            ],
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1265,7 +1293,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         }
     ],
@@ -1273,322 +1301,329 @@
         {
             "name": "07_country__v",
             "params": "-create country__v -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/07_country__v.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/07_country__v.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_01_Country_Organizations_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/08_01_Country_Organizations_QMS_ORGANIZATION__QDM.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/08_01_Country_Organizations_QMS_ORGANIZATION__QDM.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_02_Function-Special_Organization_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/08_02_Function-Special_Organization_QMS_ORGANIZATION__QDM.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/08_02_Function-Special_Organization_QMS_ORGANIZATION__QDM.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_03_Internal_Site_Organization_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/08_03_Internal_Site_Organization_QMS_ORGANIZATION__QDM.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/08_03_Internal_Site_Organization_QMS_ORGANIZATION__QDM.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_04_Authority_Organization_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/08_04_Authority_Organization_QMS_ORGANIZATION__QDM.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/08_04_Authority_Organization_QMS_ORGANIZATION__QDM.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_05_External_Site_Organization_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/08_05_External_Site_Organization_QMS_ORGANIZATION__QDM.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/08_05_External_Site_Organization_QMS_ORGANIZATION__QDM.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_06_Person_person__sys",
             "params": "-create person__sys -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/08_06_Person_person__sys.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/08_06_Person_person__sys.csv",
             "active": 0,
             "status": "works, pay attention not to import twice or more!!!"
         },
         {
             "name": "09_01_Department_department__v",
             "params": "-create department__v -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/09_01_Department_department__v.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/09_01_Department_department__v.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "24_error_classification_level_1_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/24_error_classification_level_1_iqms_controlled_value__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/24_error_classification_level_1_iqms_controlled_value__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "24_error_classification_level_2_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/24_error_classification_level_2_iqms_controlled_value__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/24_error_classification_level_2_iqms_controlled_value__c.csv",
             "active": 0,
             "status": "work"
         },
         {
             "name": "24_error_classification_level_3_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/24_error_classification_level_3_iqms_controlled_value__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/24_error_classification_level_3_iqms_controlled_value__c.csv",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "26_root_cause_level_1_category__v",
             "params": "-create category__v -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/26_root_cause_level_1_category__v.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/26_root_cause_level_1_category__v.csv",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "26_root_cause_level_2_subcategory__v",
             "params": "-create subcategory__v -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/26_root_cause_level_2_subcategory__v.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/26_root_cause_level_2_subcategory__v.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "26_root_cause_level_3_root_cause_local_category__c",
             "params": "-create root_cause_local_category__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/26_root_cause_level_3_root_cause_local_category__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/26_root_cause_level_3_root_cause_local_category__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "27_capa_subcategory_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/27_capa_subcategory_iqms_controlled_value__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/27_capa_subcategory_iqms_controlled_value__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "10_qms_unit__c",
             "params": "-create qms_unit__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/10_qms_unit__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/10_qms_unit__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "20_process_ownermanager__c",
             "params": "-create process_ownermanager__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/20_process_ownermanager__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/20_process_ownermanager__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "22_keyword__c",
             "params": "-create keyword__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/22_keyword__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/22_keyword__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "19_process_group__c",
             "params": "-create process_group__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/19_process_group__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/19_process_group__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "32_qms_unit_process_group__c",
             "params": "-create qms_unit_process_group__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/32_qms_unit_process_group__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/32_qms_unit_process_group__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "34_qms_unit_process_owner_join__c",
             "params": "-create qms_unit_process_owner_join__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/34_qms_unit_process_owner_join__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/34_qms_unit_process_owner_join__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "35_qms_unit_keywords_join__c",
             "params": "-create qms_unit_keywords_join__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/35_qms_unit_keywords_join__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/35_qms_unit_keywords_join__c.csv",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "15_trd_code_title__c",
             "params": "-create trd_code_title__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/15_trd_code_title__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/15_trd_code_title__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "14_trd_codes__c",
             "params": "-create trd_codes__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/14_trd_codes__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/14_trd_codes__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "16_trd_code_title_amendment__c",
             "params": "-create trd_code_title_amendment__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/16_trd_code_title_amendment__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/16_trd_code_title_amendment__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "31_trd_code_title_amendment_join__c",
             "params": "-create trd_code_title_amendment_join__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/31_trd_code_title_amendment_join__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/31_trd_code_title_amendment_join__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "05_specification_id__c",
             "params": "-create specification_id__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/05_specification_id__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/05_specification_id__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "11_registration_name__c",
             "params": "-create registration_name__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/11_registration_name__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/11_registration_name__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "12_specification_id_registration_name_join__c",
             "params": "-create specification_id_registration_name_join__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/12_specification_id_registration_name_join__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/12_specification_id_registration_name_join__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "30_Reporting_KPIs_Level_1__iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/30_Reporting_KPIs_Level_1__iqms_controlled_value__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/30_Reporting_KPIs_Level_1__iqms_controlled_value__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "30_Reporting_KPIs_Level_2__iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/30_Reporting_KPIs_Level_2__iqms_controlled_value__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/30_Reporting_KPIs_Level_2__iqms_controlled_value__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "23_01_complaint_error_codes_level_1_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/23_complaint_error_codes_level_1_iqms_controlled_value__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/23_complaint_error_codes_level_1_iqms_controlled_value__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "23_02_complaint_error_codes_level_2_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/23_complaint_error_codes_level_2_iqms_controlled_value__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/23_complaint_error_codes_level_2_iqms_controlled_value__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "23_03_complaint_error_codes_level_3_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/23_complaint_error_codes_level_3_iqms_controlled_value__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/23_complaint_error_codes_level_3_iqms_controlled_value__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "37_manufacturing_site__c",
             "params": "-create manufacturing_site__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/37_manufacturing_site__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/37_manufacturing_site__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "13_product_hierarchy_data_iqms_product_hierarchy__c",
             "params": "-create iqms_product_hierarchy__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/13_product_hierarchy_data_iqms_product_hierarchy__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/13_product_hierarchy_data_iqms_product_hierarchy__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "21_QMS_Chapter_qms_chapter__c",
             "params": "-create qms_chapter__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/21_QMS_Chapter_qms_chapter__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/21_QMS_Chapter_qms_chapter__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c",
             "params": "-create iqms_imdrf_value__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c.csv",
-            "active": 1,
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c.csv",
+            "active": 0,
             "status": "works"
         },
         {
             "name": "18_change_application_number__c",
             "params": "-create change_application_number__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/18_change_application_number__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/18_change_application_number__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "38_Document_Category_document_category__c",
             "params": "-create document_category__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/38_Document_Category_document_category__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/38_Document_Category_document_category__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "44_Event_Code_event_code__c",
             "params": "-create event_code__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/44_Event_Code_event_code__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/44_Event_Code_event_code__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "39_Submissions_TRD_Code_Title_submissions_trd_code_title__c",
             "params": "-create submissions_trd_code_title__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/39_Submissions_TRD_Code_Title_submissions_trd_code_title__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/39_Submissions_TRD_Code_Title_submissions_trd_code_title__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "40_Submissions_TRD_Code_Title_Amendment__c",
             "params": "-create submissions_trd_code_title_amendment__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/40_Submissions_TRD_Code_Title_Amendment__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/40_Submissions_TRD_Code_Title_Amendment__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "41_Submissions_TRD_Code_submissions_trd_code__c",
             "params": "-create submissions_trd_code__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/41_Submissions_TRD_Code_submissions_trd_code__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/41_Submissions_TRD_Code_submissions_trd_code__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "42_submissions_trd_code_title_amend_join__c",
             "params": "-create submissions_trd_code_title_amend_join__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/42_submissions_trd_code_title_amend_join__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/42_submissions_trd_code_title_amend_join__c.csv",
             "active": 0,
             "status": "works"
         },
         {
             "name": "43_document_category_sub_trd_code_join__c",
             "params": "-create document_category_sub_trd_code_join__c -recordmigrationmode -csv [import_path]",
-            "import_path": "exports/bayer-iqms.veevavault.com/43_document_category_sub_trd_code_join__c.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/43_document_category_sub_trd_code_join__c.csv",
+            "active": 0,
+            "status": "to be checked"
+        },
+        {
+            "name": "70_change_authorization_type__c",
+            "params": "-create ca_type__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/70_change_authorization_type__c.csv",
             "active": 0,
             "status": "to be checked"
         }
