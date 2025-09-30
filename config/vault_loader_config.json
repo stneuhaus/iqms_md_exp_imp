@@ -448,15 +448,17 @@
         },
         {
             "name": "35_qms_unit_keywords_join__c",
-            "params": "-export qms_unit_keywords_join__cyword__c -csv 35_qms_unit_keywords_join__c.csv",
+            "params": "-export qms_unit_keywords_join__c -csv 35_qms_unit_keywords_join__c.csv",
             "where": "",
             "columns": [
-                "id"
+                "id",
+                "qms_unit__c",
+                "keyword__c"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "Special processing is needed. Follow up on this!!"
         },
         {
@@ -1295,6 +1297,19 @@
             ],
             "active": 0,
             "status": "to be checked"
+        },
+        {
+            "name": "Test",
+            "params": "-export  -csv ",
+            "where": "",
+            "columns": [
+                "id"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 0,
+            "status": "to be checked"
         }
     ],
     "imports": [
@@ -1514,6 +1529,111 @@
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/30_Reporting_KPIs_Level_2__iqms_controlled_value__c.csv",
             "active": 0,
             "status": "works"
+        },
+        {
+            "name": "01_quality_material__v",
+            "params": "-create quality_material__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/01_quality_material__v.csv",
+            "active": 1,
+            "status": "to be checked"
+        },
+        {
+            "name": "02a_quality_batch__v_01",
+            "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_01.csv",
+            "active": 1,
+            "status": "to be checked"
+        },
+        {
+            "name": "02a_quality_batch__v_03",
+            "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_03.csv",
+            "active": 1,
+            "status": "to be checked"
+        },
+        {
+            "name": "02a_quality_batch__v_04",
+            "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_04.csv",
+            "active": 1,
+            "status": "to be checked"
+        },
+        {
+            "name": "02a_quality_batch__v_05",
+            "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_05.csv",
+            "active": 1,
+            "status": "to be checked"
+        },
+        {
+            "name": "02a_quality_batch__v_06",
+            "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_06.csv",
+            "active": 1,
+            "status": "to be checked"
+        },
+        {
+            "name": "02a_quality_batch__v_07",
+            "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_07.csv",
+            "active": 1,
+            "status": "to be checked"
+        },
+        {
+            "name": "02b_bulk_batch__c",
+            "params": "-create bulk_batch__c -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02b_bulk_batch__c.csv",
+            "active": 1,
+            "status": "to be checked"
+        },
+        {
+            "name": "03_asset__v",
+            "params": "-create asset__v -recordmigrationmode -csv [import_path]03_asset__v.csv",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/03_asset__v.csv",
+            "active": 1,
+            "status": "to be checked"
+        },
+        {
+            "name": "04_part__v_01",
+            "params": "-create part__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_01.csv",
+            "active": 1,
+            "status": "to be checked"
+        },
+        {
+            "name": "04_part__v_02",
+            "params": "-create part__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_02.csv",
+            "active": 1,
+            "status": "all attributes included"
+        },
+        {
+            "name": "04_part__v_03",
+            "params": "-create part__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_03.csv",
+            "active": 1,
+            "status": "all attributes included"
+        },
+        {
+            "name": "04_part__v_04",
+            "params": "-create part__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_04.csv",
+            "active": 1,
+            "status": "all attributes included"
+        },
+        {
+            "name": "04_part__v_05",
+            "params": "-create part__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_05.csv",
+            "active": 1,
+            "status": "all attributes included"
+        },
+        {
+            "name": "04_part__v_06",
+            "params": "-create part__v -recordmigrationmode -csv [import_path]",
+            "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_06.csv",
+            "active": 1,
+            "status": "all attributes included"
         },
         {
             "name": "23_01_complaint_error_codes_level_1_iqms_controlled_value__c",
