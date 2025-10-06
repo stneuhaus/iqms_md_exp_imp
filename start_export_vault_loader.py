@@ -5,6 +5,7 @@ import json
 import shutil
 import csv
 from datetime import datetime
+from get_keyword_qms_joins import create_keyword_qms_unit_joins
 
 class VaultLoaderRunner:
     def __init__(self, config_file='config/vault_loader_config.json'):
@@ -547,6 +548,7 @@ def main():
             print("2. Export Configuration Report")
             print("3. Activate all object exports")
             print("4. Deactivate all object exports")
+            print("5. Create Keyword-QMS-Unit-Joins")
             print("0. Exit")
             choice = input("Select an option: ").strip()
             if choice == "1":
@@ -582,6 +584,8 @@ def main():
                 with open(config_path, 'w', encoding='utf-8') as f:
                     json.dump(config, f, indent=4)
                 print(f"All exports deactivated. Backup saved as {backup_path}")
+            elif choice == "5":
+                create_keyword_qms_unit_joins()
             elif choice == "0":
                 print("Exiting.")
                 break
