@@ -548,7 +548,7 @@ def main():
             print("2. Export Configuration Report")
             print("3. Activate all object exports")
             print("4. Deactivate all object exports")
-            print("5. Create Keyword-QMS-Unit-Joins")
+            print("5. Create Keyword-QMS-Unit-Joins (35_qms_unit_keywords_join__c_for_import.csv)")
             print("0. Exit")
             choice = input("Select an option: ").strip()
             if choice == "1":
