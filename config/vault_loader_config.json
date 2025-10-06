@@ -411,7 +411,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -443,7 +443,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -458,7 +458,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "Special processing is needed. Follow up on this!!"
         },
         {
@@ -1534,105 +1534,105 @@
             "name": "01_quality_material__v",
             "params": "-create quality_material__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/01_quality_material__v.csv",
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_01",
             "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_01.csv",
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_03",
             "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_03.csv",
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_04",
             "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_04.csv",
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_05",
             "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_05.csv",
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_06",
             "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_06.csv",
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_07",
             "params": "-create quality_batch__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02a_quality_batch__v_07.csv",
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02b_bulk_batch__c",
             "params": "-create bulk_batch__c -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/02b_bulk_batch__c.csv",
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         },
         {
             "name": "03_asset__v",
             "params": "-create asset__v -recordmigrationmode -csv [import_path]03_asset__v.csv",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/03_asset__v.csv",
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         },
         {
             "name": "04_part__v_01",
             "params": "-create part__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_01.csv",
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         },
         {
             "name": "04_part__v_02",
             "params": "-create part__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_02.csv",
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
             "name": "04_part__v_03",
             "params": "-create part__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_03.csv",
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
             "name": "04_part__v_04",
             "params": "-create part__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_04.csv",
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
             "name": "04_part__v_05",
             "params": "-create part__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_05.csv",
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
             "name": "04_part__v_06",
             "params": "-create part__v -recordmigrationmode -csv [import_path]",
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/04_part__v_06.csv",
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1746,6 +1746,13 @@
             "import_path": "exports/bayersbx-iqms-training1.veevavault.com/70_change_authorization_type__c.csv",
             "active": 0,
             "status": "to be checked"
+        },
+        {
+            "name": "VAL and DEV: Request 132346 Set specific External Sites (Suppliers) to archived",
+            "params": "-update qms_organization__qdm -recordmigrationmode -csv [import_path] -idParam id",
+            "import_path": "input/Request_132346_Set_specific_External_Sites_(Suppliers)_to_archived/08_04_upd_ext_sites_bayer_to_archived__val.csv",
+            "active": 0,
+            "status": "----"
         }
     ]
 }
