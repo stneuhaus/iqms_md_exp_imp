@@ -7,9 +7,17 @@ import csv
 from datetime import datetime
 
 class VaultImportRunner:
-    def __init__(self, config_file='config/vault_loader_config.json'):
+    def __init__(self, config_file=None):
         # Get the directory where this script is located
         self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        # If no config file specified, let user select one
+        if config_file is None:
+            config_file = self.select_config_file()
+            if config_file is None:
+                print("No configuration file selected. Exiting.")
+                sys.exit(1)
+        
         self.config_file = os.path.join(self.script_dir, config_file)
         self.config = {}
         self.run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -21,6 +29,46 @@ class VaultImportRunner:
         logs_dir = os.path.join(self.script_dir, 'logs')
         os.makedirs(os.path.join(logs_dir, 'success'), exist_ok=True)
         os.makedirs(os.path.join(logs_dir, 'failure'), exist_ok=True)
+    
+    def select_config_file(self):
+        """Let user select a JSON configuration file from the config directory"""
+        config_dir = os.path.join(self.script_dir, 'config')
+        
+        if not os.path.exists(config_dir):
+            print(f"Config directory not found: {config_dir}")
+            return None
+        
+        # Find all JSON files in config directory
+        json_files = [f for f in os.listdir(config_dir) if f.endswith('.json')]
+        
+        if not json_files:
+            print("No JSON configuration files found in config directory!")
+            return None
+        
+        # Always show the selection menu
+        print("\n" + "=" * 80)
+        print("Available Configuration Files:")
+        print("=" * 80)
+        for i, filename in enumerate(json_files, 1):
+            print(f"{i}. {filename}")
+        print("=" * 80)
+        
+        while True:
+            try:
+                choice = input(f"\nSelect configuration file (1-{len(json_files)}): ").strip()
+                choice_num = int(choice)
+                
+                if 1 <= choice_num <= len(json_files):
+                    selected_file = json_files[choice_num - 1]
+                    print(f"✓ Selected: {selected_file}")
+                    return os.path.join('config', selected_file)
+                else:
+                    print(f"Please enter a number between 1 and {len(json_files)}")
+            except ValueError:
+                print("Please enter a valid number")
+            except KeyboardInterrupt:
+                print("\nCancelled by user.")
+                return None
         
     def load_config(self):
         """Load configuration from JSON file"""

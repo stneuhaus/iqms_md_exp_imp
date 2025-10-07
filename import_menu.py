@@ -54,10 +54,52 @@ def generate_report(config_path):
 
 def main_menu():
     """Main menu for the Vault Loader Import Utility"""
-    config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config", "vault_loader_config.json")
+    # First, let user select config file
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_dir = os.path.join(script_dir, 'config')
+    
+    if not os.path.exists(config_dir):
+        print(f"Config directory not found: {config_dir}")
+        return
+    
+    # Find all JSON files in config directory
+    json_files = [f for f in os.listdir(config_dir) if f.endswith('.json')]
+    
+    if not json_files:
+        print("No JSON configuration files found in config directory!")
+        return
+    
+    # Always show the selection menu
+    print("\n" + "=" * 80)
+    print("Available Configuration Files:")
+    print("=" * 80)
+    for i, filename in enumerate(json_files, 1):
+        print(f"{i}. {filename}")
+    print("=" * 80)
+    
+    config_file = None
+    while config_file is None:
+        try:
+            choice = input(f"\nSelect configuration file (1-{len(json_files)}): ").strip()
+            choice_num = int(choice)
+            
+            if 1 <= choice_num <= len(json_files):
+                selected_file = json_files[choice_num - 1]
+                print(f"✓ Selected: {selected_file}")
+                config_file = selected_file
+            else:
+                print(f"Please enter a number between 1 and {len(json_files)}")
+        except ValueError:
+            print("Please enter a valid number")
+        except KeyboardInterrupt:
+            print("\nCancelled by user.")
+            return
+    
+    config_path = os.path.join(config_dir, config_file)
     
     while True:
         print("\nVault Loader Import Utility")
+        print(f"Current config: {config_file}")
         print("1. Start Import")
         print("2. Import Configuration Report")
         print("3. Activate all imports")
@@ -68,8 +110,8 @@ def main_menu():
         
         if choice == "1":
             from start_import_vault_loader import VaultImportRunner
-            # Create VaultImport runner
-            runner = VaultImportRunner()
+            # Create VaultImport runner with selected config
+            runner = VaultImportRunner(config_file=os.path.join('config', config_file))
 
             # Show overview of target vault and active loader files
             config = runner.config
