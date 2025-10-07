@@ -1,0 +1,74 @@
+{
+    "general": {
+        "java_exe": "c:\\jdk\\jdk-17.0.16.8-hotspot\\bin\\java.exe",
+        "vault_loader": "bin\\VaultDataLoader.jar"
+    },
+    "export_settings": [
+        {
+            "dns": "https://bayer-iqms.veevavault.com",
+            "username": "stefan.neuhaus@bayer.com",
+            "password": "password.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-training1.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-development-phase-2-and-3.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-val-release-1-2-0.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-master-data-test.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-3-1-dev.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        }
+    ],
+    "import_settings": {
+        "dns": "https://bayersbx-iqms-3-1-dev.veevavault.com",
+        "username": "stefan.neuhaus@bayersbx.com",
+        "password": "password_import.ini",
+        "time_out": 1800,
+        "import_path": "input/Request_132346_Set_specific_External_Sites_(Suppliers)_to_archived"
+    },
+    "exports": [
+        {
+            "name": "Template",
+            "params": "-export  -csv ",
+            "where": "",
+            "columns": [
+                "id"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 0,
+            "status": "to be checked"
+        }
+    ],
+    "imports": [
+        {
+            "name": "VAL and DEV: Request 132346 Set specific External Sites (Suppliers) to archived",
+            "params": "-update qms_organization__qdm -recordmigrationmode -csv 08_04_upd_ext_sites_bayer_to_archived__val.csv -idParam id",
+            "active": 0,
+            "status": "----"
+        },
+        {
+            "name": "PROD: Request 132346 Set specific External Sites (Suppliers) to archived",
+            "params": "-update qms_organization__qdm -recordmigrationmode -csv 08_04_upd_ext_sites_bayer_to_archived__prod.csv -idParam id",
+            "active": 0,
+            "status": "----"
+        }
+    ]
+}

@@ -152,6 +152,9 @@ class VaultImportRunner:
         password_param = import_settings.get('password', '')
         password = self.load_password(password_param)
         
+        # Get base import_path from import_settings
+        base_import_path = import_settings.get('import_path', '')
+        
         # Build Java command with dns, username and password parameters
         java_command = [java_exe, '-jar', vault_loader]
         
@@ -164,16 +167,28 @@ class VaultImportRunner:
         
         # Add import parameters
         params_str = import_config['params']
-        import_path = import_config.get('import_path', None)
+        
+        # Build full import path by combining base path with filename from params
         import_path_full = None
-        if import_path:
-            if not os.path.isabs(import_path):
-                import_path_full = os.path.abspath(os.path.join(self.script_dir, import_path))
+        if base_import_path:
+            if not os.path.isabs(base_import_path):
+                base_path_full = os.path.abspath(os.path.join(self.script_dir, base_import_path))
             else:
-                import_path_full = import_path
-            # Replace [import_path] placeholder
-            if '[import_path]' in params_str:
-                params_str = params_str.replace('[import_path]', import_path_full)
+                base_path_full = base_import_path
+            
+            # Extract filename from params (it's the CSV filename after -csv parameter)
+            params_parts = params_str.split()
+            csv_filename = None
+            for i, param in enumerate(params_parts):
+                if param == '-csv' and i + 1 < len(params_parts):
+                    csv_filename = params_parts[i + 1]
+                    break
+            
+            if csv_filename:
+                import_path_full = os.path.join(base_path_full, csv_filename)
+                # Replace filename in params with full path
+                params_str = params_str.replace(csv_filename, import_path_full)
+        
         params = params_str.split()
         java_command.extend(params)
         
@@ -267,26 +282,21 @@ class VaultImportRunner:
     def log_success(self, import_config):
         """Log successful import to logs/success directory"""
         try:
-            # Extract CSV filename and object name
-            # Use resolved params for logging
+            # Extract CSV filename and object name from params
             params_str = import_config['params']
-            import_path = import_config.get('import_path', None)
-            import_path_full = None
-            if import_path:
-                if not os.path.isabs(import_path):
-                    import_path_full = os.path.abspath(os.path.join(self.script_dir, import_path))
-                else:
-                    import_path_full = import_path
-                if '[import_path]' in params_str:
-                    params_str = params_str.replace('[import_path]', import_path_full)
             params = params_str.split()
             csv_filename = None
             object_name = None
             for i, param in enumerate(params):
                 if param == '-csv' and i + 1 < len(params):
                     csv_filename = params[i + 1]
-                elif param == '-import' and i + 1 < len(params):
+                elif param == '-create' and i + 1 < len(params):
                     object_name = params[i + 1]
+                elif param == '-update' and i + 1 < len(params):
+                    object_name = params[i + 1]
+                elif param == '-upsert' and i + 1 < len(params):
+                    object_name = params[i + 1]
+                    
             if not csv_filename or not object_name:
                 print("Warning: Could not extract filename or object name for success log")
                 return
