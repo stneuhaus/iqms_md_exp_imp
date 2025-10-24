@@ -59,7 +59,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -87,7 +87,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -118,7 +118,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -151,7 +151,7 @@
                 "id",
                 "country__v.name__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -180,7 +180,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -225,7 +225,7 @@
                 "modified_by__v.name__v",
                 "modified_date__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -248,7 +248,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -267,7 +267,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -289,7 +289,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -308,7 +308,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -328,7 +328,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -344,7 +344,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -362,7 +362,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -379,7 +379,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -396,7 +396,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -412,7 +412,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -428,7 +428,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -444,7 +444,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -459,7 +459,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "Special processing is needed. Follow up on this!!"
         },
         {
@@ -475,7 +475,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -491,7 +491,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -507,7 +507,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -522,7 +522,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -541,7 +541,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -557,7 +557,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -572,7 +572,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -590,7 +590,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -609,7 +609,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -642,7 +642,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -667,7 +667,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -692,7 +692,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -717,7 +717,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -742,7 +742,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -767,7 +767,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -792,7 +792,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -817,7 +817,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -836,7 +836,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "Not working, count of objects exceeds max limit"
         },
         {
@@ -858,7 +858,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "Not working, count of objects exceeds max limit"
         },
         {
@@ -874,7 +874,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -890,7 +890,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -906,7 +906,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -922,7 +922,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -938,7 +938,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -954,7 +954,7 @@
                 "state__v"
             ],
             "ignore_column": [],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -973,7 +973,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -990,7 +990,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1005,7 +1005,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1023,7 +1023,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1042,7 +1042,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1061,7 +1061,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1077,7 +1077,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1094,7 +1094,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1110,7 +1110,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1149,7 +1149,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1168,7 +1168,7 @@
                 "id",
                 "status__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1185,7 +1185,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1199,7 +1199,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1214,7 +1214,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1232,7 +1232,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1249,7 +1249,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1265,7 +1265,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1283,7 +1283,7 @@
                 "id",
                 "status__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1296,7 +1296,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "to be checked"
         }
     ],
@@ -1460,19 +1460,19 @@
         {
             "name": "05_specification_id__c",
             "params": "-create specification_id__c -recordmigrationmode -csv 05_specification_id__c.csv",
-            "active": 1,
+            "active": 0,
             "status": "works"
         },
         {
             "name": "11_registration_name__c",
             "params": "-create registration_name__c -recordmigrationmode -csv 11_registration_name__c.csv",
-            "active": 1,
+            "active": 0,
             "status": "works"
         },
         {
             "name": "12_specification_id_registration_name_join__c",
             "params": "-create specification_id_registration_name_join__c -recordmigrationmode -csv 12_specification_id_registration_name_join__c.csv",
-            "active": 1,
+            "active": 0,
             "status": "works"
         },
         {
@@ -1616,7 +1616,7 @@
         {
             "name": "25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c",
             "params": "-create iqms_imdrf_value__c -recordmigrationmode -csv 25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c.csv",
-            "active": 0,
+            "active": 1,
             "status": "works"
         },
         {
