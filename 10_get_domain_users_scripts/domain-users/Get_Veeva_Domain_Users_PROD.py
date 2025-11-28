@@ -16,7 +16,7 @@ sessionID = input("Session ID : ")
 #include Vault IDs
 #payload="q=select id, domain_active__v, user_name__v,user_first_name__v,user_last_name__v,user_email__v, last_login__v, federated_id__v, user_timezone__v,user_locale__v,security_policy_id__v,user_language__v,created_date__v, created_by__v, modified_date__v, modified_by__v, vault_id__v from users order by id"
 
-payload="q=select id, domain_active__v, user_name__v,user_first_name__v,user_last_name__v,user_email__v, last_login__v, federated_id__v, user_timezone__v,user_locale__v,security_policy_id__v,user_language__v,created_date__v, created_by__v, modified_date__v, modified_by__v from users where user_first_name__v ='Stefan' order by id"
+payload="q=select id, domain_active__v, user_name__v,user_first_name__v,user_last_name__v,user_email__v, last_login__v, federated_id__v, user_timezone__v,user_locale__v,security_policy_id__v,user_language__v,created_date__v, created_by__v, modified_date__v, modified_by__v from users order by id"
 headers = {
   'Authorization': sessionID,
   'Accept': 'application/json',

@@ -412,7 +412,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
@@ -1134,7 +1134,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1394,7 +1394,7 @@
         {
             "name": "10_qms_unit__c",
             "params": "-create qms_unit__c -recordmigrationmode -csv 10_qms_unit__c.csv",
-            "active": 0,
+            "active": 1,
             "status": "works"
         },
         {
@@ -1616,7 +1616,7 @@
         {
             "name": "25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c",
             "params": "-create iqms_imdrf_value__c -recordmigrationmode -csv 25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c.csv",
-            "active": 1,
+            "active": 0,
             "status": "works"
         },
         {
