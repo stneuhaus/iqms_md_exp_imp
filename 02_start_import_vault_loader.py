@@ -4,6 +4,7 @@ import os
 import json
 import shutil
 import csv
+import shlex
 from datetime import datetime
 
 class VaultImportRunner:
@@ -168,6 +169,9 @@ class VaultImportRunner:
         # Add import parameters
         params_str = import_config['params']
         
+        # Parse parameters first (before adding paths with backslashes)
+        params = params_str.split()
+        
         # Build full import path by combining base path with filename from params
         import_path_full = None
         if base_import_path:
@@ -176,20 +180,33 @@ class VaultImportRunner:
             else:
                 base_path_full = base_import_path
             
-            # Extract filename from params (it's the CSV filename after -csv parameter)
-            params_parts = params_str.split()
+            # Validate that base path exists
+            if not os.path.exists(base_path_full):
+                print(f"❌ Warning: Import path does not exist: {base_path_full}")
+                self.log_failure(import_config, f"Import path not found: {base_path_full}")
+                return False
+            
+            # Find and replace CSV filename in params list
             csv_filename = None
-            for i, param in enumerate(params_parts):
-                if param == '-csv' and i + 1 < len(params_parts):
-                    csv_filename = params_parts[i + 1]
+            csv_index = None
+            for i, param in enumerate(params):
+                if param == '-csv' and i + 1 < len(params):
+                    csv_filename = params[i + 1]
+                    csv_index = i + 1
                     break
             
-            if csv_filename:
+            if csv_filename and csv_index is not None:
                 import_path_full = os.path.join(base_path_full, csv_filename)
-                # Replace filename in params with full path
-                params_str = params_str.replace(csv_filename, import_path_full)
+                
+                # Validate that the CSV file exists
+                if not os.path.exists(import_path_full):
+                    print(f"❌ Warning: Import file does not exist: {import_path_full}")
+                    self.log_failure(import_config, f"Import file not found: {import_path_full}")
+                    return False
+                
+                # Replace filename in params list with full path
+                params[csv_index] = import_path_full
         
-        params = params_str.split()
         java_command.extend(params)
         
         print(f"🚀 Starting Java process for: {import_config['name']}")
