@@ -1,0 +1,75 @@
+{
+    "general": {
+        "java_exe": "c:\\jdk\\jdk-17.0.16.8-hotspot\\bin\\java.exe",
+        "vault_loader": "bin\\VaultDataLoader.jar"
+    },
+    "export_settings": [
+        {
+            "dns": "https://bayer-iqms.veevavault.com",
+            "username": "stefan.neuhaus@bayer.com",
+            "password": "password.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-training1.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-development-phase-2-and-3.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-val-release-1-2-0.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-master-data-test.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
+            "dns": "https://bayersbx-iqms-3-1-dev.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        }
+    ],
+    "import_settings": {
+        "dns": "https://bayersbx-iqms-validation.veevavault.com",
+        "username": "stefan.neuhaus@bayersbx.com",
+        "password": "password_import.ini",
+        "time_out": 1800,
+        "import_path": "C:\\code_test\\master-data\\data\\03-test-data-via-veeva-upload-sheet\\24.Error Classification (Level 1-3)"
+    },
+    "exports": [
+        {
+            "name": "24_error_classification_level_3_iqms_controlled_value__c",
+            "params": "-export iqms_controlled_value__c -csv 24_error_classification_level_3_iqms_controlled_value__c.csv",
+            "where": "object_type__vr.api_name__v = 'deviation_error_code_value__c' AND error_code_value_type__c = 'level_3__c'",
+            "columns": [
+                "id",
+                "error_code__cr.external_id__c",
+                "error_code_value_type__c",
+                "name__v",
+                "object_code__cr.external_id__c",
+                "object_type__v.api_name__v",
+                "organization__cr.name__v",
+                "state__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 1,
+            "status": "all attributes included"
+        }
+    ],
+    "imports": [
+        {
+            "name": "24_07_add_error_classification_level3_iqms_controlled_value__c",
+            "params": "-create iqms_controlled_value__c -recordmigrationmode -csv 24_07_add_error_classification_level3_iqms_controlled_value__c.csv",
+            "active": 1,
+            "status": "to be checked"
+        }
+    ]
+}
