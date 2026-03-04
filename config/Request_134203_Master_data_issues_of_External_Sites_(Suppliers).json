@@ -1,6 +1,6 @@
 {
     "general": {
-        "java_exe": "c:\\jdk\\jdk-17.0.16.8-hotspot\\bin\\java.exe",
+        "java_exe": "c:\\souce_code\\iqms_md_exp_imp\\bin\\jdk-17.0.18+8\\bin\\java.exe",
         "vault_loader": "bin\\VaultDataLoader.jar"
     },
     "export_settings": [
@@ -189,21 +189,21 @@
             "where": "object_type__vr.name__v='External Site'",
             "columns": [
                 "id",
+                "external_id__v",
+                "name__v",
+                "legal_name__c",
                 "predecessor__c.name__v",
-                "predecessor__c.id",
                 "predecessor__c.external_id__v",
                 "successor__c",
-                "external_id__v",
                 "subsequent_id__c",
                 "legacy_organization_aida_daqs__c",
                 "state__v",
+                "source_data_status__c",
                 "address1__c",
                 "city__c",
                 "country__v.name__v",
                 "country__v.fda_country_code_2__v",
-                "legal_name__c",
                 "main_internal_contact__c.name__v",
-                "name__v",
                 "object_type__v.name__v",
                 "parent_organization__v.name__v",
                 "postal_code__v",

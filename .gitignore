@@ -12,3 +12,4 @@ vl-config.xml
 config/password.sandbox.ini
 vl-config.xml
 .vscode/launch.json
+config/*.csv
