@@ -204,6 +204,7 @@
                 "country__v.name__v",
                 "country__v.fda_country_code_2__v",
                 "main_internal_contact__c.name__v",
+                "deletion_flag__c",
                 "object_type__v.name__v",
                 "parent_organization__v.name__v",
                 "postal_code__v",

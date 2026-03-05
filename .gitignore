@@ -13,3 +13,4 @@ config/password.sandbox.ini
 vl-config.xml
 .vscode/launch.json
 config/*.csv
+config/export_config_report_*

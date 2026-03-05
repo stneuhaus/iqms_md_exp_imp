@@ -222,32 +222,27 @@ class VaultLoaderRunner:
             return_code = process.returncode
             print(f"Process completed with return code: {return_code}")
             
-            # Check if stdout contains more than the standard header
-            expected_header = "Vault Loader. (c)Veeva Systems 2014-2021. All rights reserved."
-            if stdout and stdout.strip() != expected_header:
-                # If there's additional content beyond the header, log it as an error
-                additional_output = stdout.strip()
-                if additional_output.startswith(expected_header):
-                    # Remove the header and check if there's additional content
-                    remaining_output = additional_output[len(expected_header):].strip()
-                    if remaining_output:
-                        print(f"Warning: Additional output detected: {remaining_output}")
-                        self.log_failure(export_config, f"Additional output: {remaining_output}")
-                        return False
-                elif additional_output != expected_header:
-                    # Completely different output
-                    print(f"Warning: Unexpected output: {additional_output}")
-                    self.log_failure(export_config, f"Unexpected output: {additional_output}")
-                    return False
-            
+            # Determine success by return code and explicit failure markers.
+            # Vault Loader may write informational content to stdout in successful runs.
+            combined_output = f"{stdout}\n{stderr}".lower()
+            failure_markers = [
+                "failure:",
+                "error making request",
+                "exception",
+                "unknown relationship",
+            ]
+            has_failure_marker = any(marker in combined_output for marker in failure_markers)
+            is_success = return_code == 0 and not has_failure_marker
+
             # If export was successful, move the CSV file to downloadpath
-            if return_code == 0 and downloadpath:
+            if is_success and downloadpath:
                 row_count = self.move_exported_file(export_config, downloadpath)
                 self.log_success(export_config, row_count)
             else:
-                self.log_failure(export_config, stderr or "Unknown error")
+                failure_reason = stderr.strip() if stderr and stderr.strip() else (stdout.strip() if stdout and stdout.strip() else "Unknown error")
+                self.log_failure(export_config, failure_reason)
             
-            return return_code == 0
+            return is_success
             
         except subprocess.TimeoutExpired:
             process.kill()
@@ -356,6 +351,19 @@ class VaultLoaderRunner:
                 
                 return row_count
             else:
+                # Some Vault Loader versions may write directly to downloadpath.
+                if os.path.exists(dest_file):
+                    row_count = 0
+                    try:
+                        with open(dest_file, 'r', encoding='utf-8') as f:
+                            reader = csv.reader(f)
+                            row_count = max(0, sum(1 for _ in reader) - 1)
+                    except Exception as e:
+                        print(f"Warning: Could not count rows in {csv_filename}: {e}")
+                    print(f"✓ File already in destination: {dest_file} ({row_count} rows)")
+                    self.process_ignore_columns(export_config, dest_file)
+                    return row_count
+
                 print(f"Warning: Export file {source_file} not found")
                 return 0
                 
