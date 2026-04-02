@@ -46,7 +46,7 @@
         {
             "name": "07_country__v",
             "params": "-export country__v -csv 07_country__v.csv",
-            "object_type": "country__v",
+            "business_object_type": "country__v",
             "where": "",
             "columns": [
                 "id",
@@ -60,19 +60,19 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "08_01_Country_Organizations_QMS_ORGANIZATION__QDM",
             "params": "-export qms_organization__qdm -csv 08_01_Country_Organizations_QMS_ORGANIZATION__QDM.csv",
-            "object_type": "qms_organization__qdm",
+            "business_object_type": "qms_organization_qdm-Country_Organization",
             "where": "object_type__vr.name__v='Country Organization'",
             "columns": [
                 "id",
                 "address1__c",
                 "city__c",
-                "country__v.fda_country_code_2__v",
+                "country__v.name__v",
                 "external_id__v",
                 "legal_name__c",
                 "main_internal_contact__c.username__sys",
@@ -84,18 +84,22 @@
                 "state__c",
                 "subtype__c",
                 "type__c",
-                "warehouse_code__c"
+                "warehouse_code__c",
+                "address2__c",
+                "city__v",
+                "country__v.fda_country_code_2__v",
+                "state_address__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "08_02_Special_Function_Org_QMS_ORGANIZATION__QDM",
             "params": "-export qms_organization__qdm -csv 08_02_Function-Special_Organization_QMS_ORGANIZATION__QDM.csv",
-            "object_type": "qms_organization__qdm",
+            "business_object_type": "qms_organization_qdm-Function_special",
             "where": "object_type__vr.name__v='Function / Special Organization'",
             "columns": [
                 "id",
@@ -111,57 +115,65 @@
                 "postal_code__v",
                 "state__v",
                 "state__c",
-                "state_address__v",
                 "subtype__c",
                 "type__c",
                 "warehouse_code__c",
                 "main_internal_contact__c.username__sys",
-                "warehouse_code__c"
+                "warehouse_code__c",
+                "address2__c",
+                "city__v",
+                "state_address__v",
+                "Update executed in VALIDATION manually."
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "08_03_Internal_Site_Organization_QMS_ORGANIZATION__QDM",
             "params": "-export qms_organization__qdm -csv 08_03_Internal_Site_Organization_QMS_ORGANIZATION__QDM.csv",
-            "object_type": "qms_organization__qdm",
+            "business_object_type": "qms_organization_qdm-Internal_Organization",
             "where": "object_type__vr.name__v='Internal Site'",
             "columns": [
                 "id",
                 "address1__c",
                 "city__c",
-                "country__v.fda_country_code_2__v",
+                "country__v.name__v",
                 "external_id__v",
                 "legal_name__c",
                 "main_internal_contact__c.username__sys",
                 "name__v",
+                "legal_name__c",
                 "object_type__vr.name__v",
                 "parent_organization__v.name__v",
                 "postal_code__v",
                 "state__v",
                 "state__c",
-                "state_address__v",
                 "subtype__c",
                 "type__c",
                 "warehouse_code__c",
                 "postal_code__v",
                 "country__v.name__v",
-                "warehouse_code__c"
+                "warehouse_code__c",
+                "address2__c",
+                "city__v",
+                "country__v.fda_country_code_2__v",
+                "object_type__v.name__v",
+                "state_address__v"
             ],
             "ignore_column": [
                 "id",
                 "country__v.name__v"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "08_04_Authority_Organization_QMS_ORGANIZATION__QDM",
             "params": "-export qms_organization__qdm -csv 08_04_Authority_Organization_QMS_ORGANIZATION__QDM.csv",
-            "object_type": "qms_organization__qdm",
+            "business_object_type": "qms_organization_qdm-Authority_Organization",
             "where": "",
             "columns": [
                 "id",
@@ -178,27 +190,28 @@
                 "state__v",
                 "type__c",
                 "city__c",
-                "state__c",
-                "state_address__v",
-                "legacy_organization_aida_daqs__c"
+                "state__v",
+                "legacy_organization_aida_daqs__c",
+                "address2__c",
+                "city__v",
+                "state_address__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "08_05_External_Site_Organization_QMS_ORGANIZATION__QDM",
             "params": "-export qms_organization__qdm -csv 08_05_External_Site_Organization_QMS_ORGANIZATION__QDM.csv",
-            "object_type": "qms_organization__qdm",
+            "business_object_type": "qms_organization_qdm-Supplier",
             "where": "object_type__vr.name__v='External Site'",
             "columns": [
                 "id",
                 "predecessor__c.name__v",
-                "predecessor__c.id",
                 "predecessor__c.external_id__v",
-                "successor__c",
+                "successor__c.external_id__v",
                 "external_id__v",
                 "subsequent_id__c",
                 "legacy_organization_aida_daqs__c",
@@ -214,15 +227,33 @@
                 "postal_code__v",
                 "qd_supplier_record__c",
                 "risk_classification__qdm",
+                "source_data_status__c",
                 "state__c",
                 "type__c",
+                "subtype__c",
                 "warehouse_code__c",
                 "zip__v",
+                "zip_extension__v",
                 "type__c",
                 "created_by__v",
                 "created_date__v",
                 "modified_by__v",
-                "modified_date__v"
+                "modified_date__v",
+                "sys_valid_state__c",
+                "address2__c",
+                "city__v",
+                "country__v.fda_country_code_2__v",
+                "main_internal_contact__c.username__sys",
+                "object_type__v.name",
+                "parent_organization__v",
+                "predecessor__c",
+                "predecessor__c.id",
+                "state_address__v",
+                "successor__c",
+                "Summary Check\r\nbased on TopDown Prio",
+                "as_reference.external_id__v",
+                "Old.legacy_organization_aida_daqs__c",
+                "Steps to execute"
             ],
             "ignore_column": [
                 "id",
@@ -231,13 +262,13 @@
                 "modified_by__v.name__v",
                 "modified_date__v"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "08_06_Person_person__sys",
             "params": "-export person__sys -csv 08_06_Person_person__sys.csv",
-            "object_type": "person__sys",
+            "business_object_type": "person__sys-External_Contact",
             "where": "",
             "columns": [
                 "id",
@@ -250,18 +281,20 @@
                 "middle_name__v",
                 "object_type__v.name__v",
                 "organization__v.name__v",
-                "timezone__sys"
+                "timezone__sys",
+                "language__sys.name__v",
+                "object_type__v.api_name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "09_01_Department_department__v",
             "params": "-export department__v -csv 09_01_Department_department__v.csv",
-            "object_type": "department__v",
+            "business_object_type": "department__v",
             "where": "",
             "columns": [
                 "id",
@@ -275,13 +308,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "24_error_classification_level_1_iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 24_error_classification_level_1_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-error_classification_level1",
             "where": "object_type__vr.api_name__v = 'deviation_error_code_value__c' AND error_code_value_type__c = 'level_1__c'",
             "columns": [
                 "id",
@@ -293,18 +326,19 @@
                 "external_id__c",
                 "error_code_value_type__c",
                 "object_type__vr.api_name__v",
-                "state__v"
+                "state__v",
+                "object_type__v.api_name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "24_error_classification_level_2_iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 24_error_classification_level_2_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-error_classification_level2",
             "where": "object_type__vr.api_name__v = 'deviation_error_code_value__c' AND error_code_value_type__c = 'level_2__c'",
             "columns": [
                 "id",
@@ -318,13 +352,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "24_error_classification_level_3_iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 24_error_classification_level_3_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-error_classification_level3",
             "where": "object_type__vr.api_name__v = 'deviation_error_code_value__c' AND error_code_value_type__c = 'level_3__c'",
             "columns": [
                 "id",
@@ -334,35 +368,37 @@
                 "object_code__cr.external_id__c",
                 "object_type__v.api_name__v",
                 "organization__cr.name__v",
-                "state__v"
+                "state__v",
+                "organization__c.name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "26_root_cause_level_1_category__v",
             "params": "-export category__v -csv 26_root_cause_level_1_category__v.csv",
-            "object_type": "category__v",
+            "business_object_type": "root_cause_level_1_category__v",
             "where": "",
             "columns": [
                 "id",
                 "object_type__vr.api_name__v",
                 "name__v",
-                "state__v"
+                "state__v",
+                "object_type__v.api_name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "26_root_cause_level_2_subcategory__v",
             "params": "-export subcategory__v -csv 26_root_cause_level_2_subcategory__v.csv",
-            "object_type": "subcategory__v",
+            "business_object_type": "root_cause_level_2_subcategory__v",
             "where": "",
             "columns": [
                 "id",
@@ -370,40 +406,52 @@
                 "name__v",
                 "category__v.name__v",
                 "external_id__c",
-                "state__v"
+                "state__v",
+                "object_type__v.api_name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "26_root_cause_level_3_root_cause_local_category__c",
             "params": "-export root_cause_local_category__c -csv 26_root_cause_level_3_root_cause_local_category__c.csv",
-            "object_type": "root_cause_local_category__c",
+            "business_object_type": "root_cause_level_3_local_category__c",
             "where": "",
             "columns": [
                 "id",
                 "name__v",
                 "root_cause_subcategory__c.external_id__c",
                 "site__c.name__v",
-                "state__v"
+                "state__v",
+                "helper",
+                "ID",
+                "id (export from vault)",
+                "id(export)",
+                "name__v (export from vault)",
+                "root_cause_subcategory__c.external_id__c (export from vault)",
+                "root_cause_subcategory__c.external_id__c (new)",
+                "root_cause_subcategory__c.external_id__c (old)",
+                "site__c.name__v (export from vault)",
+                "Unnamed: 5"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "27_capa_subcategory_iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 27_capa_subcategory_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-capa_sub_category",
             "where": "object_type__vr.api_name__v = 'capa_subcategory__c'",
             "columns": [
                 "id",
                 "name__v",
+                "capa_category__c",
                 "object_type__v.api_name__v",
                 "organization__cr.name__v",
                 "state__v"
@@ -411,19 +459,23 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "10_qms_unit__c",
             "params": "-export qms_unit__c -csv 10_qms_unit__c.csv",
-            "object_type": "qms_unit__c",
+            "business_object_type": "qms_unit__c",
             "where": "",
             "columns": [
                 "id",
                 "is_valid__c",
                 "name__v",
-                "state__v"
+                "state__v",
+                "external_id__v",
+                "level_1_parent__c.name__v",
+                "organization_description__c",
+                "unit_organization_classification__c"
             ],
             "ignore_column": [
                 "id"
@@ -434,28 +486,11 @@
         {
             "name": "20_process_ownermanager__c",
             "params": "-export process_ownermanager__c -csv 20_process_ownermanager__c.csv",
-            "object_type": "process_ownermanager__c",
+            "business_object_type": "process_ownermanager__c",
             "where": "",
             "columns": [
                 "id",
                 "is_valid__c",
-                "name__v",
-                "state__v"
-            ],
-            "ignore_column": [
-                "id"
-            ],
-            "active": 0,
-            "status": "all attributes included"
-        },
-        {
-            "name": "22_keyword__c",
-            "params": "-export keyword__c -csv 22_keyword__c.csv",
-            "object_type": "keyword__c",
-            "where": "",
-            "columns": [
-                "id",
-                "keyword_type__c",
                 "name__v",
                 "state__v"
             ],
@@ -466,25 +501,51 @@
             "status": "all attributes included"
         },
         {
+            "name": "22_keyword__c",
+            "params": "-export keyword__c -csv 22_keyword__c.csv",
+            "business_object_type": "keyword__c",
+            "where": "",
+            "columns": [
+                "id",
+                "keyword_type__c",
+                "name__v",
+                "state__v",
+                "is_valid__c",
+                "status__v",
+                "export.concat_name_and_type",
+                "export.id",
+                "export.keyword.name__v",
+                "export.keyword.type__c"
+            ],
+            "ignore_column": [
+                "id",
+                "name__v"
+            ],
+            "active": 1,
+            "status": "all attributes included"
+        },
+        {
             "name": "35_qms_unit_keywords_join__c",
             "params": "-export qms_unit_keywords_join__c -csv 35_qms_unit_keywords_join__c.csv",
-            "object_type": "qms_unit_keywords_join__c",
+            "business_object_type": "qms_unit_keywords_join__c",
             "where": "",
             "columns": [
                 "id",
                 "qms_unit__c",
-                "keyword__c"
+                "keyword__c",
+                "keyword__c.name__v",
+                "qms_unit__c.name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "Special processing is needed. Follow up on this!!"
         },
         {
             "name": "19_process_group__c",
             "params": "-export process_group__c -csv 19_process_group__c.csv",
-            "object_type": "process_group__c",
+            "business_object_type": "process_group__c",
             "where": "",
             "columns": [
                 "id",
@@ -495,13 +556,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "32_qms_unit_process_group__c",
             "params": "-export qms_unit_process_group__c -csv 32_qms_unit_process_group__c.csv",
-            "object_type": "qms_unit_process_group__c",
+            "business_object_type": "join_qms_unit_process_group__c",
             "where": "",
             "columns": [
                 "id",
@@ -512,13 +573,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "34_qms_unit_process_owner_join__c",
             "params": "-export qms_unit_process_owner_join__c -csv 34_qms_unit_process_owner_join__c.csv",
-            "object_type": "qms_unit_process_owner_join__c",
+            "business_object_type": "qms_unit_process_owner_join__c",
             "where": "",
             "columns": [
                 "id",
@@ -529,13 +590,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "15_trd_code_title__c",
             "params": "-export trd_code_title__c -csv 15_trd_code_title__c.csv",
-            "object_type": "trd_code_title__c",
+            "business_object_type": "trd_code_title__c",
             "where": "",
             "columns": [
                 "id",
@@ -545,13 +606,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "14_trd_codes__c",
             "params": "-export trd_codes__c -csv 14_trd_codes__c.csv",
-            "object_type": "trd_codes__c",
+            "business_object_type": "trd_codes__c",
             "where": "",
             "columns": [
                 "id",
@@ -565,13 +626,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "16_trd_code_title_amendment__c",
             "params": "-export trd_code_title_amendment__c -csv 16_trd_code_title_amendment__c.csv",
-            "object_type": "trd_code_title_amendment__c",
+            "business_object_type": "trd_code_title_amendment__c",
             "where": "",
             "columns": [
                 "id",
@@ -582,13 +643,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "31_trd_code_title_amendment_join__c",
             "params": "-export trd_code_title_amendment_join__c -csv 31_trd_code_title_amendment_join__c.csv",
-            "object_type": "trd_code_title_amendment_join__c",
+            "business_object_type": "trd_code_title_amendment_join__c",
             "where": "",
             "columns": [
                 "id",
@@ -598,13 +659,72 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
+            "status": "all attributes included"
+        },
+        
+        {
+            "name": "05_specification_id__c",
+            "params": "-export specification_id__c -csv 05_specification_id__c.csv",
+            "business_object_type": "specification_id__c",
+            "where": "",
+            "columns": [
+                "id",
+                "name__v",
+                "description__c",
+                "additional_information__c",
+                "is_valid__c",
+                "managed_in__c",
+                "state__v",
+                "registration_name__c.name__v",
+                "specification__c.name__v",
+                "status__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 1,
+            "status": "all attributes included"
+        },
+        
+        {
+            "name": "11_registration_name__c",
+            "params": "-export registration_name__c -csv 11_registration_name__c.csv",
+            "business_object_type": "registration_name__c",
+            "where": "",
+            "columns": [
+                "id",
+                "name__v",
+                "used_for__c",
+                "is_valid__c",
+                "state__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 1,
+            "status": "all attributes included"
+        },
+        {
+            "name": "12_specification_id_registration_name_join__c",
+            "params": "-export specification_id_registration_name_join__c -csv 12_specification_id_registration_name_join__c.csv",
+            "business_object_type": "specification_id_registration_name_join__c",
+            "where": "",
+            "columns": [
+                "id",
+                "registration_name__c.name__v",
+                "specification__c.name__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "30_Reporting_KPIs_Level_1__iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 30_Reporting_KPIs_Level_1__iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-reporting_kpis_level1",
             "where": "object_type__vr.api_name__v='deviation_kpi_for_pqr_qmr__c' and error_code_value_type__c='level_1__c'",
             "columns": [
                 "id",
@@ -612,18 +732,19 @@
                 "external_id__c",
                 "error_code_value_type__c",
                 "object_type__vr.api_name__v",
-                "state__v"
+                "state__v",
+                "object_type__v.api_name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "30_Reporting_KPIs_Level_2__iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 30_Reporting_KPIs_Level_2__iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-reporting_kpis_level2",
             "where": "object_type__vr.api_name__v='deviation_kpi_for_pqr_qmr__c' and error_code_value_type__c='level_2__c'",
             "columns": [
                 "id",
@@ -632,18 +753,19 @@
                 "object_code__cr.external_id__c",
                 "error_code_value_type__c",
                 "object_type__vr.api_name__v",
-                "state__v"
+                "state__v",
+                "object_type__v.api_name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "01_quality_material__v",
             "params": "-export quality_material__v -csv 01_quality_material__v.csv",
-            "object_type": "quality_material__v",
+            "business_object_type": "quality_material__v",
             "where": "",
             "columns": [
                 "id",
@@ -666,7 +788,20 @@
                 "external_id__v",
                 "managed_in__c",
                 "udidi__c",
-                "state__v"
+                "state__v",
+                "description__v",
+                "manufacture_date__c",
+                "manufacturer_lot__c",
+                "material_source__v",
+                "material_sub_type__c",
+                "organization__v",
+                "product_variant__v",
+                "quantity__c",
+                "reason_for_change_capture__v",
+                "retestexpiry_period__c",
+                "retestexpiry_period_months__c",
+                "storage_condition__c",
+                "type_of_material_text__c"
             ],
             "ignore_column": [
                 "id"
@@ -674,10 +809,28 @@
             "active": 0,
             "status": "all attributes included"
         },
+        
+        {
+            "name": "37_manufacturing_site__c",
+            "params": "-export manufacturing_site__c -csv 37_manufacturing_site__c.csv",
+            "business_object_type": "manufacturing_site__c",
+            "where": "",
+            "columns": [
+                "id",
+                "name__v",
+                "manufacturing_site_name__c",
+                "state__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 1,
+            "status": "all attributes included"
+        },
         {
             "name": "02a_quality_batch__v_01",
             "params": "-export quality_batch__v -csv 02a_quality_batch__v_01.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "where": "  external_batch_id__v <= '000000000000000004-0000208041'",
             "columns": [
                 "id",
@@ -692,7 +845,11 @@
                 "information_for_production__c",
                 "batch_disposition__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "material__v.external_id__v",
+                "name__v",
+                "order_number__c",
+                "production_supervisormanufacturing_con__c"
             ],
             "ignore_column": [
                 "id"
@@ -703,7 +860,7 @@
         {
             "name": "02a_quality_batch__v_02",
             "params": "-export quality_batch__v -csv 02a_quality_batch__v_02.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "where": "external_batch_id__v > '000000000000000004-0000208041' and external_batch_id__v <= '000000000003264348-52530007'",
             "columns": [
                 "id",
@@ -718,7 +875,11 @@
                 "information_for_production__c",
                 "batch_disposition__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "material__v.external_id__v",
+                "name__v",
+                "order_number__c",
+                "production_supervisormanufacturing_con__c"
             ],
             "ignore_column": [
                 "id"
@@ -729,7 +890,7 @@
         {
             "name": "02a_quality_batch__v_03",
             "params": "-export quality_batch__v -csv 02a_quality_batch__v_03.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "where": "external_batch_id__v > '000000000003264348-52530007' and external_batch_id__v <= '000000000055406500-BXR9U7W'",
             "columns": [
                 "id",
@@ -744,7 +905,11 @@
                 "information_for_production__c",
                 "batch_disposition__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "material__v.external_id__v",
+                "name__v",
+                "order_number__c",
+                "production_supervisormanufacturing_con__c"
             ],
             "ignore_column": [
                 "id"
@@ -755,7 +920,7 @@
         {
             "name": "02a_quality_batch__v_04",
             "params": "-export quality_batch__v -csv 02a_quality_batch__v_04.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "where": "external_batch_id__v > '000000000055406500-BXR9U7W' and external_batch_id__v <= '000000000080834579-ITA5IEC'",
             "columns": [
                 "id",
@@ -770,7 +935,11 @@
                 "information_for_production__c",
                 "batch_disposition__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "material__v.external_id__v",
+                "name__v",
+                "order_number__c",
+                "production_supervisormanufacturing_con__c"
             ],
             "ignore_column": [
                 "id"
@@ -781,7 +950,7 @@
         {
             "name": "02a_quality_batch__v_05",
             "params": "-export quality_batch__v -csv 02a_quality_batch__v_05.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "where": "external_batch_id__v > '000000000080834579-ITA5IEC' and external_batch_id__v <= '000000000083929723-NAN27W4'",
             "columns": [
                 "id",
@@ -796,7 +965,11 @@
                 "information_for_production__c",
                 "batch_disposition__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "material__v.external_id__v",
+                "name__v",
+                "order_number__c",
+                "production_supervisormanufacturing_con__c"
             ],
             "ignore_column": [
                 "id"
@@ -807,7 +980,7 @@
         {
             "name": "02a_quality_batch__v_06",
             "params": "-export quality_batch__v -csv 02a_quality_batch__v_06.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "where": "external_batch_id__v > '000000000083929723-NAN27W4' and external_batch_id__v <= '000000000086698641-8653669'",
             "columns": [
                 "id",
@@ -822,7 +995,11 @@
                 "information_for_production__c",
                 "batch_disposition__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "material__v.external_id__v",
+                "name__v",
+                "order_number__c",
+                "production_supervisormanufacturing_con__c"
             ],
             "ignore_column": [
                 "id"
@@ -833,12 +1010,10 @@
         {
             "name": "02a_quality_batch__v_07",
             "params": "-export quality_batch__v -csv 02a_quality_batch__v_07.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "where": "external_batch_id__v > '000000000086698641-8653669'",
             "columns": [
                 "id",
-                "order_number__c,material__v.external_id__v",
-                "name__v,production_supervisormanufacturing_con__c",
                 "manufacture_date__v",
                 "expiration_date__v",
                 "manufacturing_site_code__cr.name__v",
@@ -848,10 +1023,15 @@
                 "information_for_production__c",
                 "batch_disposition__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "material__v.external_id__v",
+                "name__v",
+                "order_number__c",
+                "production_supervisormanufacturing_con__c"
             ],
             "ignore_column": [
-                "id"
+                "id",
+                "name__v"
             ],
             "active": 0,
             "status": "all attributes included"
@@ -859,7 +1039,7 @@
         {
             "name": "02b_bulk_batch__c",
             "params": "-export bulk_batch__c -csv 02b_bulk_batch__c.csv",
-            "object_type": "bulk_batch__c",
+            "business_object_type": "bulk_batch__c",
             "where": "",
             "columns": [
                 "id",
@@ -879,7 +1059,7 @@
         {
             "name": "03_asset__v",
             "params": "-export asset__v -csv 03_asset__v.csv",
-            "object_type": "asset__v",
+            "business_object_type": "asset__v",
             "where": "",
             "columns": [
                 "id",
@@ -891,7 +1071,11 @@
                 "room__c",
                 "managed_in__c",
                 "state__v",
-                "external_id__c"
+                "external_id__c",
+                "object_type__v.api_name__v",
+                "status__v",
+                "duplicates",
+                "name__v(New)"
             ],
             "ignore_column": [
                 "id"
@@ -902,7 +1086,7 @@
         {
             "name": "04_part__v_01",
             "params": "-export part__v -csv 04_part__v_01.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "where": "name__v >='' and name__v <'501000011000000'",
             "columns": [
                 "name__v",
@@ -910,16 +1094,20 @@
                 "mfg_part_id__v",
                 "udi__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "external_id__c",
+                "id"
             ],
-            "ignore_column": [],
+            "ignore_column": [
+                "id"
+            ],
             "active": 0,
             "status": "all attributes included"
         },
         {
             "name": "04_part__v_02",
             "params": "-export part__v -csv 04_part__v_02.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "where": "name__v >='501000011000000' and name__v <'501000012000000'",
             "columns": [
                 "name__v",
@@ -927,7 +1115,10 @@
                 "mfg_part_id__v",
                 "udi__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "external_id__c",
+                "id",
+                "Please find detailed information of how to create this VAULT specific file in this description:"
             ],
             "ignore_column": [],
             "active": 0,
@@ -936,7 +1127,7 @@
         {
             "name": "04_part__v_03",
             "params": "-export part__v -csv 04_part__v_03.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "where": "name__v >='501000012000000' and name__v <'501000020500000'",
             "columns": [
                 "name__v",
@@ -944,7 +1135,10 @@
                 "mfg_part_id__v",
                 "udi__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "external_id__c",
+                "id",
+                "Please find detailed information of how to create this VAULT specific file in this description:"
             ],
             "ignore_column": [],
             "active": 0,
@@ -953,7 +1147,7 @@
         {
             "name": "04_part__v_04",
             "params": "-export part__v -csv 04_part__v_04.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "where": "name__v >='501000020500000' and name__v <'501000021400000'",
             "columns": [
                 "name__v",
@@ -961,7 +1155,10 @@
                 "mfg_part_id__v",
                 "udi__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "external_id__c",
+                "id",
+                "Please find detailed information of how to create this VAULT specific file in this description:"
             ],
             "ignore_column": [],
             "active": 0,
@@ -970,7 +1167,7 @@
         {
             "name": "04_part__v_05",
             "params": "-export part__v -csv 04_part__v_05.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "where": "name__v >='501000021400000' and name__v <'999999999999999'",
             "columns": [
                 "name__v",
@@ -978,7 +1175,10 @@
                 "mfg_part_id__v",
                 "udi__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "external_id__c",
+                "id",
+                "Please find detailed information of how to create this VAULT specific file in this description:"
             ],
             "ignore_column": [],
             "active": 0,
@@ -987,7 +1187,7 @@
         {
             "name": "04_part__v_06",
             "params": "-export part__v -csv 04_part__v_06.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "where": "name__v <='' or name__v >='999999999999999'",
             "columns": [
                 "name__v",
@@ -995,70 +1195,19 @@
                 "mfg_part_id__v",
                 "udi__c",
                 "managed_in__c",
-                "state__v"
+                "state__v",
+                "external_id__c",
+                "id",
+                "Please find detailed information of how to create this VAULT specific file in this description:"
             ],
             "ignore_column": [],
             "active": 0,
             "status": "all attributes included"
         },
         {
-            "name": "05_specification_id__c",
-            "params": "-export specification_id__c -csv 05_specification_id__c.csv",
-            "object_type": "specification_id__c",
-            "where": "",
-            "columns": [
-                "id",
-                "name__v",
-                "description__c",
-                "additional_information__c",
-                "is_valid__c",
-                "managed_in__c",
-                "state__v"
-            ],
-            "ignore_column": [
-                "id"
-            ],
-            "active": 0,
-            "status": "all attributes included"
-        },
-        {
-            "name": "11_registration_name__c",
-            "params": "-export registration_name__c -csv 11_registration_name__c.csv",
-            "object_type": "registration_name__c",
-            "where": "",
-            "columns": [
-                "id",
-                "name__v",
-                "used_for__c",
-                "is_valid__c",
-                "state__v"
-            ],
-            "ignore_column": [
-                "id"
-            ],
-            "active": 0,
-            "status": "all attributes included"
-        },
-        {
-            "name": "12_specification_id_registration_name_join__c",
-            "params": "-export specification_id_registration_name_join__c -csv 12_specification_id_registration_name_join__c.csv",
-            "object_type": "specification_id_registration_name_join__c",
-            "where": "",
-            "columns": [
-                "id",
-                "registration_name__c.name__v",
-                "specification__c.name__v"
-            ],
-            "ignore_column": [
-                "id"
-            ],
-            "active": 0,
-            "status": "all attributes included"
-        },
-        {
             "name": "23_01_complaint_error_codes_level_1_iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 23_complaint_error_codes_level_1_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-complaint_error_codes_level_1",
             "where": "object_type__vr.api_name__v='complaint_error_code_value__c' and error_code_value_type__c='object_code__c'",
             "columns": [
                 "id",
@@ -1066,18 +1215,19 @@
                 "external_id__c",
                 "error_code_value_type__c",
                 "object_type__vr.api_name__v",
-                "state__v"
+                "state__v",
+                "object_type__v.api_name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "23_02_complaint_error_codes_level_2_iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 23_complaint_error_codes_level_2_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-complaint_error_codes_level_2",
             "where": "object_type__vr.api_name__v='complaint_error_code_value__c' and error_code_value_type__c='error_code__c'",
             "columns": [
                 "id",
@@ -1086,18 +1236,19 @@
                 "external_id__c",
                 "error_code_value_type__c",
                 "object_type__vr.api_name__v",
-                "state__v"
+                "state__v",
+                "object_type__v.api_name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "23_03_complaint_error_codes_level_3_iqms_controlled_value__c",
             "params": "-export iqms_controlled_value__c -csv 23_complaint_error_codes_level_3_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-complaint_error_codes_level_3",
             "where": "object_type__vr.api_name__v='complaint_error_code_value__c' and error_code_value_type__c='error_subcode__c'",
             "columns": [
                 "id",
@@ -1106,35 +1257,19 @@
                 "error_code__cr.external_id__c",
                 "error_code_value_type__c",
                 "object_type__vr.api_name__v",
-                "state__v"
+                "state__v",
+                "object_type__v.api_name__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
-            "status": "all attributes included"
-        },
-        {
-            "name": "37_manufacturing_site__c",
-            "params": "-export manufacturing_site__c -csv 37_manufacturing_site__c.csv",
-            "object_type": "manufacturing_site__c",
-            "where": "",
-            "columns": [
-                "id",
-                "name__v",
-                "manufacturing_site_name__c",
-                "state__v"
-            ],
-            "ignore_column": [
-                "id"
-            ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "13_product_hierarchy_data_iqms_product_hierarchy__c",
             "params": "-export iqms_product_hierarchy__c -csv 13_product_hierarchy_data_iqms_product_hierarchy__c.csv",
-            "object_type": "iqms_product_hierarchy__c",
+            "business_object_type": "iqms_product_hierarchy__c",
             "where": "",
             "columns": [
                 "id",
@@ -1146,13 +1281,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "21_QMS_Chapter_qms_chapter__c",
             "params": "-export qms_chapter__c  -csv 21_QMS_Chapter_qms_chapter__c.csv",
-            "object_type": "qms_chapter__c",
+            "business_object_type": "qms_chapter__c",
             "where": "",
             "columns": [
                 "id",
@@ -1163,13 +1298,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c",
             "params": "-export iqms_imdrf_value__c -csv 25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c.csv",
-            "object_type": "iqms_imdrf_value__c",
+            "business_object_type": "iqms_imdrf_value__c",
             "where": "",
             "columns": [
                 "id",
@@ -1188,13 +1323,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "18_change_application_number__c",
             "params": "-export change_application_number__c -csv 18_change_application_number__c.csv",
-            "object_type": "change_application_number__c",
+            "business_object_type": "change_application_number__c",
             "where": "",
             "columns": [
                 "id",
@@ -1204,13 +1339,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "38_Document_Category_document_category__c",
             "params": "-export document_category__c -csv 38_Document_Category_document_category__c.csv",
-            "object_type": "document_category__c",
+            "business_object_type": "document_category__c",
             "where": "",
             "columns": [
                 "id",
@@ -1224,13 +1359,13 @@
                 "id",
                 "status__v"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "44_Event_Code_event_code__c",
             "params": "-export event_code__c -csv 44_Event_Code_event_code__c.csv",
-            "object_type": "event_code__c",
+            "business_object_type": "event_code__c",
             "where": "",
             "columns": [
                 "id",
@@ -1242,13 +1377,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "39_Submissions_TRD_Code_Title_submissions_trd_code_title__c",
             "params": "-export submissions_trd_code_title__c -csv 39_Submissions_TRD_Code_Title_submissions_trd_code_title__c.csv",
-            "object_type": "submissions_trd_code_title__c",
+            "business_object_type": "submissions_trd_code_title__c",
             "where": "",
             "columns": [
                 "id",
@@ -1257,13 +1392,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "40_Submissions_TRD_Code_Title_Amendment__c",
             "params": "-export submissions_trd_code_title_amendment__c -csv 40_Submissions_TRD_Code_Title_Amendment__c.csv",
-            "object_type": "submissions_trd_code_title_amendment__c",
+            "business_object_type": "submissions_trd_code_title_amendment__c",
             "where": "",
             "columns": [
                 "id",
@@ -1273,13 +1408,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "41_Submissions_TRD_Code_submissions_trd_code__c",
             "params": "-export submissions_trd_code__c -csv 41_Submissions_TRD_Code_submissions_trd_code__c.csv",
-            "object_type": "submissions_trd_code__c",
+            "business_object_type": "submissions_trd_code__c",
             "where": "",
             "columns": [
                 "id",
@@ -1292,13 +1427,13 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "42_submissions_trd_code_title_amend_join__c",
             "params": "-export submissions_trd_code_title_amend_join__c -csv 42_submissions_trd_code_title_amend_join__c.csv",
-            "object_type": "submissions_trd_code_title_amend_join__c",
+            "business_object_type": "submissions_trd_code_title_amend_join__c",
             "where": "",
             "columns": [
                 "id",
@@ -1310,30 +1445,31 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "43_document_category_sub_trd_code_join__c",
             "params": "-export document_category_sub_trd_code_join__c -csv 43_document_category_sub_trd_code_join__c.csv",
-            "object_type": "document_category_sub_trd_code_join__c",
+            "business_object_type": "document_category_sub_trd_code_join__c",
             "where": "",
             "columns": [
                 "id",
                 "name__v",
                 "document_category__c.name__v",
-                "submissions_trd_code__c.name__v"
+                "submissions_trd_code__c.name__v",
+                "status__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "70_change_authorization_type__c",
             "params": "-export ca_type__c -csv 70_change_authorization_type__c.csv",
-            "object_type": "ca_type__c",
+            "business_object_type": "ca_type__c",
             "where": "",
             "columns": [
                 "id",
@@ -1346,27 +1482,13 @@
                 "id",
                 "status__v"
             ],
-            "active": 0,
+            "active": 1,
             "status": "all attributes included"
         },
         {
             "name": "Template",
             "params": "-export  -csv ",
-            "object_type": "-csv",
-            "where": "",
-            "columns": [
-                "id"
-            ],
-            "ignore_column": [
-                "id"
-            ],
-            "active": 0,
-            "status": "to be checked"
-        },
-        {
-            "name": "Test",
-            "params": "-export  -csv ",
-            "object_type": "-csv",
+            "business_object_type": "-csv",
             "where": "",
             "columns": [
                 "id"
@@ -1382,443 +1504,443 @@
         {
             "name": "07_country__v",
             "params": "-create country__v -csv 07_country__v.csv",
-            "object_type": "country__v",
+            "business_object_type": "country__v",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_01_Country_Organizations_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv 08_01_Country_Organizations_QMS_ORGANIZATION__QDM.csv",
-            "object_type": "qms_organization__qdm",
+            "business_object_type": "qms_organization_qdm-Country_Organization",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_02_Function-Special_Organization_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv 08_02_Function-Special_Organization_QMS_ORGANIZATION__QDM.csv",
-            "object_type": "qms_organization__qdm",
+            "business_object_type": "qms_organization_qdm-Function_special",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_03_Internal_Site_Organization_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv 08_03_Internal_Site_Organization_QMS_ORGANIZATION__QDM.csv",
-            "object_type": "qms_organization__qdm",
+            "business_object_type": "qms_organization_qdm-Internal_Organization",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_04_Authority_Organization_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv 08_04_Authority_Organization_QMS_ORGANIZATION__QDM.csv",
-            "object_type": "qms_organization__qdm",
+            "business_object_type": "qms_organization_qdm-Authority_Organization",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_05_External_Site_Organization_QMS_ORGANIZATION__QDM",
             "params": "-create qms_organization__qdm -recordmigrationmode -csv 08_05_External_Site_Organization_QMS_ORGANIZATION__QDM.csv",
-            "object_type": "qms_organization__qdm",
+            "business_object_type": "qms_organization_qdm-Supplier",
             "active": 0,
             "status": "works"
         },
         {
             "name": "08_06_Person_person__sys",
             "params": "-create person__sys -recordmigrationmode -csv 08_06_Person_person__sys.csv",
-            "object_type": "person__sys",
+            "business_object_type": "person__sys-External_Contact",
             "active": 0,
             "status": "works, pay attention not to import twice or more!!!"
         },
         {
             "name": "09_01_Department_department__v",
             "params": "-create department__v -recordmigrationmode -csv 09_01_Department_department__v.csv",
-            "object_type": "department__v",
+            "business_object_type": "department__v",
             "active": 0,
             "status": "works"
         },
         {
             "name": "24_error_classification_level_1_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv 24_error_classification_level_1_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-error_classification_level1",
             "active": 0,
             "status": "works"
         },
         {
             "name": "24_error_classification_level_2_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv 24_error_classification_level_2_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-error_classification_level2",
             "active": 0,
             "status": "work"
         },
         {
             "name": "24_error_classification_level_3_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv 24_error_classification_level_3_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-error_classification_level3",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "26_root_cause_level_1_category__v",
             "params": "-create category__v -recordmigrationmode -csv 26_root_cause_level_1_category__v.csv",
-            "object_type": "category__v",
+            "business_object_type": "root_cause_level_1_category__v",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "26_root_cause_level_2_subcategory__v",
             "params": "-create subcategory__v -recordmigrationmode -csv 26_root_cause_level_2_subcategory__v.csv",
-            "object_type": "subcategory__v",
+            "business_object_type": "root_cause_level_2_subcategory__v",
             "active": 0,
             "status": "works"
         },
         {
             "name": "26_root_cause_level_3_root_cause_local_category__c",
             "params": "-create root_cause_local_category__c -recordmigrationmode -csv 26_root_cause_level_3_root_cause_local_category__c.csv",
-            "object_type": "root_cause_local_category__c",
+            "business_object_type": "root_cause_level_3_local_category__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "27_capa_subcategory_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv 27_capa_subcategory_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-capa_sub_category",
             "active": 0,
             "status": "works"
         },
         {
             "name": "10_qms_unit__c",
             "params": "-create qms_unit__c -recordmigrationmode -csv 10_qms_unit__c.csv",
-            "object_type": "qms_unit__c",
+            "business_object_type": "qms_unit__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "20_process_ownermanager__c",
             "params": "-create process_ownermanager__c -recordmigrationmode -csv 20_process_ownermanager__c.csv",
-            "object_type": "process_ownermanager__c",
+            "business_object_type": "process_ownermanager__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "22_keyword__c",
             "params": "-create keyword__c -recordmigrationmode -csv 22_keyword__c.csv",
-            "object_type": "keyword__c",
+            "business_object_type": "keyword__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "19_process_group__c",
             "params": "-create process_group__c -recordmigrationmode -csv 19_process_group__c.csv",
-            "object_type": "process_group__c",
+            "business_object_type": "process_group__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "32_qms_unit_process_group__c",
             "params": "-create qms_unit_process_group__c -recordmigrationmode -csv 32_qms_unit_process_group__c.csv",
-            "object_type": "qms_unit_process_group__c",
+            "business_object_type": "join_qms_unit_process_group__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "34_qms_unit_process_owner_join__c",
             "params": "-create qms_unit_process_owner_join__c -recordmigrationmode -csv 34_qms_unit_process_owner_join__c.csv",
-            "object_type": "qms_unit_process_owner_join__c",
+            "business_object_type": "qms_unit_process_owner_join__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "35_qms_unit_keywords_join__c",
             "params": "-create qms_unit_keywords_join__c -recordmigrationmode -csv 35_qms_unit_keywords_join__c.csv",
-            "object_type": "qms_unit_keywords_join__c",
+            "business_object_type": "qms_unit_keywords_join__c",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "15_trd_code_title__c",
             "params": "-create trd_code_title__c -recordmigrationmode -csv 15_trd_code_title__c.csv",
-            "object_type": "trd_code_title__c",
+            "business_object_type": "trd_code_title__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "14_trd_codes__c",
             "params": "-create trd_codes__c -recordmigrationmode -csv 14_trd_codes__c.csv",
-            "object_type": "trd_codes__c",
+            "business_object_type": "trd_codes__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "16_trd_code_title_amendment__c",
             "params": "-create trd_code_title_amendment__c -recordmigrationmode -csv 16_trd_code_title_amendment__c.csv",
-            "object_type": "trd_code_title_amendment__c",
+            "business_object_type": "trd_code_title_amendment__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "31_trd_code_title_amendment_join__c",
             "params": "-create trd_code_title_amendment_join__c -recordmigrationmode -csv 31_trd_code_title_amendment_join__c.csv",
-            "object_type": "trd_code_title_amendment_join__c",
+            "business_object_type": "trd_code_title_amendment_join__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "05_specification_id__c",
             "params": "-create specification_id__c -recordmigrationmode -csv 05_specification_id__c.csv",
-            "object_type": "specification_id__c",
+            "business_object_type": "specification_id__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "11_registration_name__c",
             "params": "-create registration_name__c -recordmigrationmode -csv 11_registration_name__c.csv",
-            "object_type": "registration_name__c",
+            "business_object_type": "registration_name__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "12_specification_id_registration_name_join__c",
             "params": "-create specification_id_registration_name_join__c -recordmigrationmode -csv 12_specification_id_registration_name_join__c.csv",
-            "object_type": "specification_id_registration_name_join__c",
+            "business_object_type": "specification_id_registration_name_join__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "30_Reporting_KPIs_Level_1__iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv 30_Reporting_KPIs_Level_1__iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-reporting_kpis_level1",
             "active": 0,
             "status": "works"
         },
         {
             "name": "30_Reporting_KPIs_Level_2__iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv 30_Reporting_KPIs_Level_2__iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-reporting_kpis_level2",
             "active": 0,
             "status": "works"
         },
         {
             "name": "01_quality_material__v",
             "params": "-create quality_material__v -recordmigrationmode -csv 01_quality_material__v.csv",
-            "object_type": "quality_material__v",
+            "business_object_type": "quality_material__v",
             "active": 0,
             "status": "to be checked"
         },
         {
+            "name": "37_manufacturing_site__c",
+            "params": "-create manufacturing_site__c -recordmigrationmode -csv 37_manufacturing_site__c.csv",
+            "business_object_type": "manufacturing_site__c",
+            "active": 0,
+            "status": "works"
+        },
+        {
             "name": "02a_quality_batch__v_01",
             "params": "-create quality_batch__v -recordmigrationmode -csv 02a_quality_batch__v_01.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
+            "active": 0,
+            "status": "to be checked"
+        },
+        {
+            "name": "02a_quality_batch__v_02",
+            "params": "-create quality_batch__v -recordmigrationmode -csv 02a_quality_batch__v_02.csv",
+            "business_object_type": "quality_batch__v",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_03",
             "params": "-create quality_batch__v -recordmigrationmode -csv 02a_quality_batch__v_03.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_04",
             "params": "-create quality_batch__v -recordmigrationmode -csv 02a_quality_batch__v_04.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_05",
             "params": "-create quality_batch__v -recordmigrationmode -csv 02a_quality_batch__v_05.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_06",
             "params": "-create quality_batch__v -recordmigrationmode -csv 02a_quality_batch__v_06.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02a_quality_batch__v_07",
             "params": "-create quality_batch__v -recordmigrationmode -csv 02a_quality_batch__v_07.csv",
-            "object_type": "quality_batch__v",
+            "business_object_type": "quality_batch__v",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "02b_bulk_batch__c",
             "params": "-create bulk_batch__c -recordmigrationmode -csv 02b_bulk_batch__c.csv",
-            "object_type": "bulk_batch__c",
+            "business_object_type": "bulk_batch__c",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "03_asset__v",
             "params": "-create asset__v -recordmigrationmode -csv 03_asset__v.csv03_asset__v.csv",
-            "object_type": "asset__v",
+            "business_object_type": "asset__v",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "04_part__v_01",
             "params": "-create part__v -recordmigrationmode -csv 04_part__v_01.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "04_part__v_02",
             "params": "-create part__v -recordmigrationmode -csv 04_part__v_02.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "active": 0,
             "status": "all attributes included"
         },
         {
             "name": "04_part__v_03",
             "params": "-create part__v -recordmigrationmode -csv 04_part__v_03.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "active": 0,
             "status": "all attributes included"
         },
         {
             "name": "04_part__v_04",
             "params": "-create part__v -recordmigrationmode -csv 04_part__v_04.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "active": 0,
             "status": "all attributes included"
         },
         {
             "name": "04_part__v_05",
             "params": "-create part__v -recordmigrationmode -csv 04_part__v_05.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "active": 0,
             "status": "all attributes included"
         },
         {
             "name": "04_part__v_06",
             "params": "-create part__v -recordmigrationmode -csv 04_part__v_06.csv",
-            "object_type": "part__v",
+            "business_object_type": "part__v",
             "active": 0,
             "status": "all attributes included"
         },
         {
             "name": "23_01_complaint_error_codes_level_1_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv 23_complaint_error_codes_level_1_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-complaint_error_codes_level_1",
             "active": 0,
             "status": "works"
         },
         {
             "name": "23_02_complaint_error_codes_level_2_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv 23_complaint_error_codes_level_2_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
+            "business_object_type": "iqms_controlled_value__c-complaint_error_codes_level_2",
             "active": 0,
             "status": "works"
         },
         {
             "name": "23_03_complaint_error_codes_level_3_iqms_controlled_value__c",
             "params": "-create iqms_controlled_value__c -recordmigrationmode -csv 23_complaint_error_codes_level_3_iqms_controlled_value__c.csv",
-            "object_type": "iqms_controlled_value__c",
-            "active": 0,
-            "status": "works"
-        },
-        {
-            "name": "37_manufacturing_site__c",
-            "params": "-create manufacturing_site__c -recordmigrationmode -csv 37_manufacturing_site__c.csv",
-            "object_type": "manufacturing_site__c",
+            "business_object_type": "iqms_controlled_value__c-complaint_error_codes_level_3",
             "active": 0,
             "status": "works"
         },
         {
             "name": "13_product_hierarchy_data_iqms_product_hierarchy__c",
             "params": "-create iqms_product_hierarchy__c -recordmigrationmode -csv 13_product_hierarchy_data_iqms_product_hierarchy__c.csv",
-            "object_type": "iqms_product_hierarchy__c",
+            "business_object_type": "iqms_product_hierarchy__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "21_QMS_Chapter_qms_chapter__c",
             "params": "-create qms_chapter__c -recordmigrationmode -csv 21_QMS_Chapter_qms_chapter__c.csv",
-            "object_type": "qms_chapter__c",
+            "business_object_type": "qms_chapter__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c",
             "params": "-create iqms_imdrf_value__c -recordmigrationmode -csv 25_IMDRF_Object-Annex-Type_iqms_imdrf_value__c.csv",
-            "object_type": "iqms_imdrf_value__c",
+            "business_object_type": "iqms_imdrf_value__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "18_change_application_number__c",
             "params": "-create change_application_number__c -recordmigrationmode -csv 18_change_application_number__c.csv",
-            "object_type": "change_application_number__c",
+            "business_object_type": "change_application_number__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "38_Document_Category_document_category__c",
             "params": "-create document_category__c -recordmigrationmode -csv 38_Document_Category_document_category__c.csv",
-            "object_type": "document_category__c",
+            "business_object_type": "document_category__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "44_Event_Code_event_code__c",
             "params": "-create event_code__c -recordmigrationmode -csv 44_Event_Code_event_code__c.csv",
-            "object_type": "event_code__c",
+            "business_object_type": "event_code__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "39_Submissions_TRD_Code_Title_submissions_trd_code_title__c",
             "params": "-create submissions_trd_code_title__c -recordmigrationmode -csv 39_Submissions_TRD_Code_Title_submissions_trd_code_title__c.csv",
-            "object_type": "submissions_trd_code_title__c",
+            "business_object_type": "submissions_trd_code_title__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "40_Submissions_TRD_Code_Title_Amendment__c",
             "params": "-create submissions_trd_code_title_amendment__c -recordmigrationmode -csv 40_Submissions_TRD_Code_Title_Amendment__c.csv",
-            "object_type": "submissions_trd_code_title_amendment__c",
+            "business_object_type": "submissions_trd_code_title_amendment__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "41_Submissions_TRD_Code_submissions_trd_code__c",
             "params": "-create submissions_trd_code__c -recordmigrationmode -csv 41_Submissions_TRD_Code_submissions_trd_code__c.csv",
-            "object_type": "submissions_trd_code__c",
+            "business_object_type": "submissions_trd_code__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "42_submissions_trd_code_title_amend_join__c",
             "params": "-create submissions_trd_code_title_amend_join__c -recordmigrationmode -csv 42_submissions_trd_code_title_amend_join__c.csv",
-            "object_type": "submissions_trd_code_title_amend_join__c",
+            "business_object_type": "submissions_trd_code_title_amend_join__c",
             "active": 0,
             "status": "works"
         },
         {
             "name": "43_document_category_sub_trd_code_join__c",
             "params": "-create document_category_sub_trd_code_join__c -recordmigrationmode -csv 43_document_category_sub_trd_code_join__c.csv",
-            "object_type": "document_category_sub_trd_code_join__c",
+            "business_object_type": "document_category_sub_trd_code_join__c",
             "active": 0,
             "status": "to be checked"
         },
         {
             "name": "70_change_authorization_type__c",
             "params": "-create ca_type__c -recordmigrationmode -csv 70_change_authorization_type__c.csv",
-            "object_type": "ca_type__c",
+            "business_object_type": "ca_type__c",
             "active": 0,
             "status": "to be checked"
-        },
-        {
-            "name": "VAL and DEV: Request 132346 Set specific External Sites (Suppliers) to archived",
-            "params": "-update qms_organization__qdm -recordmigrationmode -csv 08_04_upd_ext_sites_bayer_to_archived__val.csv -idParam id",
-            "object_type": "qms_organization__qdm",
-            "active": 0,
-            "status": "----"
         }
     ]
 }
