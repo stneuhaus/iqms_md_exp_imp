@@ -6,6 +6,7 @@ import shutil
 import csv
 import shlex
 from datetime import datetime
+from urllib.parse import urlparse
 
 class VaultImportRunner:
     def __init__(self, config_file=None):
@@ -101,6 +102,30 @@ class VaultImportRunner:
             # Assume it's a direct password
             print("Using direct password from configuration")
             return password_param
+
+    def normalize_dns(self, dns_value):
+        """Normalize DNS input to scheme://host (no trailing slash or path)."""
+        raw = str(dns_value or "").strip()
+        if not raw:
+            return ""
+
+        candidate = raw if "://" in raw else f"https://{raw}"
+        parsed = urlparse(candidate)
+        host = parsed.netloc
+
+        if not host and parsed.path:
+            host = parsed.path.split("/")[0]
+
+        if not host:
+            return raw.rstrip("/")
+
+        scheme = parsed.scheme or "https"
+        normalized = f"{scheme}://{host}"
+
+        if normalized != raw:
+            print(f"ℹ️ Normalized DNS from '{raw}' to '{normalized}'")
+
+        return normalized
     
     def log_skipped(self, import_config):
         """Log skipped import to success log"""
@@ -148,7 +173,7 @@ class VaultImportRunner:
             vault_loader = os.path.join(self.script_dir, vault_loader_path)
         else:
             vault_loader = vault_loader_path
-        dns = import_settings.get('dns', '')
+        dns = self.normalize_dns(import_settings.get('dns', ''))
         username = import_settings.get('username', '')
         password_param = import_settings.get('password', '')
         password = self.load_password(password_param)
@@ -286,10 +311,15 @@ class VaultImportRunner:
                 RESET = '\033[0m'
                 print(f"Moved and renamed log file to: {BLUE}{new_log_path}{RESET}")
             return return_code == 0 and not error_detected
+        except KeyboardInterrupt:
+            process.kill()
+            print("\nImport interrupted by user.")
+            self.log_failure(import_config, "Import interrupted by user")
+            return False
         except subprocess.TimeoutExpired:
             process.kill()
-            print("Process timed out after 5 minutes")
-            self.log_failure(import_config, "Process timed out after 5 minutes")
+            print(f"Process timed out after {timeout_val} seconds")
+            self.log_failure(import_config, f"Process timed out after {timeout_val} seconds")
             return False
         except Exception as e:
             print(f"Error running process: {e}")

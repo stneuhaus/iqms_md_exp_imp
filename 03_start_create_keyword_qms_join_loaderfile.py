@@ -1,6 +1,124 @@
 import pandas as pd
 import os
 from datetime import datetime
+from get_keyword_qms_joins import build_keyword_qms_unit_joins_from_folder
+
+
+def _normalize_column_name(column_name):
+    normalized = str(column_name).strip().lower()
+    normalized = normalized.replace('ignore.', '')
+    for ch in [' ', '.', '_', '-']:
+        normalized = normalized.replace(ch, '')
+    return normalized
+
+
+def _get_candidate_columns(expected_column, available_columns, aliases=None):
+    aliases = aliases or []
+    expected_norm = _normalize_column_name(expected_column)
+    wanted = [expected_column] + aliases
+
+    candidates = []
+
+    for candidate in wanted:
+        if candidate in available_columns and candidate not in candidates:
+            candidates.append(candidate)
+
+    lower_map = {str(col).strip().lower(): col for col in available_columns}
+    for candidate in wanted:
+        key = str(candidate).strip().lower()
+        if key in lower_map:
+            mapped = lower_map[key]
+            if mapped not in candidates:
+                candidates.append(mapped)
+
+    for column in available_columns:
+        if _normalize_column_name(column) == expected_norm and column not in candidates:
+            candidates.append(column)
+
+    return candidates
+
+
+def _resolve_required_column(df, dataframe_label, expected_column, aliases=None):
+    columns = df.columns.tolist()
+
+    if expected_column in columns:
+        return expected_column
+
+    candidates = _get_candidate_columns(expected_column, columns, aliases=aliases)
+
+    print("\n" + "-" * 80)
+    print(f"⚠ Required column '{expected_column}' not found in {dataframe_label}.")
+    print(f"Available columns: {', '.join(columns)}")
+
+    if candidates:
+        print(f"Suggested alternative columns: {', '.join(candidates)}")
+
+    while True:
+        user_input = input(
+            f"Map '{expected_column}' to which column? "
+            "(enter name, number, or 'abort'): "
+        ).strip()
+
+        if user_input.lower() == 'abort':
+            return None
+
+        if user_input.isdigit():
+            column_index = int(user_input) - 1
+            if 0 <= column_index < len(columns):
+                return columns[column_index]
+            print(f"❌ Invalid selection '{user_input}'. Please select 1 to {len(columns)}.")
+            continue
+
+        if user_input in columns:
+            return user_input
+
+        for column in columns:
+            if column.strip().lower() == user_input.strip().lower():
+                return column
+
+        print("❌ Column not found. You can paste the exact header, enter a number, or type 'abort'.")
+
+
+def _apply_column_mapping(df, dataframe_label, mapping):
+    for expected_column, selected_column in mapping.items():
+        if selected_column is None:
+            continue
+
+        if expected_column == selected_column:
+            continue
+
+        if expected_column in df.columns:
+            print(
+                f"⚠ {dataframe_label}: '{expected_column}' already exists. "
+                f"Keeping it and ignoring mapped column '{selected_column}'."
+            )
+            continue
+
+        df = df.rename(columns={selected_column: expected_column})
+
+    return df
+
+
+def _resolve_and_apply_required_columns(df, dataframe_label, required_columns):
+    mapping = {}
+
+    for config in required_columns:
+        expected = config['expected']
+        aliases = config.get('aliases', [])
+        selected = _resolve_required_column(df, dataframe_label, expected, aliases=aliases)
+
+        if selected is None:
+            print(f"❌ Aborted: required column '{expected}' could not be mapped for {dataframe_label}.")
+            return None
+
+        mapping[expected] = selected
+
+    print(f"\nColumn mapping for {dataframe_label}:")
+    for expected, selected in mapping.items():
+        print(f"  - {expected} <- {selected}")
+
+    df = _apply_column_mapping(df, dataframe_label, mapping)
+    return df
 
 def create_keyword_qms_join_loaderfile():
     """
@@ -21,17 +139,26 @@ def create_keyword_qms_join_loaderfile():
     print("4. Joins the dataframes on matching name fields")
     print("=" * 80)
     
-    # Step 1: Get path to 35_qms_unit_keywords_join__c_for_import.csv
-    print("\nStep 1: Locate the Keyword-QMS-Unit join file (will be used as blueprint).")
+    # Step 1: Build 35_qms_unit_keywords_join__c_for_import.csv from source vault export folder
+    print("\nStep 1: Build keyword-QMS-unit join blueprint from source vault export folder.")
     print("-" * 40)
-    join_file_path = input("Enter full path to 35_qms_unit_keywords_join__c_for_import.csv: ").strip()
-    
+    source_folder = input(
+        "Please enter the vault export folder path "
+        "(e.g. C:\\souce_code\\iqms_md_exp_imp\\exports\\bayer-iqms.veevavault.com) "
+        "where these CSV files are located: "
+    ).strip()
+
+    join_file_path = build_keyword_qms_unit_joins_from_folder(source_folder)
+    if not join_file_path:
+        print("❌ Error: Could not generate 35_qms_unit_keywords_join__c_for_import.csv from source folder.")
+        return
+
     if not os.path.exists(join_file_path):
-        print(f"❌ Error: File not found: {join_file_path}")
+        print(f"❌ Error: Generated file not found: {join_file_path}")
         return
     
     # Step 2: Get folder path for QMS Unit and Keyword files
-    print("\nStep 2: Locate the export folder to get IDs of QMS units and Keywords of target vault.")
+    print("\nStep 2: Locate the TARGET vault export folder to get IDs of QMS units and Keywords.")
     print("-" * 40)
     export_folder = input("Enter folder path containing 10_qms_unit__c.csv and 22_keyword__c.csv: ").strip()
     
@@ -75,6 +202,42 @@ def create_keyword_qms_join_loaderfile():
     except Exception as e:
         print(f"❌ Error loading files: {e}")
         return
+
+    # Resolve required columns (interactive fallback if exact header is missing)
+    df_join = _resolve_and_apply_required_columns(
+        df_join,
+        "join file",
+        [
+            {'expected': 'keyword__c.name__v'},
+            {'expected': 'keyword_type__c'},
+            {'expected': 'qms_unit__c.name__v'}
+        ]
+    )
+    if df_join is None:
+        return
+
+    df_qms = _resolve_and_apply_required_columns(
+        df_qms,
+        "QMS unit file",
+        [
+            {'expected': 'qms_unit__c.id', 'aliases': ['ignore.id', 'id']},
+            {'expected': 'name__v'}
+        ]
+    )
+    if df_qms is None:
+        return
+
+    df_keyword = _resolve_and_apply_required_columns(
+        df_keyword,
+        "keyword file",
+        [
+            {'expected': 'keyword__c.id', 'aliases': ['ignore.id', 'id']},
+            {'expected': 'name__v'},
+            {'expected': 'keyword_type__c'}
+        ]
+    )
+    if df_keyword is None:
+        return
     
     # Step 4: Perform join between df_qms and df_join
     print("\nStep 4: Joining data...")
@@ -82,7 +245,11 @@ def create_keyword_qms_join_loaderfile():
     
     try:
         #create helper column by conctenating keyword__c.name__v and keyword_type__c in df_join
-        df_join['keyword_helper'] = df_join['keyword__c.name__v'] +"_"+ df_join['keyword_type__c']
+        df_join['keyword_helper'] = (
+            df_join['keyword__c.name__v'].astype(str).str.strip()
+            + "_"
+            + df_join['keyword_type__c'].astype(str).str.strip()
+        )
 
         #delete columns keyword__c.name__v and keyword_type__c from df_join
         df_join = df_join.drop(columns=['keyword__c.name__v', 'keyword_type__c'])
@@ -90,8 +257,6 @@ def create_keyword_qms_join_loaderfile():
 
         #delet columns is_valid__c and state__v from df_qms
         df_qms = df_qms.drop(columns=['is_valid__c', 'state__v'], errors='ignore')
-        #rename columns ignore.id to qms_unit__c.id in df_qms
-        df_qms = df_qms.rename(columns={'ignore.id': 'qms_unit__c.id'}, errors='ignore')
 
         # Join on name__v from 10_qms_unit__c.csv with qms_unit__c.name__v from join file
         print("Performing join: 10_qms_unit__c.name__v = 35_qms...qms_unit__c.name__v to get qms_unit__c.ignore.id")
@@ -138,7 +303,11 @@ def create_keyword_qms_join_loaderfile():
         df_keyword = df_keyword.drop(columns=['state__v'], errors='ignore')
 
         #create helper column by conctenating name__v and keyword_type__c in df_keyword
-        df_keyword['keyword_helper'] = df_keyword['name__v'] +"_"+ df_keyword['keyword_type__c']
+        df_keyword['keyword_helper'] = (
+            df_keyword['name__v'].astype(str).str.strip()
+            + "_"
+            + df_keyword['keyword_type__c'].astype(str).str.strip()
+        )
 
         # delete columns name__v and keyword_type__c from df_keyword
         df_keyword = df_keyword.drop(columns=['name__v', 'keyword_type__c'])
@@ -151,12 +320,14 @@ def create_keyword_qms_join_loaderfile():
             right_on=['keyword_helper'],
             how='left'
         )
-        #rename ignore.id to keyword__c.id in df_result
-        if 'ignore.id' in df_result.columns:
-            df_result = df_result.rename(columns={'ignore.id': 'keyword__c.id'})
 
         #delete rows whre keyword__c.id is NaN
+        before_filter = len(df_result)
         df_result = df_result.dropna(subset=['keyword__c.id'])
+        matched_rows = len(df_result)
+        print(f"✓ Keyword ID matches: {matched_rows} / {before_filter}")
+        if matched_rows == 0:
+            print("⚠ Warning: 0 matched rows after keyword join. Check mapped columns and source values.")
 
 
         #rename columns in df_result

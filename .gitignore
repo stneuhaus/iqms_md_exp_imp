@@ -17,3 +17,5 @@ config/export_config_report_*
 zzz helperscripts/__pycache__/check_export_config.cpython-314.pyc
 zzz helperscripts/__pycache__/create_loadorder_from_imports.cpython-314.pyc
 zzz helperscripts/__pycache__/extract_column_headers_from_md_files.cpython-314.pyc
+.keep/
+config/password.import.ini

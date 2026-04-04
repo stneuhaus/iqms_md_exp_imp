@@ -4,6 +4,11 @@
         "vault_loader": "bin\\VaultDataLoader.jar"
     },
     "export_settings": [
+         {
+            "dns": "https://bayersbx-iqms-prerelease.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
         {
             "dns": "https://bayer-iqms.veevavault.com",
             "username": "stefan.neuhaus@bayer.com",
@@ -98,11 +103,11 @@
         }
     ],
     "import_settings": {
-        "dns": "https://bayersbx-iqms-3-1-dev.veevavault.com",
+        "dns": "https://bayersbx-iqms-prerelease.veevavault.com",
         "username": "stefan.neuhaus@bayersbx.com",
-        "password": "password_import.ini",
+        "password": "password.import.ini",
         "time_out": 1800,
-        "import_path": "exports/bayersbx-iqms-3-1-dev.veevavault.com"
+        "import_path": "exports/training_and_development_data_subset"
     },
     "imports": [
         {

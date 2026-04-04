@@ -2,17 +2,51 @@ import os
 import sys
 import json
 import csv
+import importlib.util
 from datetime import datetime
 import subprocess
 import shutil
 
+
+def get_vault_import_runner_class():
+    """Resolve VaultImportRunner regardless of runner filename."""
+    try:
+        from start_import_vault_loader import VaultImportRunner
+
+        return VaultImportRunner
+    except ModuleNotFoundError:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        runner_path = os.path.join(script_dir, "02_start_import_vault_loader.py")
+        if not os.path.exists(runner_path):
+            raise
+
+        spec = importlib.util.spec_from_file_location("vault_import_runner_module", runner_path)
+        if spec is None or spec.loader is None:
+            raise ModuleNotFoundError("Unable to load 02_start_import_vault_loader.py")
+
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module.VaultImportRunner
+
 def analyze_failures():
     """Run the failure analysis script"""
-    script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "analyze_error_file.py")
-    if os.path.exists(script_path):
-        subprocess.run([sys.executable, script_path])
-    else:
-        print(f"Error: Analysis script not found at {script_path}")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    candidates = [
+        "02a_analyse_failure.py",
+        "analyze_error_file.py",
+        os.path.join("zzz helperscripts", "02a_analyse_failure.py"),
+        os.path.join("zzz helperscripts", "analyze_error_file.py"),
+    ]
+
+    for candidate in candidates:
+        script_path = os.path.join(script_dir, candidate)
+        if os.path.exists(script_path):
+            subprocess.run([sys.executable, script_path])
+            return
+
+    print("Error: Analysis script not found. Checked these locations:")
+    for candidate in candidates:
+        print(f"- {os.path.join(script_dir, candidate)}")
 
 def generate_report(config_path):
     """Generates and displays a report of the imports section."""
@@ -109,7 +143,7 @@ def main_menu():
         choice = input("Select an option: ").strip()
         
         if choice == "1":
-            from start_import_vault_loader import VaultImportRunner
+            VaultImportRunner = get_vault_import_runner_class()
             # Create VaultImport runner with selected config
             runner = VaultImportRunner(config_file=os.path.join('config', config_file))
 

@@ -5,6 +5,11 @@
     },
     "export_settings": [
         {
+            "dns": "https://bayersbx-iqms-prerelease.veevavault.com",
+            "username": "stefan.neuhaus@bayersbx.com",
+            "password": "password.sandbox.ini"
+        },
+        {
             "dns": "https://bayer-iqms.veevavault.com",
             "username": "stefan.neuhaus@bayer.com",
             "password": "password.ini"
@@ -36,11 +41,11 @@
         }
     ],
     "import_settings": {
-        "dns": "https://bayersbx-iqms-3-1-dev.veevavault.com",
+        "dns": "https://bayersbx-iqms-prerelease.veevavault.com",
         "username": "stefan.neuhaus@bayersbx.com",
-        "password": "password_import.ini",
+        "password": "password.import.ini",
         "time_out": 1800,
-        "import_path": "exports/bayersbx-iqms-training1.veevavault.com"
+        "import_path": "exports/training_and_development_data_subset"
     },
     "exports": [
         {
@@ -60,7 +65,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -93,7 +98,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -128,7 +133,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -167,7 +172,7 @@
                 "id",
                 "country__v.name__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -199,7 +204,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -262,7 +267,7 @@
                 "modified_by__v.name__v",
                 "modified_date__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -288,7 +293,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -308,7 +313,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -332,7 +337,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -352,7 +357,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -374,7 +379,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -392,7 +397,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -412,7 +417,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -440,7 +445,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -459,7 +464,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -471,16 +476,12 @@
                 "id",
                 "is_valid__c",
                 "name__v",
-                "state__v",
-                "external_id__v",
-                "level_1_parent__c.name__v",
-                "organization_description__c",
-                "unit_organization_classification__c"
+                "state__v"
             ],
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -497,7 +498,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -507,21 +508,15 @@
             "where": "",
             "columns": [
                 "id",
-                "keyword_type__c",
                 "name__v",
+                "keyword_type__c",
                 "state__v",
-                "is_valid__c",
-                "status__v",
-                "export.concat_name_and_type",
-                "export.id",
-                "export.keyword.name__v",
-                "export.keyword.type__c"
+                "is_valid__c"
             ],
             "ignore_column": [
-                "id",
-                "name__v"
+                "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -539,7 +534,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "Special processing is needed. Follow up on this!!"
         },
         {
@@ -556,7 +551,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -573,7 +568,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -590,7 +585,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -606,7 +601,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -626,7 +621,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -643,7 +638,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -659,10 +654,9 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
-        
         {
             "name": "05_specification_id__c",
             "params": "-export specification_id__c -csv 05_specification_id__c.csv",
@@ -683,10 +677,9 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
-        
         {
             "name": "11_registration_name__c",
             "params": "-export registration_name__c -csv 11_registration_name__c.csv",
@@ -702,7 +695,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -718,7 +711,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -738,7 +731,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -759,7 +752,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -809,7 +802,6 @@
             "active": 0,
             "status": "all attributes included"
         },
-        
         {
             "name": "37_manufacturing_site__c",
             "params": "-export manufacturing_site__c -csv 37_manufacturing_site__c.csv",
@@ -824,7 +816,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1221,7 +1213,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1242,7 +1234,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1263,7 +1255,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1281,7 +1273,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1298,7 +1290,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1323,7 +1315,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1339,7 +1331,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1359,7 +1351,7 @@
                 "id",
                 "status__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1377,7 +1369,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1392,7 +1384,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1408,7 +1400,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1427,7 +1419,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1445,7 +1437,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1463,7 +1455,7 @@
             "ignore_column": [
                 "id"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
         },
         {
@@ -1482,8 +1474,25 @@
                 "id",
                 "status__v"
             ],
-            "active": 1,
+            "active": 0,
             "status": "all attributes included"
+        },
+        {
+            "name": "47_eclasss_glpt__c",
+            "params": "-export eclasss_glpt__c -csv 47_eclasss_glpt__c.csv",
+            "business_object_type": "eclasss_glpt__c",
+            "where": "",
+            "columns": [
+                "id",
+                "name__v",
+                "record_name__c",
+                "object_type__v.name__v"
+            ],
+            "ignore_column": [
+                "id"
+            ],
+            "active": 1,
+            "status": "to be checked"
         },
         {
             "name": "Template",
@@ -1649,13 +1658,6 @@
             "status": "works"
         },
         {
-            "name": "35_qms_unit_keywords_join__c",
-            "params": "-create qms_unit_keywords_join__c -recordmigrationmode -csv 35_qms_unit_keywords_join__c.csv",
-            "business_object_type": "qms_unit_keywords_join__c",
-            "active": 0,
-            "status": "to be checked"
-        },
-        {
             "name": "15_trd_code_title__c",
             "params": "-create trd_code_title__c -recordmigrationmode -csv 15_trd_code_title__c.csv",
             "business_object_type": "trd_code_title__c",
@@ -1810,29 +1812,8 @@
             "status": "all attributes included"
         },
         {
-            "name": "04_part__v_03",
-            "params": "-create part__v -recordmigrationmode -csv 04_part__v_03.csv",
-            "business_object_type": "part__v",
-            "active": 0,
-            "status": "all attributes included"
-        },
-        {
             "name": "04_part__v_04",
             "params": "-create part__v -recordmigrationmode -csv 04_part__v_04.csv",
-            "business_object_type": "part__v",
-            "active": 0,
-            "status": "all attributes included"
-        },
-        {
-            "name": "04_part__v_05",
-            "params": "-create part__v -recordmigrationmode -csv 04_part__v_05.csv",
-            "business_object_type": "part__v",
-            "active": 0,
-            "status": "all attributes included"
-        },
-        {
-            "name": "04_part__v_06",
-            "params": "-create part__v -recordmigrationmode -csv 04_part__v_06.csv",
             "business_object_type": "part__v",
             "active": 0,
             "status": "all attributes included"
@@ -1940,6 +1921,13 @@
             "params": "-create ca_type__c -recordmigrationmode -csv 70_change_authorization_type__c.csv",
             "business_object_type": "ca_type__c",
             "active": 0,
+            "status": "to be checked"
+        },
+        {
+            "name": "47_eclasss_glpt__c",
+            "params": "-create eclasss_glpt__c -recordmigrationmode -csv 47_eclasss_glpt__c.csv",
+            "business_object_type": "eclasss_glpt__c",
+            "active": 1,
             "status": "to be checked"
         }
     ]
